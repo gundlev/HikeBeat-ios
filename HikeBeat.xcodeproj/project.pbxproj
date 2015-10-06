@@ -17,7 +17,6 @@
 		853003DA1BBD670C00A6D27F /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003D81BBD670C00A6D27F /* Beat.swift */; settings = {ASSET_TAGS = (); }; };
 		853003DB1BBD670C00A6D27F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003D91BBD670C00A6D27F /* Settings.swift */; settings = {ASSET_TAGS = (); }; };
 		853003E41BBD686700A6D27F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003DE1BBD686700A6D27F /* Reachability.swift */; settings = {ASSET_TAGS = (); }; };
-		853003E51BBD686700A6D27F /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 853003DF1BBD686700A6D27F /* README.txt */; settings = {ASSET_TAGS = (); }; };
 		853003E61BBD686700A6D27F /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003E01BBD686700A6D27F /* SCLAlertView.swift */; settings = {ASSET_TAGS = (); }; };
 		853003E71BBD686700A6D27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003E11BBD686700A6D27F /* SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
 		853003E81BBD686700A6D27F /* WBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 853003E31BBD686700A6D27F /* WBTabBarController.m */; settings = {ASSET_TAGS = (); }; };
@@ -128,7 +127,6 @@
 		853003D91BBD670C00A6D27F /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		853003DD1BBD686700A6D27F /* HikeBeat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HikeBeat-Bridging-Header.h"; sourceTree = "<group>"; };
 		853003DE1BBD686700A6D27F /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		853003DF1BBD686700A6D27F /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		853003E01BBD686700A6D27F /* SCLAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLAlertView.swift; sourceTree = "<group>"; };
 		853003E11BBD686700A6D27F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		853003E21BBD686700A6D27F /* WBTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTabBarController.h; sourceTree = "<group>"; };
@@ -258,7 +256,6 @@
 			isa = PBXGroup;
 			children = (
 				85D18EAA1BC4609100658DBF /* CoreDataKit */,
-				853003DF1BBD686700A6D27F /* README.txt */,
 				853003DE1BBD686700A6D27F /* Reachability.swift */,
 				853003E01BBD686700A6D27F /* SCLAlertView.swift */,
 				853003E11BBD686700A6D27F /* SwiftyJSON.swift */,
@@ -445,7 +442,6 @@
 			files = (
 				853003B31BBD65F900A6D27F /* LaunchScreen.storyboard in Resources */,
 				853003B01BBD65F900A6D27F /* Assets.xcassets in Resources */,
-				853003E51BBD686700A6D27F /* README.txt in Resources */,
 				857EB06E1BBD70EA0036B41C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
