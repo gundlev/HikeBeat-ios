@@ -34,7 +34,7 @@ class JourneysVC: UIViewController {
     }
     
     override func viewDidLoad() {
-        
+        //Something
     }
     
     override func viewWillAppear(animated: Bool) {
