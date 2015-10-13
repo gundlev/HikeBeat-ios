@@ -17,4 +17,5 @@ public struct MediaType {
 
 public struct EntityType {
     public static let DataBeat = "DataBeat"
+    public static let DataJourney = "DataJourney"
 }

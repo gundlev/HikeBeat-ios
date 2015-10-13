@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 import CoreData
-import JSQCoreDataKit
+//import JSQCoreDataKit
 import Alamofire
 
 class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -32,6 +32,7 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
     let userDefaults = NSUserDefaults.standardUserDefaults()
     var imagePicker = UIImagePickerController()
     var currentBeat: Beat? = nil
+//    var currentBeat: DataBeat? = nil
     var currentImage: UIImage? = nil
     
     
@@ -419,7 +420,7 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
         // Initialize a default stack
         let stack = CoreDataStack(model: model)
         
-        _ = DataBeat(context: stack.mainQueueContext, title: currentBeat?.title, message: currentBeat?.message, latitude: (currentBeat?.latitude)!, longitude: (currentBeat?.longitude)!, timestamp: (currentBeat?.timestamp)!, mediaType: "image", mediaData: currentBeat?.image, uploaded: uploaded)
+        _ = DataBeat(context: stack.mainQueueContext, title: currentBeat?.title, journeyId: userDefaults.stringForKey("activeJourneyId")!, message: currentBeat?.message, latitude: (currentBeat?.latitude)!, longitude: (currentBeat?.longitude)!, timestamp: (currentBeat?.timestamp)!, mediaType: "image", mediaData: currentBeat?.image, uploaded: uploaded)
         
         saveContext(stack.mainQueueContext) { (error: NSError?) in
             print(error)

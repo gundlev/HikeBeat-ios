@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		851840F51BCBEF74002BBCD1 /* DataJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851840F41BCBEF74002BBCD1 /* DataJourney.swift */; settings = {ASSET_TAGS = (); }; };
+		851840F71BCC22E4002BBCD1 /* JourneysVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851840F61BCC22E4002BBCD1 /* JourneysVC.swift */; settings = {ASSET_TAGS = (); }; };
 		853003A71BBD65F900A6D27F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003A61BBD65F900A6D27F /* AppDelegate.swift */; };
 		853003A91BBD65F900A6D27F /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003A81BBD65F900A6D27F /* FirstViewController.swift */; };
 		853003AB1BBD65F900A6D27F /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003AA1BBD65F900A6D27F /* SecondViewController.swift */; };
@@ -20,7 +22,7 @@
 		853003E61BBD686700A6D27F /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003E01BBD686700A6D27F /* SCLAlertView.swift */; settings = {ASSET_TAGS = (); }; };
 		853003E71BBD686700A6D27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003E11BBD686700A6D27F /* SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
 		853003E81BBD686700A6D27F /* WBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 853003E31BBD686700A6D27F /* WBTabBarController.m */; settings = {ASSET_TAGS = (); }; };
-		853004381BBD6C5200A6D27F /* JourneysVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004341BBD6C5200A6D27F /* JourneysVC.swift */; settings = {ASSET_TAGS = (); }; };
+		853004381BBD6C5200A6D27F /* UploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004341BBD6C5200A6D27F /* UploadVC.swift */; settings = {ASSET_TAGS = (); }; };
 		853004391BBD6C5200A6D27F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004351BBD6C5200A6D27F /* LoginVC.swift */; settings = {ASSET_TAGS = (); }; };
 		8530043A1BBD6C5200A6D27F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004361BBD6C5200A6D27F /* MainVC.swift */; settings = {ASSET_TAGS = (); }; };
 		8530043B1BBD6C5200A6D27F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004371BBD6C5200A6D27F /* ProfileVC.swift */; settings = {ASSET_TAGS = (); }; };
@@ -110,6 +112,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		851840F41BCBEF74002BBCD1 /* DataJourney.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataJourney.swift; sourceTree = "<group>"; };
+		851840F61BCC22E4002BBCD1 /* JourneysVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneysVC.swift; sourceTree = "<group>"; };
 		853003A31BBD65F900A6D27F /* HikeBeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HikeBeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		853003A61BBD65F900A6D27F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		853003A81BBD65F900A6D27F /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -131,7 +135,7 @@
 		853003E11BBD686700A6D27F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		853003E21BBD686700A6D27F /* WBTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTabBarController.h; sourceTree = "<group>"; };
 		853003E31BBD686700A6D27F /* WBTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTabBarController.m; sourceTree = "<group>"; };
-		853004341BBD6C5200A6D27F /* JourneysVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneysVC.swift; sourceTree = "<group>"; };
+		853004341BBD6C5200A6D27F /* UploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadVC.swift; sourceTree = "<group>"; };
 		853004351BBD6C5200A6D27F /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		853004361BBD6C5200A6D27F /* MainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		853004371BBD6C5200A6D27F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
@@ -233,10 +237,11 @@
 		853003D61BBD66CC00A6D27F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				853004341BBD6C5200A6D27F /* JourneysVC.swift */,
+				853004341BBD6C5200A6D27F /* UploadVC.swift */,
 				853004351BBD6C5200A6D27F /* LoginVC.swift */,
 				853004361BBD6C5200A6D27F /* MainVC.swift */,
 				853004371BBD6C5200A6D27F /* ProfileVC.swift */,
+				851840F61BCC22E4002BBCD1 /* JourneysVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 				853003D91BBD670C00A6D27F /* Settings.swift */,
 				858CE3DA1BC26034000594DD /* DataBeat.swift */,
 				858CE3DC1BC260F4000594DD /* DataModelUtils.swift */,
+				851840F41BCBEF74002BBCD1 /* DataJourney.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -255,7 +261,7 @@
 		853003DC1BBD683300A6D27F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				85D18EAA1BC4609100658DBF /* CoreDataKit */,
+				85D18EAA1BC4609100658DBF /* JSQCoreDataKit */,
 				853003DE1BBD686700A6D27F /* Reachability.swift */,
 				853003E01BBD686700A6D27F /* SCLAlertView.swift */,
 				853003E11BBD686700A6D27F /* SwiftyJSON.swift */,
@@ -278,7 +284,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		85D18EAA1BC4609100658DBF /* CoreDataKit */ = {
+		85D18EAA1BC4609100658DBF /* JSQCoreDataKit */ = {
 			isa = PBXGroup;
 			children = (
 				85D18EAB1BC460A900658DBF /* CoreDataExtensions.swift */,
@@ -287,7 +293,7 @@
 				85D18EAE1BC460A900658DBF /* JSQCoreDataKit.h */,
 				85D18EAF1BC460A900658DBF /* StoreType.swift */,
 			);
-			name = CoreDataKit;
+			name = JSQCoreDataKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -471,9 +477,10 @@
 				8530043A1BBD6C5200A6D27F /* MainVC.swift in Sources */,
 				858CE3DB1BC26034000594DD /* DataBeat.swift in Sources */,
 				853003AB1BBD65F900A6D27F /* SecondViewController.swift in Sources */,
-				853004381BBD6C5200A6D27F /* JourneysVC.swift in Sources */,
+				853004381BBD6C5200A6D27F /* UploadVC.swift in Sources */,
 				85D18EB31BC460A900658DBF /* StoreType.swift in Sources */,
 				853003DA1BBD670C00A6D27F /* Beat.swift in Sources */,
+				851840F71BCC22E4002BBCD1 /* JourneysVC.swift in Sources */,
 				853003E41BBD686700A6D27F /* Reachability.swift in Sources */,
 				853003E71BBD686700A6D27F /* SwiftyJSON.swift in Sources */,
 				85D18EB21BC460A900658DBF /* CoreDataStack.swift in Sources */,
@@ -485,6 +492,7 @@
 				853003A91BBD65F900A6D27F /* FirstViewController.swift in Sources */,
 				853003E61BBD686700A6D27F /* SCLAlertView.swift in Sources */,
 				858CE3831BC11996000594DD /* HikeBeatDataModel.xcdatamodeld in Sources */,
+				851840F51BCBEF74002BBCD1 /* DataJourney.swift in Sources */,
 				85D18EB01BC460A900658DBF /* CoreDataExtensions.swift in Sources */,
 				853003DB1BBD670C00A6D27F /* Settings.swift in Sources */,
 			);
