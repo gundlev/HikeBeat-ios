@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 let phoneNumber = "004530962591"
 
@@ -20,4 +21,13 @@ func getUserExample() -> JSON {
     let user: JSON = ["_id": "00000001","username": "nsg", "permittedPhoneNumbers": ["+4531585010", "+4528357657"], "email": "Niklas@gundlev.dk", "journeyIds": ["J1","J2","J4"], "options": ["name": "Niklas Stokkebro Gundlev", "gender": "Male", "nationality": "Denmark", "notifications": true], "following": ["U2","U3","U4"], "activeJourneyId": "J1", "deviceTokens": ["gfhkdsgafigudsbfudabslifbdksa", "fgdhsaægfildgbfldasbilfuda"]]
 
     return user
+}
+
+func getNewJourney(context: NSManagedObjectContext, active: Bool) -> DataJourney {
+    let rand = random() % 1000
+    let randomString = String(rand)
+    
+    let journey = DataJourney(context: context, slug: "Journey " + randomString, userId: NSUUID().UUIDString, headline: "My awesome trip " + randomString, journeyDescription: "I am going to travel around the great country of " + randomString, active: active, type: "straight")
+    
+    return journey
 }

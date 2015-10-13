@@ -323,6 +323,16 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
     Utility functions
 */
     
+    /**
+    Generates a string for the text messagebased on the input.
+    
+    - parameters:
+        - String: title
+        - String: message
+        - String: journeyId
+    
+    - returns: String formatted for SMS.
+    */
     func genSMSMessageString(title: String, message: String, journeyId: String) -> String {
         
         // Get current timestamp
@@ -354,6 +364,9 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
     Camera functions
 */
     
+    /**
+    Presents an alertview actionsheet with the options to choose camera or photo library. Opens the chosen resource with UIImagePickerController
+    */
     func chooseImage() {
         let optionsMenu = UIAlertController(title: "Choose resource", message: nil, preferredStyle: .ActionSheet)
         let cameraRoll = UIAlertAction(title: "Photo library", style: .Default, handler: {
@@ -410,25 +423,31 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
     CoreData functions
 */
     
+    /**
+    Saves the currentBeat to CoreData.
+    
+    - parameters:
+        - Bool: uploaded
+    */
     func saveCurrentBeat(uploaded: Bool) {
         // TODO: Should implement a type for the media ias parameter.
         
         // Initialize the Core Data model, this class encapsulates the notion of a .xcdatamodeld file
         // The name passed here should be the name of an .xcdatamodeld file//
-        let model = CoreDataModel(name: ModelName, bundle: Bundle!)
+        let model = CoreDataModel(name: ModelName, bundle: Bundle)
         
         // Initialize a default stack
-        let stack = CoreDataStack(model: model)
-        
-        _ = DataBeat(context: stack.mainQueueContext, title: currentBeat?.title, journeyId: userDefaults.stringForKey("activeJourneyId")!, message: currentBeat?.message, latitude: (currentBeat?.latitude)!, longitude: (currentBeat?.longitude)!, timestamp: (currentBeat?.timestamp)!, mediaType: "image", mediaData: currentBeat?.image, uploaded: uploaded)
-        
-        saveContext(stack.mainQueueContext) { (error: NSError?) in
-            print(error)
-            if error == nil {
-                self.currentBeat = nil
-            }
-            // Do something if it goes wrong!
-        }
+//        let stack = CoreDataStack(model: model)
+//        
+//        _ = DataBeat(context: stack.mainQueueContext, title: currentBeat?.title, journeyId: userDefaults.stringForKey("activeJourneyId")!, message: currentBeat?.message, latitude: (currentBeat?.latitude)!, longitude: (currentBeat?.longitude)!, timestamp: (currentBeat?.timestamp)!, mediaType: "image", mediaData: currentBeat?.image, uploaded: uploaded)
+//        
+//        saveContext(stack.mainQueueContext) { (error: NSError?) in
+//            print(error)
+//            if error == nil {
+//                self.currentBeat = nil
+//            }
+//            // Do something if it goes wrong!
+//        }
     }
 
 }

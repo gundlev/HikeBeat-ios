@@ -9,7 +9,7 @@
 import Foundation
 
 public let ModelName = "HikeBeatDataModel"
-public let Bundle = NSBundle(identifier: "com.hikebeat.HikeBeat")
+public let Bundle = NSBundle(identifier: "com.hikebeat.HikeBeat")!
 
 public struct MediaType {
     public static let image = "image"

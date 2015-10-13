@@ -20,6 +20,7 @@ public final class DataBeat: NSManagedObject {
     @NSManaged var mediaType: String?
     @NSManaged var mediaData: String?
     @NSManaged var uploaded: Bool
+    @NSManaged var journey: DataJourney?
     
     convenience init(
         context: NSManagedObjectContext,

@@ -12,23 +12,29 @@
 //
 //
 //  License
-//  Copyright (c) 2015 Jesse Squires
+//  Copyright © 2015 Jesse Squires
 //  Released under an MIT license: http://opensource.org/licenses/MIT
 //
 
-import Foundation
 import CoreData
+import Foundation
 
-
-/// Describes a child managed object context.
-public typealias ChildManagedObjectContext = NSManagedObjectContext
 
 /**
-An instance of `CoreDataStack` encapsulates the entire Core Data stack for a SQLite store type.
-It manages the managed object model, the persistent store coordinator, and the main managed object context.
-It provides convenience methods for initializing a stack for common use-cases as well as creating child contexts.
+An instance of `CoreDataStack` encapsulates the entire Core Data stack.
+It manages the managed object model, the persistent store coordinator, and managed object contexts.
+
+It is composed of a main context and a background context
+These two contexts operate on the main queue and a private background queue, respectively.
+The background context is the root level context, which is connected to the persistent store coordinator.
+The main context is a child of the background context.
+
+Data between these two primary contexts and child contexts is kept in sync.
+Changes to a context are propagated to its parent context and eventually the persistent store when saving.
+
+**You cannot create a `CoreDataStack` instance directly. Instead, use a `CoreDataStackFactory` for initialization.**
 */
-public final class CoreDataStack: CustomStringConvertible {
+public final class CoreDataStack: CustomStringConvertible, Equatable {
 
 
     // MARK: Properties
@@ -36,75 +42,107 @@ public final class CoreDataStack: CustomStringConvertible {
     /// The model for the stack.
     public let model: CoreDataModel
 
-    /// The main managed object context for the stack.
-    public let mainQueueContext: NSManagedObjectContext
+    /**
+    The main managed object context for the stack, which operates on the main queue.
+    This context is a child context of `backgroundContext`.
+    */
+    public let mainContext: NSManagedObjectContext
 
-    /// The persistent store coordinator for the stack.
+    /** 
+    The background managed object context for the stack, which operates on a background queue.
+    This context is the root level context that is connected to the `storeCoordinator`.
+    */
+    public let backgroundContext: NSManagedObjectContext
+
+    /**
+    The persistent store coordinator for the stack. The `backgroundContext` is connected to this coordinator.
+    */
     public let storeCoordinator: NSPersistentStoreCoordinator
+
 
     // MARK: Initialization
 
-    /**
-    Constructs a new `CoreDataStack` instance with the specified `model`, `storeType`, `options`, and `concurrencyType`.
-
-    - parameter model:           The model describing the stack.
-    - parameter options:         A dictionary containing key-value pairs that specify options for the store.
-                                 The default contains `true` for the following keys:
-                                 `NSMigratePersistentStoresAutomaticallyOption`, `NSInferMappingModelAutomaticallyOption`.
-    - parameter concurrencyType: The concurrency pattern to use for the managed object context. 
-                                 The default is `.MainQueueConcurrencyType`.
-
-    - returns: A new `CoreDataStack` instance.
-    */
-    public init(model: CoreDataModel,
-        options: [NSObject : AnyObject]? = [NSMigratePersistentStoresAutomaticallyOption : true, NSInferMappingModelAutomaticallyOption : true],
-        concurrencyType: NSManagedObjectContextConcurrencyType = .MainQueueConcurrencyType) {
-
+    internal init(
+        model: CoreDataModel,
+        mainContext: NSManagedObjectContext,
+        backgroundContext: NSManagedObjectContext,
+        storeCoordinator: NSPersistentStoreCoordinator) {
             self.model = model
-            storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model.managedObjectModel)
+            self.mainContext = mainContext
+            self.backgroundContext = backgroundContext
+            self.storeCoordinator = storeCoordinator
 
-            do {
-                try storeCoordinator.addPersistentStoreWithType(model.storeType.description,
-                    configuration: nil,
-                    URL: model.storeURL,
-                    options: options)
-            }
-            catch {
-                fatalError("*** Error adding persistent store: \(error)")
-            }
+            NSNotificationCenter.defaultCenter().addObserver(self,
+                selector: Selector("didReceiveChildContextDidSaveNotification:"),
+                name: NSManagedObjectContextDidSaveNotification,
+                object: mainContext)
+    }
 
-            mainQueueContext = NSManagedObjectContext(concurrencyType: concurrencyType)
-            mainQueueContext.persistentStoreCoordinator = storeCoordinator
+    /// :nodoc:
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 
     // MARK: Child contexts
 
     /**
-    Creates a new child managed object context with the specified `concurrencyType` and `mergePolicyType`.
+    Creates a new child context whose parent is `mainContext` and has the specified `concurrencyType` and `mergePolicyType`.
+    Saving the returned context will propagate changes through `mainContext`, `backgroundContext`, 
+    and finally the persistent store.
 
-    - parameter concurrencyType: The concurrency pattern to use for the managed object context. The default is `.MainQueueConcurrencyType`.
-    - parameter mergePolicyType: The merge policy to use for the manged object context. The default is `.MergeByPropertyObjectTrumpMergePolicyType`.
+    - parameter concurrencyType: The concurrency pattern to use. The default is `.PrivateQueueConcurrencyType`.
+    - parameter mergePolicyType: The merge policy to use. The default is `.MergeByPropertyObjectTrumpMergePolicyType`.
 
-    - returns: A new child managed object context with the given concurrency and merge policy types.
+    - returns: A new child managed object context whose parent is `mainContext`.
     */
-    public func childManagedObjectContext(concurrencyType concurrencyType: NSManagedObjectContextConcurrencyType = .MainQueueConcurrencyType,
-        mergePolicyType: NSMergePolicyType = .MergeByPropertyObjectTrumpMergePolicyType) -> ChildManagedObjectContext {
+    public func childContext(
+        concurrencyType concurrencyType: NSManagedObjectContextConcurrencyType = .PrivateQueueConcurrencyType,
+        mergePolicyType: NSMergePolicyType = .MergeByPropertyObjectTrumpMergePolicyType) -> ChildContext {
 
             let childContext = NSManagedObjectContext(concurrencyType: concurrencyType)
-            childContext.parentContext = mainQueueContext
+            childContext.parentContext = mainContext
             childContext.mergePolicy = NSMergePolicy(mergeType: mergePolicyType)
+
+            if let name = mainContext.name {
+                childContext.name = name + ".child"
+            }
+
+            NSNotificationCenter.defaultCenter().addObserver(self,
+                selector: Selector("didReceiveChildContextDidSaveNotification:"),
+                name: NSManagedObjectContextDidSaveNotification,
+                object: childContext)
+
             return childContext
     }
 
-    
+
     // MARK: CustomStringConvertible
 
     /// :nodoc:
     public var description: String {
         get {
-            return "<\(CoreDataStack.self): model=\(model.name), context=\(mainQueueContext)>"
+            return "<\(CoreDataStack.self): model=\(model.name); mainContext=\(mainContext); backgroundContext=\(backgroundContext)>"
         }
+    }
+
+
+    // MARK: Private
+
+    @objc
+    private func didReceiveChildContextDidSaveNotification(notification: NSNotification) {
+        guard let context = notification.object as? NSManagedObjectContext else {
+            assertionFailure("*** Error: \(notification.name) posted from object of type \(notification.object.self). "
+                + "Expected \(NSManagedObjectContext.self) instead.")
+            return
+        }
+
+        guard let parentContext = context.parentContext else {
+            // have reached the root context, nothing to do
+            return
+        }
+
+        saveContext(parentContext)
     }
     
 }

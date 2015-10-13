@@ -9,17 +9,20 @@
         <attribute name="timestamp" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uploaded" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="journey" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DataJourney" inverseName="beats" inverseEntity="DataJourney" syncable="YES"/>
     </entity>
     <entity name="DataJourney" representedClassName=".DataJourney" syncable="YES">
         <attribute name="active" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="activeString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="headline" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="journeyDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="slug" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="beats" toMany="YES" deletionRule="Cascade" destinationEntity="DataBeat" inverseName="journey" inverseEntity="DataBeat" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DataBeat" positionX="-63" positionY="-18" width="128" height="163"/>
-        <element name="DataJourney" positionX="-63" positionY="45" width="128" height="135"/>
+        <element name="DataBeat" positionX="-63" positionY="-18" width="128" height="180"/>
+        <element name="DataJourney" positionX="196" positionY="93" width="128" height="163"/>
     </elements>
 </model>

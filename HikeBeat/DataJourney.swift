@@ -17,6 +17,9 @@ public final class DataJourney: NSManagedObject {
     @NSManaged var journeyDescription: String?
     @NSManaged var active: Bool
     @NSManaged var type: String
+    @NSManaged var beats: Set<DataBeat>
+    @NSManaged var activeString: String
+    
     
     convenience init(
         context: NSManagedObjectContext,
@@ -36,5 +39,11 @@ public final class DataJourney: NSManagedObject {
         self.journeyDescription = journeyDescription
         self.active = active
         self.type = type
+            
+        if active == true {
+            self.activeString = "Active Journey"
+        } else {
+            self.activeString = "Finnished and Planned Journeys"
+        }
     }
 }

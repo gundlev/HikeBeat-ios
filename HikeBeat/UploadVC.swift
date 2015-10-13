@@ -19,18 +19,18 @@ class UploadVC: UIViewController {
     
     @IBAction func uploadImages(sender: AnyObject) {
         
-        let beats = self.getBeats()
-        
-        for beat in beats! {
-            if beat.uploaded == false {
-                print("Will now upload")
-                print(beat.title)
-                // TODO: Upload Image and set uploaded value to true.
-            } else {
-                print("Will not upload")
-                print(beat.title)
-            }
-        }
+//        let beats = self.getBeats()
+//        
+//        for beat in beats! {
+//            if beat.uploaded == false {
+//                print("Will now upload")
+//                print(beat.title)
+//                // TODO: Upload Image and set uploaded value to true.
+//            } else {
+//                print("Will not upload")
+//                print(beat.title)
+//            }
+//        }
     }
     
     override func viewDidLoad() {
@@ -47,25 +47,27 @@ class UploadVC: UIViewController {
         }
     }
     
-    func getBeats() -> [DataBeat]? {
+    
+    // Need stackfactory implementation
+//    func getBeats() -> [DataBeat]? {
         
-        let model = CoreDataModel(name: ModelName, bundle: Bundle!)
-
-        // Initialize a default stack
-        let stack = CoreDataStack(model: model)
-
-        let beatEntity = entity(name: EntityType.DataBeat, context: stack.mainQueueContext)
-
-        let fetchRequest = FetchRequest<DataBeat>(entity: beatEntity)
-        
-        do {
-            let result = try fetch(request: fetchRequest, inContext: stack.mainQueueContext)
-
-            print("Printing the fetched results")
-            return result
-        } catch {
-            print("The fetch failed")
-            return nil
-        }
-    }
+//        let model = CoreDataModel(name: ModelName, bundle: Bundle!)
+//
+//        // Initialize a default stack
+//        let stack = CoreDataStack(model: model)
+//
+//        let beatEntity = entity(name: EntityType.DataBeat, context: stack.mainQueueContext)
+//
+//        let fetchRequest = FetchRequest<DataBeat>(entity: beatEntity)
+//        
+//        do {
+//            let result = try fetch(request: fetchRequest, inContext: stack.mainQueueContext)
+//
+//            print("Printing the fetched results")
+//            return result
+//        } catch {
+//            print("The fetch failed")
+//            return nil
+//        }
+//    }
 }
