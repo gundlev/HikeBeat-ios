@@ -27,7 +27,7 @@ func getNewJourney(context: NSManagedObjectContext, active: Bool) -> DataJourney
     let rand = random() % 1000
     let randomString = String(rand)
     
-    let journey = DataJourney(context: context, slug: "Journey " + randomString, userId: NSUUID().UUIDString, headline: "My awesome trip " + randomString, journeyDescription: "I am going to travel around the great country of " + randomString, active: active, type: "straight")
+    let journey = DataJourney(context: context, slug: "Journey " + randomString, userId: NSUUID().UUIDString, journeyId: NSUUID().UUIDString, headline: "My awesome trip " + randomString, journeyDescription: "I am going to travel around the great country of " + randomString, active: active, type: "straight")
     
     return journey
 }

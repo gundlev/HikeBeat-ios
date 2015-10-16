@@ -18,6 +18,12 @@
 		851841291BCD3F5F002BBCD1 /* CoreDataStackFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841201BCD3F5F002BBCD1 /* CoreDataStackFactory.swift */; settings = {ASSET_TAGS = (); }; };
 		8518412A1BCD3F5F002BBCD1 /* CoreDataStackResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841211BCD3F5F002BBCD1 /* CoreDataStackResult.swift */; settings = {ASSET_TAGS = (); }; };
 		8518412B1BCD3F5F002BBCD1 /* StoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841231BCD3F5F002BBCD1 /* StoreType.swift */; settings = {ASSET_TAGS = (); }; };
+		8518412D1BCFEC0B002BBCD1 /* JourneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518412C1BCFEC0B002BBCD1 /* JourneyVC.swift */; settings = {ASSET_TAGS = (); }; };
+		8518412F1BCFF046002BBCD1 /* BeatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518412E1BCFF046002BBCD1 /* BeatCell.swift */; settings = {ASSET_TAGS = (); }; };
+		851841351BD009C2002BBCD1 /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 851841321BD009C2002BBCD1 /* SVPulsingAnnotationView.m */; settings = {ASSET_TAGS = (); }; };
+		851841361BD009C2002BBCD1 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841331BD009C2002BBCD1 /* Async.swift */; settings = {ASSET_TAGS = (); }; };
+		851841371BD009C2002BBCD1 /* LFTPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841341BD009C2002BBCD1 /* LFTPulseAnimation.swift */; settings = {ASSET_TAGS = (); }; };
+		851841391BD009DE002BBCD1 /* BeatPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841381BD009DE002BBCD1 /* BeatPin.swift */; settings = {ASSET_TAGS = (); }; };
 		853003A71BBD65F900A6D27F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003A61BBD65F900A6D27F /* AppDelegate.swift */; };
 		853003B01BBD65F900A6D27F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 853003AF1BBD65F900A6D27F /* Assets.xcassets */; };
 		853003B31BBD65F900A6D27F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853003B11BBD65F900A6D27F /* LaunchScreen.storyboard */; };
@@ -127,6 +133,13 @@
 		851841211BCD3F5F002BBCD1 /* CoreDataStackResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackResult.swift; sourceTree = "<group>"; };
 		851841221BCD3F5F002BBCD1 /* JSQCoreDataKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQCoreDataKit.h; sourceTree = "<group>"; };
 		851841231BCD3F5F002BBCD1 /* StoreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreType.swift; sourceTree = "<group>"; };
+		8518412C1BCFEC0B002BBCD1 /* JourneyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyVC.swift; sourceTree = "<group>"; };
+		8518412E1BCFF046002BBCD1 /* BeatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatCell.swift; sourceTree = "<group>"; };
+		851841311BD009C2002BBCD1 /* SVPulsingAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPulsingAnnotationView.h; sourceTree = "<group>"; };
+		851841321BD009C2002BBCD1 /* SVPulsingAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPulsingAnnotationView.m; sourceTree = "<group>"; };
+		851841331BD009C2002BBCD1 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
+		851841341BD009C2002BBCD1 /* LFTPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFTPulseAnimation.swift; sourceTree = "<group>"; };
+		851841381BD009DE002BBCD1 /* BeatPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatPin.swift; sourceTree = "<group>"; };
 		853003A31BBD65F900A6D27F /* HikeBeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HikeBeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		853003A61BBD65F900A6D27F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		853003AF1BBD65F900A6D27F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -187,8 +200,20 @@
 			isa = PBXGroup;
 			children = (
 				8518410B1BCD1BC6002BBCD1 /* JourneyCell.swift */,
+				8518412E1BCFF046002BBCD1 /* BeatCell.swift */,
 			);
 			name = TableViewCells;
+			sourceTree = "<group>";
+		};
+		851841301BD0099E002BBCD1 /* MapFiles */ = {
+			isa = PBXGroup;
+			children = (
+				851841311BD009C2002BBCD1 /* SVPulsingAnnotationView.h */,
+				851841321BD009C2002BBCD1 /* SVPulsingAnnotationView.m */,
+				851841331BD009C2002BBCD1 /* Async.swift */,
+				851841341BD009C2002BBCD1 /* LFTPulseAnimation.swift */,
+			);
+			name = MapFiles;
 			sourceTree = "<group>";
 		};
 		8530039A1BBD65F900A6D27F = {
@@ -255,6 +280,7 @@
 				853004361BBD6C5200A6D27F /* MainVC.swift */,
 				853004371BBD6C5200A6D27F /* ProfileVC.swift */,
 				851840F61BCC22E4002BBCD1 /* JourneysVC.swift */,
+				8518412C1BCFEC0B002BBCD1 /* JourneyVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -262,6 +288,7 @@
 		853003D71BBD66D700A6D27F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				851841381BD009DE002BBCD1 /* BeatPin.swift */,
 				853003D81BBD670C00A6D27F /* Beat.swift */,
 				853003D91BBD670C00A6D27F /* Settings.swift */,
 				858CE3DA1BC26034000594DD /* DataBeat.swift */,
@@ -274,6 +301,7 @@
 		853003DC1BBD683300A6D27F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				851841301BD0099E002BBCD1 /* MapFiles */,
 				85D18EAA1BC4609100658DBF /* JSQCoreDataKit */,
 				853003DE1BBD686700A6D27F /* Reachability.swift */,
 				853003E01BBD686700A6D27F /* SCLAlertView.swift */,
@@ -491,8 +519,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				853004391BBD6C5200A6D27F /* LoginVC.swift in Sources */,
+				851841351BD009C2002BBCD1 /* SVPulsingAnnotationView.m in Sources */,
 				8530043A1BBD6C5200A6D27F /* MainVC.swift in Sources */,
 				851841291BCD3F5F002BBCD1 /* CoreDataStackFactory.swift in Sources */,
+				8518412D1BCFEC0B002BBCD1 /* JourneyVC.swift in Sources */,
 				858CE3DB1BC26034000594DD /* DataBeat.swift in Sources */,
 				853004381BBD6C5200A6D27F /* UploadVC.swift in Sources */,
 				8518412B1BCD3F5F002BBCD1 /* StoreType.swift in Sources */,
@@ -501,12 +531,16 @@
 				851840F71BCC22E4002BBCD1 /* JourneysVC.swift in Sources */,
 				851841241BCD3F5F002BBCD1 /* CoreDataEquatable.swift in Sources */,
 				853003E41BBD686700A6D27F /* Reachability.swift in Sources */,
+				8518412F1BCFF046002BBCD1 /* BeatCell.swift in Sources */,
 				851841251BCD3F5F002BBCD1 /* CoreDataExtensions.swift in Sources */,
+				851841371BD009C2002BBCD1 /* LFTPulseAnimation.swift in Sources */,
 				853003E71BBD686700A6D27F /* SwiftyJSON.swift in Sources */,
+				851841361BD009C2002BBCD1 /* Async.swift in Sources */,
 				8518412A1BCD3F5F002BBCD1 /* CoreDataStackResult.swift in Sources */,
 				853003A71BBD65F900A6D27F /* AppDelegate.swift in Sources */,
 				8530043B1BBD6C5200A6D27F /* ProfileVC.swift in Sources */,
 				853003E81BBD686700A6D27F /* WBTabBarController.m in Sources */,
+				851841391BD009DE002BBCD1 /* BeatPin.swift in Sources */,
 				858CE3DD1BC260F4000594DD /* DataModelUtils.swift in Sources */,
 				853003E61BBD686700A6D27F /* SCLAlertView.swift in Sources */,
 				858CE3831BC11996000594DD /* HikeBeatDataModel.xcdatamodeld in Sources */,

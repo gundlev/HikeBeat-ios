@@ -17,7 +17,7 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     Variables
 */
     var stack: CoreDataStack!
-    var activeJourney: NSFetchedResultsController?
+//    var activeJourney: NSFetchedResultsController?
     var journeys: NSFetchedResultsController?
 //    var journeys: [DataJourney]? = [DataJourney]()
 //    var activeJourney: DataJourney?
@@ -48,11 +48,11 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         factory.createStackInBackground { (result: CoreDataStackResult) -> Void in
             switch result {
             case .Success(let s):
-                print("Created stack!")
+//                print("Created stack!")
                 self.stack = s
                 self.setupFRC()
             case .Failure(let err):
-                print("Failed creating the stack")
+//                print("Failed creating the stack")
                 print(err)
             }
         }
@@ -102,7 +102,7 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 //            try self.activeJourney?.performFetch()
             tableView.reloadData()
         } catch {
-            print("failed in fetching data")
+//            print("failed in fetching data")
             assertionFailure("Failed to fetch: \(error)")
         }
     }
@@ -273,13 +273,78 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     CoreData Functions
 */
     
+    // Utility function to create and save new random Journey.
+    func createNewJourney() {
+        // TODO: Should implement a type for the media ias parameter.
+        
+        getNewJourney(self.stack.mainContext, active: true)
+//        getNewJourney(self.stack.mainContext, active: false)
+//        getNewJourney(self.stack.mainContext, active: false)
+//        getNewJourney(self.stack.mainContext, active: false)
+//        getNewJourney(self.stack.mainContext, active: false)
+//        getNewJourney(self.stack.mainContext, active: false)
+//        getNewJourney(self.stack.mainContext, active: false)
+        
+        saveContext(stack.mainContext)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let vc = segue.destinationViewController as! JourneyVC
+        let journey = journeys?.objectAtIndexPath(tableView.indexPathForSelectedRow!) as! DataJourney
+        vc.stack = self.stack
+        vc.journey = journey
+    }
+}
+
+
+
+
+// Old Code
+//func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//    
+//    return (journeys?.sections?[section].numberOfObjects)!
+//    //        if section == 0 {
+//    //            if activeJourney != nil {
+//    //                print("setting number of rows in section 0 to: " + (activeJourney?.fetchedObjects?.count)!.description)
+//    //                return (activeJourney?.fetchedObjects?.count)!
+//    //            } else {
+//    //                print("setting section 0 to 0 rows")
+//    //                return 0
+//    //            }
+//    //        } else {
+//    //            if journeys != nil {
+//    //                print("setting number of rows in section 1 to " + (journeys?.fetchedObjects?.count)!.description)
+//    //                return (journeys?.fetchedObjects?.count)!
+//    //            } else {
+//    //                return 0
+//    //            }
+//    //        }
+//    
+//    //        if journeys != nil {
+//    //            if section == 0 {
+//    //                if activeJourney != nil {
+//    //                    return 1
+//    //                } else {
+//    //                    return 0
+//    //                }
+//    //            } else {
+//    //                return (self.journeys?.count)!
+//    //            }
+//    //        } else {
+//    //            return 0
+//    //        }
+//}
+
+
+
+
 //    func setJourneys() {
-//        
+//
 //        let model = CoreDataModel(name: ModelName, bundle: Bundle)
 ////        let stack = CoreDataStack(model: model)
 //        let beatEntity = entity(name: EntityType.DataJourney, context: self.stack.mainContext)
 //        let fetchRequest = FetchRequest<DataJourney>(entity: beatEntity)
-//        
+//
 //        do {
 //            var result = try fetch(request: fetchRequest, inContext: stack.mainContext)
 //            print("Fetch success")
@@ -301,27 +366,4 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 //            self.journeys = nil
 //        }
 //    }
-//    
-    
-    // Utility function to create and save theww new random Journeys.
-    func createNewJourney() {
-        // TODO: Should implement a type for the media ias parameter.
-        
-        // Initialize the Core Data model, this class encapsulates the notion of a .xcdatamodeld file
-        // The name passed here should be the name of an .xcdatamodeld file//
-//        let model = CoreDataModel(name: ModelName, bundle: Bundle)
-        
-        // Initialize a default stack
-//        let stack = CoreDataStack(model: model)
-        
-        getNewJourney(self.stack.mainContext, active: false)
-//        getNewJourney(self.stack.mainContext, active: false)
-//        getNewJourney(self.stack.mainContext, active: false)
-//        getNewJourney(self.stack.mainContext, active: false)
-//        getNewJourney(self.stack.mainContext, active: false)
-//        getNewJourney(self.stack.mainContext, active: false)
-//        getNewJourney(self.stack.mainContext, active: false)
-        
-        saveContext(stack.mainContext)
-    }
-}
+//

@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 public final class DataBeat: NSManagedObject {
     
@@ -20,7 +21,7 @@ public final class DataBeat: NSManagedObject {
     @NSManaged var mediaType: String?
     @NSManaged var mediaData: String?
     @NSManaged var uploaded: Bool
-    @NSManaged var journey: DataJourney?
+    @NSManaged var journey: DataJourney
     
     convenience init(
         context: NSManagedObjectContext,
@@ -32,7 +33,8 @@ public final class DataBeat: NSManagedObject {
         timestamp: String,
         mediaType: String?,
         mediaData: String?,
-        uploaded: Bool) {
+        uploaded: Bool,
+        journey: DataJourney) {
             
         let entity = NSEntityDescription.entityForName(EntityType.DataBeat, inManagedObjectContext: context)
         self.init(entity: entity!, insertIntoManagedObjectContext: context)
@@ -46,6 +48,19 @@ public final class DataBeat: NSManagedObject {
         self.mediaType = mediaType
         self.mediaData = mediaData
         self.uploaded = uploaded
+        self.journey = journey
             
+    }
+    
+    func createImageFromBase64() -> UIImage? {
+        var image: UIImage? = nil
+        if self.mediaData != nil {
+            if let data = NSData(base64EncodedString: self.mediaData!, options: NSDataBase64DecodingOptions(rawValue: 0)) {
+                if let img = UIImage(data: data) {
+                    image = img
+                }
+            }
+        }
+        return image
     }
 }

@@ -13,9 +13,10 @@ public final class DataJourney: NSManagedObject {
     
     @NSManaged var slug: String?
     @NSManaged var userId: String
+    @NSManaged var journeyId: String
     @NSManaged var headline: String?
     @NSManaged var journeyDescription: String?
-    @NSManaged var active: Bool
+    @NSManaged private var active: Bool
     @NSManaged var type: String
     @NSManaged var beats: Set<DataBeat>
     @NSManaged var activeString: String
@@ -25,6 +26,7 @@ public final class DataJourney: NSManagedObject {
         context: NSManagedObjectContext,
         slug: String?,
         userId: String,
+        journeyId: String,
         headline: String?,
         journeyDescription: String,
         active: Bool,
@@ -35,6 +37,7 @@ public final class DataJourney: NSManagedObject {
         
         self.slug = slug
         self.userId = userId
+        self.journeyId = journeyId
         self.headline = headline
         self.journeyDescription = journeyDescription
         self.active = active
@@ -43,6 +46,17 @@ public final class DataJourney: NSManagedObject {
         if active == true {
             self.activeString = "Active Journey"
         } else {
+            self.activeString = "Finnished and Planned Journeys"
+        }
+    }
+    
+    func setActiveStatus(active: Bool) {
+        switch active {
+        case true:
+            self.active = true
+            self.activeString = "Active Journey"
+        default:
+            self.active = false
             self.activeString = "Finnished and Planned Journeys"
         }
     }

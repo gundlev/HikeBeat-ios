@@ -31,9 +31,11 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let userDefaults = NSUserDefaults.standardUserDefaults()
     var imagePicker = UIImagePickerController()
-    var currentBeat: Beat? = nil
-//    var currentBeat: DataBeat? = nil
+//    var currentBeat: Beat? = nil
+    var currentBeat: DataBeat? = nil
     var currentImage: UIImage? = nil
+    var stack: CoreDataStack!
+    var activeJourney: DataJourney?
     
     
 /*
@@ -101,21 +103,29 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
     /** Button creating a Beat from the information and showing the beatView.*/
     @IBAction func showBeat(sender: AnyObject) {
         
-        if titleTextView.text == "" && messageTextView.text == "" && currentImage == nil {
-
+        if titleTextView.text == "" && messageTextView.text == "" && currentImage == nil || self.activeJourney == nil {
+            // Give a warning that there is not text or no active journey.
         } else {
-            self.currentBeat = Beat(appDelegate: appDelegate)
+            var title: String? = nil
+            var message: String? = nil
+            var mediaData: String? = nil
+            
             if titleTextView.text != "" {
-                self.currentBeat?.title = self.titleTextView.text
+                title = self.titleTextView.text
             }
             if messageTextView.text != "" {
-                self.currentBeat?.message = self.messageTextView.text
+                message = self.messageTextView.text
             }
             if currentImage != nil {
                 let imageData = UIImageJPEGRepresentation(currentImage!, CGFloat(0.2))
                 let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                self.currentBeat?.image = base64String
+                mediaData = base64String
             }
+            
+            let locationTuple = self.getTimeAndLocation()
+            print("Just Before Crash!")
+            self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple.latitude, longitude: locationTuple.longitude, timestamp: locationTuple.timestamp, mediaType: MediaType.image, mediaData: mediaData, uploaded: false, journey: activeJourney!)
+            print("Just After Crash!")
             self.getBeatBox()
         }
 
@@ -138,6 +148,24 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set up the core data stack
+        let model = CoreDataModel(name: ModelName, bundle: Bundle)
+        let factory = CoreDataStackFactory(model: model)
+        
+        self.showBeatButton.enabled = false
+        factory.createStackInBackground { (result: CoreDataStackResult) -> Void in
+            switch result {
+            case .Success(let s):
+                print("Created stack!")
+                self.stack = s
+                self.getActiveJourney()
+                self.showBeatButton.enabled = true
+            case .Failure(let err):
+                print("Failed creating the stack")
+                print(err)
+            }
+        }
         
         self.setInitialState(false)
         
@@ -170,6 +198,48 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+/*
+    Helper Functions
+*/
+    
+    func getActiveJourney() {
+        let e = entity(name: EntityType.DataJourney, context: self.stack.mainContext)
+        let activeJourney = FetchRequest<DataJourney>(entity: e)
+        let firstDesc = NSSortDescriptor(key: "activeString", ascending: true)
+//        let journeyId = userDefaults.stringForKey("activeJourneyId")
+        activeJourney.predicate = NSPredicate(format: "active == %@", true)
+        activeJourney.sortDescriptors = [firstDesc]
+        
+        do {
+            let result = try fetch(request: activeJourney, inContext: stack.mainContext)
+            print("result fetched")
+            print(result[0].headline)
+            self.activeJourney = result[0]
+        } catch {
+            print("failed in fetching data")
+            assertionFailure("Failed to fetch: \(error)")
+        }
+    }
+
+    func getTimeAndLocation() -> (timestamp: String, latitude: String, longitude: String) {
+        let currentDate = NSDate()
+        let timeStamp = NSDateFormatter()
+        timeStamp.dateFormat = "yyyyMMddHHmmss"
+        let timeCapture = timeStamp.stringFromDate(currentDate)
+        
+        var longitude = ""
+        var latitude = ""
+        if let location = appDelegate.getLocation() {
+            longitude = String(location.coordinate.longitude)
+            latitude = String(location.coordinate.latitude)
+        }
+//        latitude: 55.700746, longitude: 12.551740999999993
+//        latitude: 55.7039287, longitude: 12.546988499999998)
+//        latitude: 55.7057502, longitude: 12.543364699999984
+        return (timeCapture, latitude, longitude)
     }
     
     
@@ -434,20 +504,14 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
         
         // Initialize the Core Data model, this class encapsulates the notion of a .xcdatamodeld file
         // The name passed here should be the name of an .xcdatamodeld file//
-        let model = CoreDataModel(name: ModelName, bundle: Bundle)
+//        let model = CoreDataModel(name: ModelName, bundle: Bundle)
         
         // Initialize a default stack
 //        let stack = CoreDataStack(model: model)
 //        
 //        _ = DataBeat(context: stack.mainQueueContext, title: currentBeat?.title, journeyId: userDefaults.stringForKey("activeJourneyId")!, message: currentBeat?.message, latitude: (currentBeat?.latitude)!, longitude: (currentBeat?.longitude)!, timestamp: (currentBeat?.timestamp)!, mediaType: "image", mediaData: currentBeat?.image, uploaded: uploaded)
 //        
-//        saveContext(stack.mainQueueContext) { (error: NSError?) in
-//            print(error)
-//            if error == nil {
-//                self.currentBeat = nil
-//            }
-//            // Do something if it goes wrong!
-//        }
+        saveContext(self.stack.mainContext)
     }
 
 }
