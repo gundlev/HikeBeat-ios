@@ -18,8 +18,9 @@ class BeatPin: NSObject, MKAnnotation, Comparable {
     let discipline: String
     var coordinate: CLLocationCoordinate2D
     var lastPin: Bool
+    var image: UIImage?
     
-    init(title: String, timestamp: String, subtitle: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D, lastPin: Bool) {
+    init(title: String, timestamp: String, subtitle: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D, lastPin: Bool, image: UIImage?) {
         self.title = title
         self.timestamp = timestamp
         self.subtitle = subtitle
@@ -27,6 +28,7 @@ class BeatPin: NSObject, MKAnnotation, Comparable {
         self.discipline = discipline
         self.coordinate = coordinate
         self.lastPin = lastPin
+        self.image = image
         
         super.init()
     }

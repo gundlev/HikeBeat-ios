@@ -24,10 +24,25 @@ func getUserExample() -> JSON {
 }
 
 func getNewJourney(context: NSManagedObjectContext, active: Bool) -> DataJourney {
-    let rand = random() % 1000
-    let randomString = String(rand)
     
-    let journey = DataJourney(context: context, slug: "Journey " + randomString, userId: NSUUID().UUIDString, journeyId: NSUUID().UUIDString, headline: "My awesome trip " + randomString, journeyDescription: "I am going to travel around the great country of " + randomString, active: active, type: "straight")
+    let rand = randomStringWithLength(5)
+    
+    let journey = DataJourney(context: context, slug: "Journey " + (rand as String), userId: NSUUID().UUIDString, journeyId: NSUUID().UUIDString, headline: "My awesome trip " + (rand as String), journeyDescription: "I am going to travel around the great cou of " + (rand as String), active: active, type: "straight")
     
     return journey
+}
+
+func randomStringWithLength (len : Int) -> NSString {
+    
+    let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    
+    let randomString : NSMutableString = NSMutableString(capacity: len)
+    
+    for (var i=0; i < len; i++){
+        let length = UInt32 (letters.length)
+        let rand = arc4random_uniform(length)
+        randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
+    }
+    
+    return randomString
 }

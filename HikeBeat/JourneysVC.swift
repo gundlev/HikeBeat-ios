@@ -213,11 +213,49 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            let obj = journeys?.objectAtIndexPath(indexPath) as! DataJourney
+//        if editingStyle == .Delete {
+//            let obj = journeys?.objectAtIndexPath(indexPath) as! DataJourney
+//            deleteObjects([obj], inContext: self.stack.mainContext)
+//            saveContext(self.stack.mainContext)
+//        }
+
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .Default, title: "Delete") { (UITableViewRowAction, NSIndexPath) -> Void in
+            let obj = self.journeys?.objectAtIndexPath(indexPath) as! DataJourney
             deleteObjects([obj], inContext: self.stack.mainContext)
             saveContext(self.stack.mainContext)
         }
+        
+        if self.journeys?.sections?.count == 2 {
+            if indexPath.section == 0 {
+                let deactivate = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Deactivate") { (action: UITableViewRowAction, indexpath: NSIndexPath) -> Void in
+                    let journey = self.journeys?.objectAtIndexPath(indexpath) as! DataJourney
+                    journey.setActiveStatus(false)
+                    saveContext(self.stack.mainContext)
+                }
+                return [delete, deactivate]
+            } else {
+                let activate = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Activate") { (action: UITableViewRowAction, indexpath: NSIndexPath) -> Void in
+                    let journey = self.journeys?.objectAtIndexPath(indexpath) as! DataJourney
+                    journey.setActiveStatus(true)
+                    saveContext(self.stack.mainContext)
+                }
+                return [delete, activate]
+            }
+        } else {
+            let activate = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Activate") { (action: UITableViewRowAction, indexpath: NSIndexPath) -> Void in
+                let journey = self.journeys?.objectAtIndexPath(indexpath) as! DataJourney
+                journey.setActiveStatus(true)
+                saveContext(self.stack.mainContext)
+            }
+            return [delete, activate]
+        }
+
+        
+        
     }
     
     
@@ -277,7 +315,7 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func createNewJourney() {
         // TODO: Should implement a type for the media ias parameter.
         
-        getNewJourney(self.stack.mainContext, active: true)
+        getNewJourney(self.stack.mainContext, active: false)
 //        getNewJourney(self.stack.mainContext, active: false)
 //        getNewJourney(self.stack.mainContext, active: false)
 //        getNewJourney(self.stack.mainContext, active: false)
@@ -291,6 +329,7 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let vc = segue.destinationViewController as! JourneyVC
         let journey = journeys?.objectAtIndexPath(tableView.indexPathForSelectedRow!) as! DataJourney
+        print(journey.headline)
         vc.stack = self.stack
         vc.journey = journey
     }

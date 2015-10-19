@@ -267,6 +267,10 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
         
             self.beatView.transform = translation
         })
+        
+        self.titleBeatBox.text = ""
+        self.messageBeatBox.text = ""
+        self.imageViewBeatBox.image = nil
     }
     
     /**
@@ -427,6 +431,8 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
         self.titleTextView.text = ""
         self.messageTextView.text = ""
         self.imageView.image = UIImage(named: "CameraIcon")
+        self.currentImage = nil
+        self.progressBar.progress = 0
     }
     
     

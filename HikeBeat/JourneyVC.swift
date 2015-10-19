@@ -28,7 +28,7 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
         
         mapView.delegate = self
         
-        centerMapOnLocation(initialLocation)
+//        centerMapOnLocation(initialLocation)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -59,7 +59,8 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
                 locationName: "Some Place",
                 discipline: beat.journeyId,
                 coordinate: CLLocationCoordinate2D(latitude: CLLocationDegrees(Double(beat.latitude)!), longitude: CLLocationDegrees(Double(beat.longitude)!)),
-                lastPin: false)
+                lastPin: false,
+                image: beat.createImageFromBase64())
         
             arr.append(beatPin)
         }
@@ -68,18 +69,47 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
         let lastElement = arr.last
         lastElement?.lastPin = true
         
-        mapView.removeAnnotations(mapView.annotations)
+        let oldPins = mapView.annotations
+//        mapView.removeAnnotations(mapView.annotations)
         for pin in arr {
             mapView.addAnnotation(pin)
         }
-        
+        mapView.removeAnnotations(oldPins)
         self.createPolyline(self.mapView)
+        
+        zoomToFitMapAnnotations(mapView)
     }
     
     
 /*
     Map Functions
 */
+    
+    func zoomToFitMapAnnotations(aMapView: MKMapView) {
+        if aMapView.annotations.count == 0 {
+            return
+        }
+        var topLeftCoord: CLLocationCoordinate2D = CLLocationCoordinate2D()
+        topLeftCoord.latitude = -90
+        topLeftCoord.longitude = 180
+        var bottomRightCoord: CLLocationCoordinate2D = CLLocationCoordinate2D()
+        bottomRightCoord.latitude = 90
+        bottomRightCoord.longitude = -180
+        for annotation: MKAnnotation in aMapView.annotations {
+            topLeftCoord.longitude = fmin(topLeftCoord.longitude, annotation.coordinate.longitude)
+            topLeftCoord.latitude = fmax(topLeftCoord.latitude, annotation.coordinate.latitude)
+            bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, annotation.coordinate.longitude)
+            bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, annotation.coordinate.latitude)
+        }
+        
+        var region: MKCoordinateRegion = MKCoordinateRegion()
+        region.center.latitude = topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5
+        region.center.longitude = topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5
+        region.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.4
+        region.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.4
+        region = aMapView.regionThatFits(region)
+        aMapView.setRegion(region, animated: true)
+    }
     
     func createPolyline(mapView: MKMapView) {
         
@@ -104,7 +134,6 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? BeatPin {
             let identifier = "pin"
-            //            var view: SVPulsingAnnotationView
             var view: MKAnnotationView
             if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
                 as? MKPinAnnotationView { // 2
@@ -116,14 +145,25 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: 0, y: 0)
                 
-                //                let meetUp = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-                //                meetUp.titleLabel?.text = "Meet Up"
-                //                meetUp.imageView?.image = UIImage(named: "iungoAppIcon")
                 view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
-                //                view.rightCalloutAccessoryView = meetUp as UIView
-                let imgView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-                imgView.image = UIImage(named: "ProfileImage")!
-                view.leftCalloutAccessoryView = imgView
+                
+                if annotation.image != nil {
+                    let imgView = UIImageView()
+                    let image = annotation.image!
+                    if image.size.height > image.size.width {
+                        let ratio = image.size.width/image.size.height
+                        let newWidth = 40 * ratio
+                        imgView.frame = CGRect(x: 0, y: 0, width: newWidth, height: 40)
+                    } else {
+                        let ratio = image.size.height/image.size.width
+                        let newHeight = 40 * ratio
+                        imgView.frame = CGRect(x: 0, y: 0, width: 40, height: newHeight)
+                    }
+                    
+                    imgView.image = annotation.image!
+                    view.leftCalloutAccessoryView = imgView
+                }
+               
                 let pinImage = UIImage(named: "HBPin")
                 view.image = pinImage
                 view.centerOffset.y = -((pinImage?.size.height)!/2)
@@ -149,6 +189,10 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
         return polylineRenderer
     }
 
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        print("Pin button tapped")
+    }
+    
     
 /*
     TableView Functions
@@ -223,11 +267,12 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
     
     func setupFRC() {
         let e = entity(name: EntityType.DataBeat, context: self.stack.mainContext)
-        let requestJourneys = FetchRequest<DataBeat>(entity: e)
+        let requestBeats = FetchRequest<DataBeat>(entity: e)
         let firstDesc = NSSortDescriptor(key: "timestamp", ascending: false)
-        requestJourneys.sortDescriptors = [firstDesc]
+        requestBeats.sortDescriptors = [firstDesc]
+        requestBeats.predicate = NSPredicate(format: "journey == %@", journey)
         
-        self.frc = NSFetchedResultsController(fetchRequest: requestJourneys, managedObjectContext: self.stack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        self.frc = NSFetchedResultsController(fetchRequest: requestBeats, managedObjectContext: self.stack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         
         self.frc?.delegate = self
         

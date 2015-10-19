@@ -60,7 +60,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="-708"/>
+            <point key="canvasLocation" x="0.0" y="734"/>
         </scene>
         <!--Journeys-->
         <scene sceneID="W5d-PI-sW3">
@@ -228,6 +228,25 @@
             </objects>
             <point key="canvasLocation" x="2096" y="-708"/>
         </scene>
+        <!--New JourneyVC-->
+        <scene sceneID="I6y-5u-Syg">
+            <objects>
+                <viewController id="qG6-5r-dOd" customClass="NewJourneyVC" customModule="HikeBeat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="u1c-0O-BLr"/>
+                        <viewControllerLayoutGuide type="bottom" id="yZE-1J-agB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6jc-NN-Z3I">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9JU-Xt-gf4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1395" y="-1405"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="7mo-AZ-0r4">
             <objects>
@@ -246,7 +265,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DDH-8b-uD5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="728" y="717"/>
+            <point key="canvasLocation" x="698" y="734"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="1wh-lf-ghW">

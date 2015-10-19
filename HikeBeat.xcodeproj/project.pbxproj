@@ -24,12 +24,13 @@
 		851841361BD009C2002BBCD1 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841331BD009C2002BBCD1 /* Async.swift */; settings = {ASSET_TAGS = (); }; };
 		851841371BD009C2002BBCD1 /* LFTPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841341BD009C2002BBCD1 /* LFTPulseAnimation.swift */; settings = {ASSET_TAGS = (); }; };
 		851841391BD009DE002BBCD1 /* BeatPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841381BD009DE002BBCD1 /* BeatPin.swift */; settings = {ASSET_TAGS = (); }; };
+		8518413B1BD143B9002BBCD1 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518413A1BD143B9002BBCD1 /* Beat.swift */; settings = {ASSET_TAGS = (); }; };
+		8518418D1BD43FF2002BBCD1 /* NewJourneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */; settings = {ASSET_TAGS = (); }; };
 		853003A71BBD65F900A6D27F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003A61BBD65F900A6D27F /* AppDelegate.swift */; };
 		853003B01BBD65F900A6D27F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 853003AF1BBD65F900A6D27F /* Assets.xcassets */; };
 		853003B31BBD65F900A6D27F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853003B11BBD65F900A6D27F /* LaunchScreen.storyboard */; };
 		853003BE1BBD65F900A6D27F /* HikeBeatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003BD1BBD65F900A6D27F /* HikeBeatTests.swift */; };
 		853003C91BBD65F900A6D27F /* HikeBeatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003C81BBD65F900A6D27F /* HikeBeatUITests.swift */; };
-		853003DA1BBD670C00A6D27F /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003D81BBD670C00A6D27F /* Beat.swift */; settings = {ASSET_TAGS = (); }; };
 		853003DB1BBD670C00A6D27F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003D91BBD670C00A6D27F /* Settings.swift */; settings = {ASSET_TAGS = (); }; };
 		853003E41BBD686700A6D27F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003DE1BBD686700A6D27F /* Reachability.swift */; settings = {ASSET_TAGS = (); }; };
 		853003E61BBD686700A6D27F /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003E01BBD686700A6D27F /* SCLAlertView.swift */; settings = {ASSET_TAGS = (); }; };
@@ -140,6 +141,8 @@
 		851841331BD009C2002BBCD1 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		851841341BD009C2002BBCD1 /* LFTPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFTPulseAnimation.swift; sourceTree = "<group>"; };
 		851841381BD009DE002BBCD1 /* BeatPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatPin.swift; sourceTree = "<group>"; };
+		8518413A1BD143B9002BBCD1 /* Beat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beat.swift; sourceTree = "<group>"; };
+		8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewJourneyVC.swift; sourceTree = "<group>"; };
 		853003A31BBD65F900A6D27F /* HikeBeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HikeBeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		853003A61BBD65F900A6D27F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		853003AF1BBD65F900A6D27F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -151,7 +154,6 @@
 		853003C41BBD65F900A6D27F /* HikeBeatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HikeBeatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		853003C81BBD65F900A6D27F /* HikeBeatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikeBeatUITests.swift; sourceTree = "<group>"; };
 		853003CA1BBD65F900A6D27F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		853003D81BBD670C00A6D27F /* Beat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beat.swift; sourceTree = "<group>"; };
 		853003D91BBD670C00A6D27F /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		853003DD1BBD686700A6D27F /* HikeBeat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HikeBeat-Bridging-Header.h"; sourceTree = "<group>"; };
 		853003DE1BBD686700A6D27F /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				853004371BBD6C5200A6D27F /* ProfileVC.swift */,
 				851840F61BCC22E4002BBCD1 /* JourneysVC.swift */,
 				8518412C1BCFEC0B002BBCD1 /* JourneyVC.swift */,
+				8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -288,8 +291,8 @@
 		853003D71BBD66D700A6D27F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8518413A1BD143B9002BBCD1 /* Beat.swift */,
 				851841381BD009DE002BBCD1 /* BeatPin.swift */,
-				853003D81BBD670C00A6D27F /* Beat.swift */,
 				853003D91BBD670C00A6D27F /* Settings.swift */,
 				858CE3DA1BC26034000594DD /* DataBeat.swift */,
 				858CE3DC1BC260F4000594DD /* DataModelUtils.swift */,
@@ -527,9 +530,9 @@
 				853004381BBD6C5200A6D27F /* UploadVC.swift in Sources */,
 				8518412B1BCD3F5F002BBCD1 /* StoreType.swift in Sources */,
 				8518410C1BCD1BC6002BBCD1 /* JourneyCell.swift in Sources */,
-				853003DA1BBD670C00A6D27F /* Beat.swift in Sources */,
 				851840F71BCC22E4002BBCD1 /* JourneysVC.swift in Sources */,
 				851841241BCD3F5F002BBCD1 /* CoreDataEquatable.swift in Sources */,
+				8518413B1BD143B9002BBCD1 /* Beat.swift in Sources */,
 				853003E41BBD686700A6D27F /* Reachability.swift in Sources */,
 				8518412F1BCFF046002BBCD1 /* BeatCell.swift in Sources */,
 				851841251BCD3F5F002BBCD1 /* CoreDataExtensions.swift in Sources */,
@@ -546,6 +549,7 @@
 				858CE3831BC11996000594DD /* HikeBeatDataModel.xcdatamodeld in Sources */,
 				851841281BCD3F5F002BBCD1 /* CoreDataStack.swift in Sources */,
 				851840F51BCBEF74002BBCD1 /* DataJourney.swift in Sources */,
+				8518418D1BD43FF2002BBCD1 /* NewJourneyVC.swift in Sources */,
 				851841261BCD3F5F002BBCD1 /* CoreDataModel.swift in Sources */,
 				853003DB1BBD670C00A6D27F /* Settings.swift in Sources */,
 				851841271BCD3F5F002BBCD1 /* CoreDataSaveResult.swift in Sources */,
