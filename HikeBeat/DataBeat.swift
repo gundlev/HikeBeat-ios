@@ -20,7 +20,10 @@ public final class DataBeat: NSManagedObject {
     @NSManaged var timestamp: String
     @NSManaged var mediaType: String?
     @NSManaged var mediaData: String?
+    @NSManaged var mediaDataId: String?
+    @NSManaged var messageId: String?
     @NSManaged var uploaded: Bool
+//    @NSManaged var hike: String
     @NSManaged var journey: DataJourney
     
     convenience init(
@@ -33,7 +36,10 @@ public final class DataBeat: NSManagedObject {
         timestamp: String,
         mediaType: String?,
         mediaData: String?,
+        mediaDataId: String?,
+        messageId: String?,
         uploaded: Bool,
+//        hike: String,
         journey: DataJourney) {
             
         let entity = NSEntityDescription.entityForName(EntityType.DataBeat, inManagedObjectContext: context)
@@ -47,7 +53,10 @@ public final class DataBeat: NSManagedObject {
         self.timestamp = timestamp
         self.mediaType = mediaType
         self.mediaData = mediaData
+        self.mediaDataId = mediaDataId
+        self.messageId = messageId
         self.uploaded = uploaded
+//        self.hike = hike
         self.journey = journey
             
     }

@@ -26,6 +26,7 @@
 		851841391BD009DE002BBCD1 /* BeatPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841381BD009DE002BBCD1 /* BeatPin.swift */; settings = {ASSET_TAGS = (); }; };
 		8518413B1BD143B9002BBCD1 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518413A1BD143B9002BBCD1 /* Beat.swift */; settings = {ASSET_TAGS = (); }; };
 		8518418D1BD43FF2002BBCD1 /* NewJourneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */; settings = {ASSET_TAGS = (); }; };
+		851841911BD50C22002BBCD1 /* BeatPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841901BD50C22002BBCD1 /* BeatPolyline.swift */; settings = {ASSET_TAGS = (); }; };
 		853003A71BBD65F900A6D27F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003A61BBD65F900A6D27F /* AppDelegate.swift */; };
 		853003B01BBD65F900A6D27F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 853003AF1BBD65F900A6D27F /* Assets.xcassets */; };
 		853003B31BBD65F900A6D27F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853003B11BBD65F900A6D27F /* LaunchScreen.storyboard */; };
@@ -143,6 +144,7 @@
 		851841381BD009DE002BBCD1 /* BeatPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatPin.swift; sourceTree = "<group>"; };
 		8518413A1BD143B9002BBCD1 /* Beat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beat.swift; sourceTree = "<group>"; };
 		8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewJourneyVC.swift; sourceTree = "<group>"; };
+		851841901BD50C22002BBCD1 /* BeatPolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatPolyline.swift; sourceTree = "<group>"; };
 		853003A31BBD65F900A6D27F /* HikeBeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HikeBeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		853003A61BBD65F900A6D27F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		853003AF1BBD65F900A6D27F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				858CE3DA1BC26034000594DD /* DataBeat.swift */,
 				858CE3DC1BC260F4000594DD /* DataModelUtils.swift */,
 				851840F41BCBEF74002BBCD1 /* DataJourney.swift */,
+				851841901BD50C22002BBCD1 /* BeatPolyline.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				8518418D1BD43FF2002BBCD1 /* NewJourneyVC.swift in Sources */,
 				851841261BCD3F5F002BBCD1 /* CoreDataModel.swift in Sources */,
 				853003DB1BBD670C00A6D27F /* Settings.swift in Sources */,
+				851841911BD50C22002BBCD1 /* BeatPolyline.swift in Sources */,
 				851841271BCD3F5F002BBCD1 /* CoreDataSaveResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,7 +28,7 @@ public final class DataJourney: NSManagedObject {
         userId: String,
         journeyId: String,
         headline: String?,
-        journeyDescription: String,
+        journeyDescription: String?,
         active: Bool,
         type: String) {
             

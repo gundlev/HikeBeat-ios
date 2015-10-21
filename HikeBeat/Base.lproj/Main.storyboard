@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNN-Vo-GtL">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNN-Vo-GtL">
                                 <rect key="frame" x="275" y="435" width="50" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Upload"/>
@@ -27,7 +27,7 @@
                                     <action selector="uploadImages:" destination="9pv-A4-QxB" eventType="touchUpInside" id="GSP-mG-enY"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vEg-5h-6aN">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vEg-5h-6aN">
                                 <rect key="frame" x="51" y="508" width="498" height="2"/>
                                 <animations/>
                             </progressView>
@@ -38,6 +38,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7o-Xk-I4E">
+                                <rect key="frame" x="285" y="238" width="30" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Test"/>
+                                <connections>
+                                    <action selector="performtest:" destination="9pv-A4-QxB" eventType="touchUpInside" id="6CU-cL-elq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -48,13 +56,15 @@
                             <constraint firstAttribute="trailingMargin" secondItem="vEg-5h-6aN" secondAttribute="trailing" constant="31" id="QKG-X4-8VN"/>
                             <constraint firstItem="FNN-Vo-GtL" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="QLc-km-D80"/>
                             <constraint firstItem="vEg-5h-6aN" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="31" id="dhr-0k-s5e"/>
+                            <constraint firstItem="A7o-Xk-I4E" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="r3f-Vn-LSd"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="FNN-Vo-GtL" secondAttribute="bottom" constant="86" id="sNl-iu-DQz"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Upload" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="conLabel" destination="pmr-FE-UHP" id="KDQ-g9-Cjj"/>
                         <outlet property="progressView" destination="vEg-5h-6aN" id="A7k-SR-vgA"/>
+                        <outlet property="test" destination="A7o-Xk-I4E" id="nw5-cb-mFz"/>
                         <outlet property="uploadButton" destination="FNN-Vo-GtL" id="rYF-Fc-55X"/>
                     </connections>
                 </viewController>
@@ -121,7 +131,7 @@
                                         <animations/>
                                         <connections>
                                             <outlet property="headLine" destination="3M1-48-ete" id="eTk-NK-TpK"/>
-                                            <segue destination="m01-q5-FuM" kind="show" id="4K7-SD-o79"/>
+                                            <segue destination="m01-q5-FuM" kind="show" identifier="toJourney" id="4K7-SD-o79"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -144,7 +154,7 @@
                     <navigationItem key="navigationItem" title="Journeys" id="v4T-vt-kqZ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="IbU-bX-Gix">
                             <connections>
-                                <action selector="addJourney:" destination="pdj-fV-gRb" id="mFw-Z4-nbv"/>
+                                <segue destination="qG6-5r-dOd" kind="show" identifier="addJourney" id="oLX-dm-adw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -239,11 +249,73 @@
                     <view key="view" contentMode="scaleToFill" id="6jc-NN-Z3I">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aIz-ln-dLI">
+                                <rect key="frame" x="20" y="141" width="560" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="qG6-5r-dOd" id="jQk-9x-PwB"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slug" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8f-tp-Sc9">
+                                <rect key="frame" x="283" y="112" width="34" height="20.5"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bw-gv-kU5">
+                                <rect key="frame" x="266" y="192" width="68" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FTE-Qf-J6C">
+                                <rect key="frame" x="20" y="221" width="560" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="qG6-5r-dOd" id="87a-pE-wjQ"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HQN-g0-Fnu">
+                                <rect key="frame" x="277" y="494" width="46" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Create"/>
+                                <connections>
+                                    <action selector="createJourney:" destination="qG6-5r-dOd" eventType="touchUpInside" id="RZA-Va-9zi"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="aIz-ln-dLI" secondAttribute="leading" id="6Hj-ve-m4x"/>
+                            <constraint firstItem="0bw-gv-kU5" firstAttribute="centerX" secondItem="6jc-NN-Z3I" secondAttribute="centerX" id="6M0-3q-brg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FTE-Qf-J6C" secondAttribute="trailing" id="7e5-ob-u29"/>
+                            <constraint firstItem="c8f-tp-Sc9" firstAttribute="centerX" secondItem="6jc-NN-Z3I" secondAttribute="centerX" id="9iN-DC-jaI"/>
+                            <constraint firstItem="FTE-Qf-J6C" firstAttribute="top" secondItem="u1c-0O-BLr" secondAttribute="bottom" constant="157" id="BBn-uK-TIY"/>
+                            <constraint firstItem="HQN-g0-Fnu" firstAttribute="centerX" secondItem="6jc-NN-Z3I" secondAttribute="centerX" id="JMp-T2-WwQ"/>
+                            <constraint firstItem="0bw-gv-kU5" firstAttribute="top" secondItem="u1c-0O-BLr" secondAttribute="bottom" constant="128" id="S0L-v1-Z56"/>
+                            <constraint firstItem="c8f-tp-Sc9" firstAttribute="top" secondItem="u1c-0O-BLr" secondAttribute="bottom" constant="48" id="UeH-Na-GSN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aIz-ln-dLI" secondAttribute="trailing" id="aQc-CY-bGu"/>
+                            <constraint firstItem="yZE-1J-agB" firstAttribute="top" secondItem="HQN-g0-Fnu" secondAttribute="bottom" constant="27" id="hIz-BH-6Su"/>
+                            <constraint firstItem="aIz-ln-dLI" firstAttribute="top" secondItem="u1c-0O-BLr" secondAttribute="bottom" constant="77" id="jPp-Cf-q8T"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="FTE-Qf-J6C" secondAttribute="leading" id="zQ7-1k-63c"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="headlineInput" destination="FTE-Qf-J6C" id="jw6-Qo-3wC"/>
+                        <outlet property="slugInput" destination="aIz-ln-dLI" id="p4D-SR-JDa"/>
+                        <segue destination="EW4-uz-xd6" kind="unwind" identifier="toJourney" unwindAction="toJourneys:" id="Fl9-mL-F0P"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9JU-Xt-gf4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="EW4-uz-xd6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1395" y="-1405"/>
         </scene>
@@ -366,7 +438,7 @@
                     <connections>
                         <segue destination="M7m-jn-fEY" kind="relationship" relationship="viewControllers" id="Udv-XV-MPu"/>
                         <segue destination="AB2-el-0IM" kind="relationship" relationship="viewControllers" id="eWE-nJ-UGq"/>
-                        <segue destination="fdH-Wq-1qq" kind="relationship" relationship="viewControllers" id="uKM-aK-ZHH"/>
+                        <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="byS-IS-cxa"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>

@@ -68,23 +68,81 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
             // Check if there is any network connection and send via the appropriate means.
             if Reachability.isConnectedToNetwork() {
                 // TODO: send via alamofire
-                let url = IPAddress + "journeys/" + userDefaults.stringForKey("activeJourneyId")! + "/messages"
+                let url = IPAddress + "journeys/" + (activeJourney?.journeyId)! + "/messages"
+                print("url: ", url)
                 
-                let parameters = ["title": currentBeat!.title!, "text": currentBeat!.message!, "lat": currentBeat!.latitude, "lng": currentBeat!.longitude, "timeCapture": currentBeat!.timestamp, "journeyId": userDefaults.stringForKey("activeJourneyId")!]
+                // Parameters for the beat message
+                let parameters = ["headline": currentBeat!.title!, "text": currentBeat!.message!, "lat": currentBeat!.latitude, "lng": currentBeat!.longitude, "timeCapture": currentBeat!.timestamp, "journeyId": (activeJourney?.journeyId)!]
                 
-                Alamofire.request(.POST, url, parameters: parameters).authenticate(user: APIname, password: APIPass).responseJSON { response in
+                // Sending the beat message
+                Alamofire.request(.POST, url, parameters: parameters, headers: Headers).responseJSON { response in
+                    print("The Response")
+                    print(response.response?.statusCode)
+                    
+                    // if response is 200 OK from server go on.
+                    if response.response?.statusCode == 200 {
+                        print("The text was send")
+                        
+                        // Save the messageId to the currentBeat
+                        let messageJson = JSON(response.result.value!)
+                        self.currentBeat?.messageId = messageJson["_id"].stringValue
+                        
+                        // If the is an image in the currentBeat, send the image.
+                        if self.currentBeat?.mediaData != nil {
+                            // Send Image
+                            /** Image Parameters including the image in base64 format. */
+                            let imageParams = ["timeCapture": self.currentBeat!.timestamp, "journeyId": (self.activeJourney?.journeyId)!, "data": (self.currentBeat?.mediaData)!]
+                            
+                            /** The URL for the image*/
+                            let imageUrl = IPAddress + "journeys/" + (self.activeJourney?.journeyId)! + "/images"
+                            
+                            // Sending the image.
+                            Alamofire.request(.POST, imageUrl, parameters: imageParams, headers: Headers).responseJSON { imageResponse in
+                                // If everything is 200 OK from server save the imageId in currentBeat variable mediaDataId.
+                                if imageResponse.response?.statusCode == 200 {
+                                    let imageJson = JSON(imageResponse.result.value!)
+                                    print(imageResponse)
+                                    print("The image has been posted")
+                                    
+                                    // Set the imageId in currentBeat
+                                    print("messageId: ", imageJson["_id"].stringValue)
+                                    self.currentBeat?.mediaDataId = imageJson["_id"].stringValue
+                                    
+                                    // Set the uploaded variable to true as the image has been uplaoded.
+                                    self.currentBeat?.uploaded = true
+                                    saveContext(self.stack.mainContext)
+                                } else if imageResponse.response?.statusCode == 400 {
+                                    print("Error posting the image")
+                                }
+                            }
+                        } else {
+                            self.currentBeat?.uploaded = true
+                            saveContext(self.stack.mainContext)
+                        }
+                        saveContext(self.stack.mainContext)
+                    } else if response.response?.statusCode == 400 {
+                        // Error occured
+                        print("Error posting the message")
+                    }
                     
                    // print(response)
-                    let uploaded = true
                     // if the response is okay run:
                     // TODO: save the Beat
-                    self.saveCurrentBeat(uploaded)
+                    saveContext(self.stack.mainContext)
+//                    self.saveCurrentBeat(uploaded)
                     self.clearTextAndImage()
                     self.setInitialState(true)
                 }
             } else {
-                let messageText = self.genSMSMessageString(titleTextView.text, message: messageTextView.text, journeyId: self.userDefaults.objectForKey("activeJourneyId") as! String)
-                self.sendSMS(messageText)
+                // Temporaily save everything instead of sending sms.
+                self.currentBeat?.uploaded = false
+                saveContext(self.stack.mainContext)
+                self.clearTextAndImage()
+                self.setInitialState(true)
+                
+                // This will send it via SMS, which is temporarily disabled.
+//                let messageText = self.genSMSMessageString(titleTextView.text, message: messageTextView.text, journeyId: self.userDefaults.objectForKey("activeJourneyId") as! String)
+//                self.sendSMS(messageText)
                 // The save and setInitial is done in the message methods as it knows whether it fails.
             }
             
@@ -95,10 +153,10 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
         }
     }
     
-    /** Button indication that the user wants to take a picture to be uploaded if and when there has been established an internet connection.*/
-    @IBAction func sendImage(sender: AnyObject) {
-        chooseImage()
-    }
+//    /** Button indication that the user wants to take a picture to be uploaded if and when there has been established an internet connection.*/
+//    @IBAction func sendImage(sender: AnyObject) {
+//        chooseImage()
+//    }
     
     /** Button creating a Beat from the information and showing the beatView.*/
     @IBAction func showBeat(sender: AnyObject) {
@@ -124,7 +182,7 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
             
             let locationTuple = self.getTimeAndLocation()
             print("Just Before Crash!")
-            self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple.latitude, longitude: locationTuple.longitude, timestamp: locationTuple.timestamp, mediaType: MediaType.image, mediaData: mediaData, uploaded: false, journey: activeJourney!)
+            self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple.latitude, longitude: locationTuple.longitude, timestamp: locationTuple.timestamp, mediaType: MediaType.image, mediaData: mediaData, mediaDataId: nil, messageId: nil, uploaded: false, journey: activeJourney!)
             print("Just After Crash!")
             self.getBeatBox()
         }
@@ -329,7 +387,8 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
             print("Message Sent")
             
             /* Save the Beat and setInitial*/
-            self.saveCurrentBeat(false)
+            self.currentBeat?.uploaded = false
+            saveContext(stack.mainContext)
             self.clearTextAndImage()
             self.setInitialState(true)
             self.dismissViewControllerAnimated(true, completion: nil)

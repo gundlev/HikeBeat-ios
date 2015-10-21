@@ -13,8 +13,12 @@ let phoneNumber = "004530962591"
 
 public let APIname = "bzb42utJUw1ZuWSJVmpLdwXMxScgwXOu4ZrAoL8spEJstyjuroTnnIts2m5Qgxo"
 public let APIPass = "1dfpjdS6gmkDtdQQKbJVy4HezMK4mQYaIWgwyljbdYpMFJO3knQy012Lk2zBVS0"
+public let Headers = [
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Authorization": "Basic YnpiNDJ1dEpVdzFadVdTSlZtcExkd1hNeFNjZ3dYT3U0WnJBb0w4c3BFSnN0eWp1cm9Ubm5JdHMybTVRZ3hvOjFkZnBqZFM2Z21rRHRkUVFLYkpWeTRIZXpNSzRtUVlhSVdnd3lsamJkWXBNRkpPM2tuUXkwMTJMazJ6QlZTMA=="
+]
 
-public let IPAddress = "http://178.62.216.40/api/"
+public let IPAddress = "http://178.62.140.147/api/"
 
 func getUserExample() -> JSON {
     
@@ -27,7 +31,7 @@ func getNewJourney(context: NSManagedObjectContext, active: Bool) -> DataJourney
     
     let rand = randomStringWithLength(5)
     
-    let journey = DataJourney(context: context, slug: "Journey " + (rand as String), userId: NSUUID().UUIDString, journeyId: NSUUID().UUIDString, headline: "My awesome trip " + (rand as String), journeyDescription: "I am going to travel around the great cou of " + (rand as String), active: active, type: "straight")
+    let journey = DataJourney(context: context, slug: "Journey-" + (rand as String), userId: NSUUID().UUIDString, journeyId: "56253f2b30f2c21d7905cdac", headline: "My awesome trip " + (rand as String), journeyDescription: "I am going to travel around the great coutry of " + (rand as String), active: active, type: "straight")
     
     return journey
 }

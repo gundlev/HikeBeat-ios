@@ -25,7 +25,7 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
     
     override func viewDidLoad() {
         setupFRC()
-        
+        self.navigationItem.title = journey.headline
         mapView.delegate = self
         
 //        centerMapOnLocation(initialLocation)
@@ -120,7 +120,9 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
             points.append(point)
         }
         
-        let polyline = MKPolyline(coordinates: &points, count: points.count)
+//        let polyline = MKPolyline(coordinates: &points, count: points.count)
+        let polyline = BeatPolyline(coordinates: &points, count: points.count)
+        polyline.color = UIColor.blueColor()
         mapView.addOverlay(polyline)
         
     }
@@ -145,7 +147,10 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: 0, y: 0)
                 
-                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
+                var button = UIButton(type: .DetailDisclosure)
+//                button.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+//                button.hidden = true
+                view.rightCalloutAccessoryView = button as UIView
                 
                 if annotation.image != nil {
                     let imgView = UIImageView()
@@ -184,8 +189,9 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-        polylineRenderer.strokeColor = UIColor.blueColor()
-        polylineRenderer.lineWidth = 5
+        let polyline = overlay as! BeatPolyline
+        polylineRenderer.strokeColor = polyline.color
+        polylineRenderer.lineWidth = 3
         return polylineRenderer
     }
 
@@ -231,7 +237,7 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
             let obj = frc?.objectAtIndexPath(indexPath) as! DataBeat
             
             // Deleting the annotation on the map
-            var pins = mapView.annotations
+            let pins = mapView.annotations
             for pin in pins {
                 if pin.title! == obj.title {
                     print("Removing pin with title: ", pin.title!!)
@@ -246,8 +252,6 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
                 mapView.removeAnnotation(lastPin!)
                 mapView.addAnnotation(lastPin!)
             }
-
-
             
             // Deleting the object in the database.
             deleteObjects([obj], inContext: self.stack.mainContext)

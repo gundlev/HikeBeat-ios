@@ -29,9 +29,13 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
 
     @IBOutlet weak var tableView: UITableView!
-    @IBAction func addJourney(sender: AnyObject) {
-        self.createNewJourney()
+    @IBAction func toJourneys(sender: UIStoryboardSegue) {
+        
     }
+//    @IBAction func addJourney(sender: AnyObject) {
+//        self.createNewJourney()
+//        
+//    }
 
     
 /*
@@ -44,7 +48,6 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         let model = CoreDataModel(name: ModelName, bundle: Bundle)
         let factory = CoreDataStackFactory(model: model)
         
-        
         factory.createStackInBackground { (result: CoreDataStackResult) -> Void in
             switch result {
             case .Success(let s):
@@ -56,7 +59,6 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 print(err)
             }
         }
-        
 //        self.createThreeJourneys()
 //        setJourneys()
         
@@ -105,6 +107,7 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 //            print("failed in fetching data")
             assertionFailure("Failed to fetch: \(error)")
         }
+        
     }
     
     
@@ -313,7 +316,6 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     // Utility function to create and save new random Journey.
     func createNewJourney() {
-        // TODO: Should implement a type for the media ias parameter.
         
         getNewJourney(self.stack.mainContext, active: false)
 //        getNewJourney(self.stack.mainContext, active: false)
@@ -327,11 +329,17 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let vc = segue.destinationViewController as! JourneyVC
-        let journey = journeys?.objectAtIndexPath(tableView.indexPathForSelectedRow!) as! DataJourney
-        print(journey.headline)
-        vc.stack = self.stack
-        vc.journey = journey
+        if segue.identifier == "toJourney" {
+            let vc = segue.destinationViewController as! JourneyVC
+            let journey = journeys?.objectAtIndexPath(tableView.indexPathForSelectedRow!) as! DataJourney
+            print(journey.headline)
+            vc.stack = self.stack
+            vc.journey = journey
+        } else if segue.identifier == "addJourney" {
+            let vc = segue.destinationViewController as! NewJourneyVC
+            vc.stack = self.stack
+        }
+        
     }
 }
 
