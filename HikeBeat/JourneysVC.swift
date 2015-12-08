@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 import Alamofire
+import MapKit
 
 class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     
@@ -19,6 +20,8 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var stack: CoreDataStack!
 //    var activeJourney: NSFetchedResultsController?
     var journeys: NSFetchedResultsController?
+    var beats: [DataBeat]!
+//    var beats: NSFetchedResultsController?
 //    var journeys: [DataJourney]? = [DataJourney]()
 //    var activeJourney: DataJourney?
     
@@ -44,18 +47,26 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(1)
         let model = CoreDataModel(name: ModelName, bundle: Bundle)
         let factory = CoreDataStackFactory(model: model)
         
         factory.createStackInBackground { (result: CoreDataStackResult) -> Void in
             switch result {
             case .Success(let s):
-//                print("Created stack!")
+                print("Created stack! Journeys")
                 self.stack = s
+                let beatEntity = entity(name: EntityType.DataBeat, context: self.stack.mainContext)
+                let fetchRequest = FetchRequest<DataBeat>(entity: beatEntity)
+                do {
+                    self.beats = try fetch(request: fetchRequest, inContext: self.stack.mainContext)
+                } catch {
+                    
+                }
                 self.setupFRC()
+                
             case .Failure(let err):
-//                print("Failed creating the stack")
+                print("Failed creating the stack Journeys")
                 print(err)
             }
         }
@@ -82,17 +93,21 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func setupFRC() {
+//        print(2)
+//        let beatEntity = entity(name: EntityType.DataBeat, context: self.stack.mainContext)
         let e = entity(name: EntityType.DataJourney, context: self.stack.mainContext)
+//        let requestBeat = FetchRequest<DataBeat>(entity: e)
         let requestJourneys = FetchRequest<DataJourney>(entity: e)
         let firstDesc = NSSortDescriptor(key: "activeString", ascending: true)
         let secondDesc = NSSortDescriptor(key: "headline", ascending: true)
         requestJourneys.sortDescriptors = [firstDesc, secondDesc]
-        
+//        print(3)
 //        let requestActive = FetchRequest<DataJourney>(entity: e)
 //        requestActive.predicate = NSPredicate(format: "active == %@", true)
 //        requestActive.sortDescriptors = [NSSortDescriptor(key: "active", ascending: true)]
         
         self.journeys = NSFetchedResultsController(fetchRequest: requestJourneys, managedObjectContext: self.stack.mainContext, sectionNameKeyPath: "activeString", cacheName: nil)
+//        self.beats = NSFetchedResultsController(fetchRequest: requestJourneys, managedObjectContext: self.stack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         
 //        self.activeJourney = NSFetchedResultsController(fetchRequest: requestActive, managedObjectContext:self.stack.mainContext, sectionNameKeyPath: "active", cacheName: nil)
         
@@ -101,8 +116,9 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         do {
             try self.journeys?.performFetch()
-//            try self.activeJourney?.performFetch()
+//            try self.beats?.performFetch()
             tableView.reloadData()
+//            print(4)
         } catch {
 //            print("failed in fetching data")
             assertionFailure("Failed to fetch: \(error)")
@@ -111,17 +127,70 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     
+    func zoomToFitMapAnnotations(aMapView: MKMapView) {
+        if aMapView.annotations.count == 0 {
+            return
+        }
+        var topLeftCoord: CLLocationCoordinate2D = CLLocationCoordinate2D()
+        topLeftCoord.latitude = -90
+        topLeftCoord.longitude = 180
+        var bottomRightCoord: CLLocationCoordinate2D = CLLocationCoordinate2D()
+        bottomRightCoord.latitude = 90
+        bottomRightCoord.longitude = -180
+        for annotation: MKAnnotation in aMapView.annotations {
+            topLeftCoord.longitude = fmin(topLeftCoord.longitude, annotation.coordinate.longitude)
+            topLeftCoord.latitude = fmax(topLeftCoord.latitude, annotation.coordinate.latitude)
+            bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, annotation.coordinate.longitude)
+            bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, annotation.coordinate.latitude)
+        }
+        
+        var region: MKCoordinateRegion = MKCoordinateRegion()
+        region.center.latitude = topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5
+        region.center.longitude = topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5
+        region.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.4
+        region.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.4
+        region = aMapView.regionThatFits(region)
+        aMapView.setRegion(region, animated: true)
+    }
+    
+    
 /*
     TableView Functions
 */
     
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("JourneyCell") as! JourneyCell
+//        print(5)
+        let cell = tableView.dequeueReusableCellWithIdentifier("JourneysCell") as! JourneysCell
         
         let journey = self.journeys?.objectAtIndexPath(indexPath) as! DataJourney
-        cell.headLine.text = journey.headline
-        
-        
+        var journeyBeats = [DataBeat]()
+        for beat in beats {
+            if beat.journey == journey {
+                journeyBeats.append(beat)
+            }
+        }
+//        print(5.1)
+//        cell.setupCell(self.stack, journey: journey, active: (indexPath.section == 0))
+        cell.setupCell2(journeyBeats)
+//        print(5.11)
+        cell.headline.text = journey.headline
+//        print(5.12)
+        if indexPath.section == 0 {
+            cell.bgImage.alpha = 0.7
+            cell.bgImage.image = UIImage(named: "CellImage1")!
+        } else {
+            cell.bgImage.alpha = 0.4
+            switch indexPath.row {
+            case 0:
+                print("case 0")
+                cell.bgImage.image = UIImage(named: "CellImage2")!
+            default:
+                print("case 1")
+                cell.bgImage.image = UIImage(named: "CellImage3")!
+            }
+        }
+//        print(5.2)
         print("indexpath row: ", indexPath.row)
         print("indexpath section: ", indexPath.section)
 //        if indexPath.section == 0 {
@@ -139,7 +208,7 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+//        print(6)
         return (journeys?.sections?[section].numberOfObjects)!
 //        if section == 0 {
 //            if activeJourney != nil {
@@ -193,6 +262,7 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+        print(8)
         return self.journeys!.sectionForSectionIndexTitle(title, atIndex: index)
     }
     
@@ -225,6 +295,7 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+//        print(7)
         
         let delete = UITableViewRowAction(style: .Default, title: "Delete") { (UITableViewRowAction, NSIndexPath) -> Void in
             let obj = self.journeys?.objectAtIndexPath(indexPath) as! DataJourney
@@ -329,7 +400,7 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "toJourney" {
+        if segue.identifier == "toJourney" || segue.identifier == "toJourney2" {
             let vc = segue.destinationViewController as! JourneyVC
             let journey = journeys?.objectAtIndexPath(tableView.indexPathForSelectedRow!) as! DataJourney
             print(journey.headline)

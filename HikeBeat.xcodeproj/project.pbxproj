@@ -7,46 +7,48 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		851840F51BCBEF74002BBCD1 /* DataJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851840F41BCBEF74002BBCD1 /* DataJourney.swift */; settings = {ASSET_TAGS = (); }; };
-		851840F71BCC22E4002BBCD1 /* JourneysVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851840F61BCC22E4002BBCD1 /* JourneysVC.swift */; settings = {ASSET_TAGS = (); }; };
-		8518410C1BCD1BC6002BBCD1 /* JourneyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518410B1BCD1BC6002BBCD1 /* JourneyCell.swift */; settings = {ASSET_TAGS = (); }; };
-		851841241BCD3F5F002BBCD1 /* CoreDataEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518411B1BCD3F5F002BBCD1 /* CoreDataEquatable.swift */; settings = {ASSET_TAGS = (); }; };
-		851841251BCD3F5F002BBCD1 /* CoreDataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518411C1BCD3F5F002BBCD1 /* CoreDataExtensions.swift */; settings = {ASSET_TAGS = (); }; };
-		851841261BCD3F5F002BBCD1 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518411D1BCD3F5F002BBCD1 /* CoreDataModel.swift */; settings = {ASSET_TAGS = (); }; };
-		851841271BCD3F5F002BBCD1 /* CoreDataSaveResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518411E1BCD3F5F002BBCD1 /* CoreDataSaveResult.swift */; settings = {ASSET_TAGS = (); }; };
-		851841281BCD3F5F002BBCD1 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518411F1BCD3F5F002BBCD1 /* CoreDataStack.swift */; settings = {ASSET_TAGS = (); }; };
-		851841291BCD3F5F002BBCD1 /* CoreDataStackFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841201BCD3F5F002BBCD1 /* CoreDataStackFactory.swift */; settings = {ASSET_TAGS = (); }; };
-		8518412A1BCD3F5F002BBCD1 /* CoreDataStackResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841211BCD3F5F002BBCD1 /* CoreDataStackResult.swift */; settings = {ASSET_TAGS = (); }; };
-		8518412B1BCD3F5F002BBCD1 /* StoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841231BCD3F5F002BBCD1 /* StoreType.swift */; settings = {ASSET_TAGS = (); }; };
-		8518412D1BCFEC0B002BBCD1 /* JourneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518412C1BCFEC0B002BBCD1 /* JourneyVC.swift */; settings = {ASSET_TAGS = (); }; };
-		8518412F1BCFF046002BBCD1 /* BeatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518412E1BCFF046002BBCD1 /* BeatCell.swift */; settings = {ASSET_TAGS = (); }; };
-		851841351BD009C2002BBCD1 /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 851841321BD009C2002BBCD1 /* SVPulsingAnnotationView.m */; settings = {ASSET_TAGS = (); }; };
-		851841361BD009C2002BBCD1 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841331BD009C2002BBCD1 /* Async.swift */; settings = {ASSET_TAGS = (); }; };
-		851841371BD009C2002BBCD1 /* LFTPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841341BD009C2002BBCD1 /* LFTPulseAnimation.swift */; settings = {ASSET_TAGS = (); }; };
-		851841391BD009DE002BBCD1 /* BeatPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841381BD009DE002BBCD1 /* BeatPin.swift */; settings = {ASSET_TAGS = (); }; };
-		8518413B1BD143B9002BBCD1 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518413A1BD143B9002BBCD1 /* Beat.swift */; settings = {ASSET_TAGS = (); }; };
-		8518418D1BD43FF2002BBCD1 /* NewJourneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */; settings = {ASSET_TAGS = (); }; };
-		851841911BD50C22002BBCD1 /* BeatPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841901BD50C22002BBCD1 /* BeatPolyline.swift */; settings = {ASSET_TAGS = (); }; };
+		851840F51BCBEF74002BBCD1 /* DataJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851840F41BCBEF74002BBCD1 /* DataJourney.swift */; };
+		851840F71BCC22E4002BBCD1 /* JourneysVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851840F61BCC22E4002BBCD1 /* JourneysVC.swift */; };
+		8518410C1BCD1BC6002BBCD1 /* JourneyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518410B1BCD1BC6002BBCD1 /* JourneyCell.swift */; };
+		851841241BCD3F5F002BBCD1 /* CoreDataEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518411B1BCD3F5F002BBCD1 /* CoreDataEquatable.swift */; };
+		851841251BCD3F5F002BBCD1 /* CoreDataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518411C1BCD3F5F002BBCD1 /* CoreDataExtensions.swift */; };
+		851841261BCD3F5F002BBCD1 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518411D1BCD3F5F002BBCD1 /* CoreDataModel.swift */; };
+		851841271BCD3F5F002BBCD1 /* CoreDataSaveResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518411E1BCD3F5F002BBCD1 /* CoreDataSaveResult.swift */; };
+		851841281BCD3F5F002BBCD1 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518411F1BCD3F5F002BBCD1 /* CoreDataStack.swift */; };
+		851841291BCD3F5F002BBCD1 /* CoreDataStackFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841201BCD3F5F002BBCD1 /* CoreDataStackFactory.swift */; };
+		8518412A1BCD3F5F002BBCD1 /* CoreDataStackResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841211BCD3F5F002BBCD1 /* CoreDataStackResult.swift */; };
+		8518412B1BCD3F5F002BBCD1 /* StoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841231BCD3F5F002BBCD1 /* StoreType.swift */; };
+		8518412D1BCFEC0B002BBCD1 /* JourneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518412C1BCFEC0B002BBCD1 /* JourneyVC.swift */; };
+		8518412F1BCFF046002BBCD1 /* BeatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518412E1BCFF046002BBCD1 /* BeatCell.swift */; };
+		851841351BD009C2002BBCD1 /* SVPulsingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 851841321BD009C2002BBCD1 /* SVPulsingAnnotationView.m */; };
+		851841361BD009C2002BBCD1 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841331BD009C2002BBCD1 /* Async.swift */; };
+		851841371BD009C2002BBCD1 /* LFTPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841341BD009C2002BBCD1 /* LFTPulseAnimation.swift */; };
+		851841391BD009DE002BBCD1 /* BeatPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841381BD009DE002BBCD1 /* BeatPin.swift */; };
+		8518413B1BD143B9002BBCD1 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518413A1BD143B9002BBCD1 /* Beat.swift */; };
+		8518418D1BD43FF2002BBCD1 /* NewJourneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */; };
+		851841911BD50C22002BBCD1 /* BeatPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841901BD50C22002BBCD1 /* BeatPolyline.swift */; };
 		853003A71BBD65F900A6D27F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003A61BBD65F900A6D27F /* AppDelegate.swift */; };
 		853003B01BBD65F900A6D27F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 853003AF1BBD65F900A6D27F /* Assets.xcassets */; };
 		853003B31BBD65F900A6D27F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853003B11BBD65F900A6D27F /* LaunchScreen.storyboard */; };
 		853003BE1BBD65F900A6D27F /* HikeBeatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003BD1BBD65F900A6D27F /* HikeBeatTests.swift */; };
 		853003C91BBD65F900A6D27F /* HikeBeatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003C81BBD65F900A6D27F /* HikeBeatUITests.swift */; };
-		853003DB1BBD670C00A6D27F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003D91BBD670C00A6D27F /* Settings.swift */; settings = {ASSET_TAGS = (); }; };
-		853003E41BBD686700A6D27F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003DE1BBD686700A6D27F /* Reachability.swift */; settings = {ASSET_TAGS = (); }; };
-		853003E61BBD686700A6D27F /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003E01BBD686700A6D27F /* SCLAlertView.swift */; settings = {ASSET_TAGS = (); }; };
-		853003E71BBD686700A6D27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003E11BBD686700A6D27F /* SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
-		853003E81BBD686700A6D27F /* WBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 853003E31BBD686700A6D27F /* WBTabBarController.m */; settings = {ASSET_TAGS = (); }; };
-		853004381BBD6C5200A6D27F /* UploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004341BBD6C5200A6D27F /* UploadVC.swift */; settings = {ASSET_TAGS = (); }; };
-		853004391BBD6C5200A6D27F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004351BBD6C5200A6D27F /* LoginVC.swift */; settings = {ASSET_TAGS = (); }; };
-		8530043A1BBD6C5200A6D27F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004361BBD6C5200A6D27F /* MainVC.swift */; settings = {ASSET_TAGS = (); }; };
-		8530043B1BBD6C5200A6D27F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004371BBD6C5200A6D27F /* ProfileVC.swift */; settings = {ASSET_TAGS = (); }; };
-		857EB06E1BBD70EA0036B41C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 857EB06C1BBD70EA0036B41C /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
-		858CE3831BC11996000594DD /* HikeBeatDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3811BC11996000594DD /* HikeBeatDataModel.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
-		858CE3DB1BC26034000594DD /* DataBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3DA1BC26034000594DD /* DataBeat.swift */; settings = {ASSET_TAGS = (); }; };
-		858CE3DD1BC260F4000594DD /* DataModelUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3DC1BC260F4000594DD /* DataModelUtils.swift */; settings = {ASSET_TAGS = (); }; };
+		853003DB1BBD670C00A6D27F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003D91BBD670C00A6D27F /* Settings.swift */; };
+		853003E41BBD686700A6D27F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003DE1BBD686700A6D27F /* Reachability.swift */; };
+		853003E61BBD686700A6D27F /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003E01BBD686700A6D27F /* SCLAlertView.swift */; };
+		853003E71BBD686700A6D27F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003E11BBD686700A6D27F /* SwiftyJSON.swift */; };
+		853003E81BBD686700A6D27F /* WBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 853003E31BBD686700A6D27F /* WBTabBarController.m */; };
+		853004381BBD6C5200A6D27F /* UploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004341BBD6C5200A6D27F /* UploadVC.swift */; };
+		853004391BBD6C5200A6D27F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004351BBD6C5200A6D27F /* LoginVC.swift */; };
+		8530043A1BBD6C5200A6D27F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004361BBD6C5200A6D27F /* MainVC.swift */; };
+		8530043B1BBD6C5200A6D27F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004371BBD6C5200A6D27F /* ProfileVC.swift */; };
+		857EB06E1BBD70EA0036B41C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 857EB06C1BBD70EA0036B41C /* Main.storyboard */; };
+		858CE3831BC11996000594DD /* HikeBeatDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3811BC11996000594DD /* HikeBeatDataModel.xcdatamodeld */; };
+		858CE3DB1BC26034000594DD /* DataBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3DA1BC26034000594DD /* DataBeat.swift */; };
+		858CE3DD1BC260F4000594DD /* DataModelUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3DC1BC260F4000594DD /* DataModelUtils.swift */; };
 		859D85701BC3300400E26DCD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 859D85671BC32FF000E26DCD /* Alamofire.framework */; };
 		859D85711BC3300400E26DCD /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 859D85671BC32FF000E26DCD /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		85B3FA671C17327C001A46AB /* NSGSwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B3FA661C17327C001A46AB /* NSGSwipeView.swift */; };
+		85FF53B91BE3B8FF00B413BA /* JourneysCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FF53B81BE3B8FF00B413BA /* JourneysCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +174,8 @@
 		858CE3DA1BC26034000594DD /* DataBeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBeat.swift; sourceTree = "<group>"; };
 		858CE3DC1BC260F4000594DD /* DataModelUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelUtils.swift; sourceTree = "<group>"; };
 		859D855E1BC32FF000E26DCD /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
+		85B3FA661C17327C001A46AB /* NSGSwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSGSwipeView.swift; sourceTree = "<group>"; };
+		85FF53B81BE3B8FF00B413BA /* JourneysCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneysCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +209,7 @@
 			children = (
 				8518410B1BCD1BC6002BBCD1 /* JourneyCell.swift */,
 				8518412E1BCFF046002BBCD1 /* BeatCell.swift */,
+				85FF53B81BE3B8FF00B413BA /* JourneysCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -310,6 +315,7 @@
 				851841301BD0099E002BBCD1 /* MapFiles */,
 				85D18EAA1BC4609100658DBF /* JSQCoreDataKit */,
 				853003DE1BBD686700A6D27F /* Reachability.swift */,
+				85B3FA661C17327C001A46AB /* NSGSwipeView.swift */,
 				853003E01BBD686700A6D27F /* SCLAlertView.swift */,
 				853003E11BBD686700A6D27F /* SwiftyJSON.swift */,
 				853003E21BBD686700A6D27F /* WBTabBarController.h */,
@@ -417,6 +423,7 @@
 				TargetAttributes = {
 					853003A21BBD65F900A6D27F = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 62PHHA9WNZ;
 					};
 					853003B81BBD65F900A6D27F = {
 						CreatedOnToolsVersion = 7.0;
@@ -554,8 +561,10 @@
 				851840F51BCBEF74002BBCD1 /* DataJourney.swift in Sources */,
 				8518418D1BD43FF2002BBCD1 /* NewJourneyVC.swift in Sources */,
 				851841261BCD3F5F002BBCD1 /* CoreDataModel.swift in Sources */,
+				85B3FA671C17327C001A46AB /* NSGSwipeView.swift in Sources */,
 				853003DB1BBD670C00A6D27F /* Settings.swift in Sources */,
 				851841911BD50C22002BBCD1 /* BeatPolyline.swift in Sources */,
+				85FF53B91BE3B8FF00B413BA /* JourneysCell.swift in Sources */,
 				851841271BCD3F5F002BBCD1 /* CoreDataSaveResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -702,6 +711,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HikeBeat/Info.plist;
@@ -719,6 +729,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HikeBeat/Info.plist;

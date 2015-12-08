@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-public final class DataBeat: NSManagedObject {
+public final class DataBeat: NSManagedObject, Comparable {
     
     @NSManaged var title: String?
     @NSManaged var journeyId: String
@@ -72,4 +72,12 @@ public final class DataBeat: NSManagedObject {
         }
         return image
     }
+}
+
+public func <(lhs: DataBeat, rhs: DataBeat) -> Bool {
+    return lhs.timestamp < rhs.timestamp
+}
+
+public func ==(lhs: DataBeat, rhs: DataBeat) -> Bool {
+    return lhs.timestamp == rhs.timestamp
 }

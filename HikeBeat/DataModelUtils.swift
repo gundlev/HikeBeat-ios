@@ -13,6 +13,7 @@ public let Bundle = NSBundle(identifier: "com.hikebeat.HikeBeat")!
 
 public struct MediaType {
     public static let image = "image"
+    public static let none = "none"
 }
 
 public struct EntityType {

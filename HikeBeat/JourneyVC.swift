@@ -133,11 +133,11 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(localMapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? BeatPin {
             let identifier = "pin"
             var view: MKAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+            if let dequeuedView = localMapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
                 as? MKPinAnnotationView { // 2
                     dequeuedView.annotation = annotation
                     view = dequeuedView
@@ -147,7 +147,7 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: 0, y: 0)
                 
-                var button = UIButton(type: .DetailDisclosure)
+                let button = UIButton(type: .DetailDisclosure)
 //                button.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
 //                button.hidden = true
                 view.rightCalloutAccessoryView = button as UIView
@@ -272,7 +272,7 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
     func setupFRC() {
         let e = entity(name: EntityType.DataBeat, context: self.stack.mainContext)
         let requestBeats = FetchRequest<DataBeat>(entity: e)
-        let firstDesc = NSSortDescriptor(key: "timestamp", ascending: false)
+        let firstDesc = NSSortDescriptor(key: "timestamp", ascending: true)
         requestBeats.sortDescriptors = [firstDesc]
         requestBeats.predicate = NSPredicate(format: "journey == %@", journey)
         

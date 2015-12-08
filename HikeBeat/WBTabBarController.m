@@ -55,7 +55,7 @@
     [super viewDidLoad];
 
     [self addCenterButtonWithImage:[UIImage imageNamed:@"hood.png"] highlightImage:[UIImage imageNamed:@"hood-selected.png"] target:self action:@selector(buttonPressed:)];
-
+    self.selectedIndex = 1;
 }
 
 - (void)viewDidUnload

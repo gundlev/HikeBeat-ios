@@ -16,6 +16,7 @@ class LoginVC: UIViewController {
 */
     
     let userDefaults = NSUserDefaults.standardUserDefaults()
+    var stack: CoreDataStack!
     
     
 /*
@@ -34,9 +35,10 @@ class LoginVC: UIViewController {
         
         /** Parameters to send to the API.*/
         let parameters = ["username": usernameTextField.text!, "password": passwordTextField.text!]
+        
 
         /* Sending POST to API to check if the user exists. Will return a json with the user.*/
-        Alamofire.request(.POST, "http://178.62.140.147/api/auth", parameters: parameters, headers: Headers).responseJSON { response in
+        Alamofire.request(.POST, "http://178.62.140.147/api/auth", parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
             
 //            print("\n\n")
 //            print(data!.description)
@@ -92,6 +94,42 @@ class LoginVC: UIViewController {
                 self.userDefaults.setBool(true, forKey: "loggedIn")
                 self.userDefaults.setObject(permittedPhoneNumbersArray, forKey: "permittedPhoneNumbers")
 
+                /* Get all the journeys*/
+                print("Getting the journeys")
+                let urlJourney = IPAddress + "users/" + user["_id"].stringValue + "/journeys"
+                print(urlJourney)
+                Alamofire.request(.GET, urlJourney, encoding: .JSON, headers: Headers).responseJSON { response in
+                    print(response.response?.statusCode)
+                    //print(response)
+                    if response.response?.statusCode == 200 {
+                        if response.result.value != nil {
+                            let json = JSON(response.result.value!)
+                            print(json)
+                            
+                            for (_, journey) in json {
+                                let headline = journey["options"]["headline"].stringValue
+                                print(headline)
+                                let active = user["activeJourneyId"].stringValue == journey["_id"].stringValue
+                                
+                                let dataJourney = DataJourney(context: self.stack.mainContext, slug: journey["slug"].stringValue, userId: user["_id"].stringValue, journeyId: journey["_id"].stringValue, headline: journey["options"]["headline"].stringValue, journeyDescription: journey["options"]["headline"].stringValue, active: active, type: journey["options"]["type"].stringValue)
+                                saveContext(self.stack.mainContext)
+                                
+                                for (_, message) in journey["messages"]  {
+                                    print("Slug: ", message["slug"].stringValue, " for journey: ", headline)
+                                    //print(message)
+                                    _ = DataBeat(context: self.stack.mainContext, title: message["headline"].stringValue, journeyId: journey["_id"].stringValue, message: message["text"].stringValue, latitude: message["lat"].stringValue, longitude: message["lng"].stringValue, timestamp: message["timeCapture"].stringValue, mediaType: MediaType.none, mediaData: "", mediaDataId: "", messageId: message["_id"].stringValue, uploaded: true, journey: dataJourney)
+                                    saveContext(self.stack.mainContext)
+                                    
+                                }
+                            }
+                        }
+                        
+                    } else {
+                        // something is wrong
+                    }
+                }
+                
+                
                 /* Stop wheel*/
                 self.wheel.stopAnimating()
                 
@@ -116,5 +154,21 @@ class LoginVC: UIViewController {
         loginButton.layer.cornerRadius = 5;
         loginButton.layer.borderWidth = 1;
         loginButton.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        usernameTextField.text = "lindekaer"
+        passwordTextField.text = "gkBB1991"
+        
+        let model = CoreDataModel(name: ModelName, bundle: Bundle)
+        let factory = CoreDataStackFactory(model: model)
+        factory.createStackInBackground { (result: CoreDataStackResult) -> Void in
+            switch result {
+            case .Success(let s):
+                print("Created stack!")
+                self.stack = s
+            case .Failure(let err):
+                print("Failed creating the stack")
+                print(err)
+            }
+        }
     }
 }

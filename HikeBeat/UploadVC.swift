@@ -43,91 +43,91 @@ class UploadVC: UIViewController {
             
             // Temporary solution
             
-            if Reachability.isConnectedToNetwork() {
-                // TODO: send via alamofire
-                let url = IPAddress + "journeys/" + beat.journeyId + "/messages"
-                print("url: ", url)
-                
-                // Parameters for the beat message
-                let parameters = ["headline": beat.title!, "text": beat.message!, "lat": beat.latitude, "lng": beat.longitude, "timeCapture": beat.timestamp, "journeyId": beat.journeyId]
-                
-                // Sending the beat message
-                Alamofire.request(.POST, url, parameters: parameters, headers: Headers).responseJSON { response in
-                    print("The Response")
-                    print(response.response?.statusCode)
-                    
-                    // if response is 200 OK from server go on.
-                    if response.response?.statusCode == 200 {
-                        print("The text was send")
-                        
-                        // Save the messageId to the currentBeat
-                        let messageJson = JSON(response.result.value!)
-                        beat.messageId = messageJson["_id"].stringValue
-                        
-                        // If the is an image in the currentBeat, send the image.
-                        if beat.mediaData != nil {
-                            // Send Image
-                            /** Image Parameters including the image in base64 format. */
-                            let imageParams = ["timeCapture": beat.timestamp, "journeyId": beat.journeyId, "data": beat.mediaData!]
-                            
-                            /** The URL for the image*/
-                            let imageUrl = IPAddress + "journeys/" + beat.journeyId + "/images"
-                            
-                            // Sending the image.
-                            Alamofire.request(.POST, imageUrl, parameters: imageParams, headers: Headers).responseJSON { imageResponse in
-                                // If everything is 200 OK from server save the imageId in currentBeat variable mediaDataId.
-                                if imageResponse.response?.statusCode == 200 {
-                                    let imageJson = JSON(imageResponse.result.value!)
-                                    print(imageResponse)
-                                    print("The image has been posted")
-                                    
-                                    // Set the imageId in currentBeat
-                                    print("messageId: ", imageJson["_id"].stringValue)
-                                    beat.mediaDataId = imageJson["_id"].stringValue
-                                    
-                                    // Set the uploaded variable to true as the image has been uplaoded.
-                                    beat.uploaded = true
-                                    saveContext(self.stack.mainContext)
-                                } else if imageResponse.response?.statusCode == 400 {
-                                    print("Error posting the image")
-                                }
-                            }
-                        } else {
-                            beat.uploaded = true
-                            saveContext(self.stack.mainContext)
-                        }
-                        saveContext(self.stack.mainContext)
-                    } else if response.response?.statusCode == 400 {
-                        // Error occured
-                        print("Error posting the message")
-                    }
-
-                    saveContext(self.stack.mainContext)
-                }
-            } else {
-                print("No network!")
-            }
+//            if Reachability.isConnectedToNetwork() {
+//                // TODO: send via alamofire
+//                let url = IPAddress + "journeys/" + beat.journeyId + "/messages"
+//                print("url: ", url)
+//                
+//                // Parameters for the beat message
+//                let parameters = ["headline": beat.title!, "text": beat.message!, "lat": beat.latitude, "lng": beat.longitude, "timeCapture": beat.timestamp, "journeyId": beat.journeyId]
+//                
+//                // Sending the beat message
+//                Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
+//                    print("The Response")
+//                    print(response.response?.statusCode)
+//                    
+//                    // if response is 200 OK from server go on.
+//                    if response.response?.statusCode == 200 {
+//                        print("The text was send")
+//                        
+//                        // Save the messageId to the currentBeat
+//                        let messageJson = JSON(response.result.value!)
+//                        beat.messageId = messageJson["_id"].stringValue
+//                        
+//                        // If the is an image in the currentBeat, send the image.
+//                        if beat.mediaData != nil {
+//                            // Send Image
+//                            /** Image Parameters including the image in base64 format. */
+//                            let imageParams = ["timeCapture": beat.timestamp, "journeyId": beat.journeyId, "data": beat.mediaData!]
+//                            
+//                            /** The URL for the image*/
+//                            let imageUrl = IPAddress + "journeys/" + beat.journeyId + "/images"
+//                            
+//                            // Sending the image.
+//                            Alamofire.request(.POST, imageUrl, parameters: imageParams, encoding: .JSON, headers: Headers).responseJSON { imageResponse in
+//                                // If everything is 200 OK from server save the imageId in currentBeat variable mediaDataId.
+//                                if imageResponse.response?.statusCode == 200 {
+//                                    let imageJson = JSON(imageResponse.result.value!)
+//                                    print(imageResponse)
+//                                    print("The image has been posted")
+//                                    
+//                                    // Set the imageId in currentBeat
+//                                    print("messageId: ", imageJson["_id"].stringValue)
+//                                    beat.mediaDataId = imageJson["_id"].stringValue
+//                                    
+//                                    // Set the uploaded variable to true as the image has been uplaoded.
+//                                    beat.uploaded = true
+//                                    saveContext(self.stack.mainContext)
+//                                } else if imageResponse.response?.statusCode == 400 {
+//                                    print("Error posting the image")
+//                                }
+//                            }
+//                        } else {
+//                            beat.uploaded = true
+//                            saveContext(self.stack.mainContext)
+//                        }
+//                        saveContext(self.stack.mainContext)
+//                    } else if response.response?.statusCode == 400 {
+//                        // Error occured
+//                        print("Error posting the message")
+//                    }
+//
+//                    saveContext(self.stack.mainContext)
+//                }
+//            } else {
+//                print("No network!")
+//            }
             
             
             // Real solution
             
-//            /** Parameters to send to the API.*/
-//            let parameters = ["timeCapture": beat.timestamp, "journeyId": beat.journeyId, "data": beat.mediaData!]
-//            
-//            /** The URL for the post*/
-//            let url = IPAddress + "journeys/" + beat.journeyId + "/images"
-//            
-//            Alamofire.request(.POST, url, parameters: parameters, headers: Headers).responseJSON { response in
-//                print(response)
-//                if response.response?.statusCode == 200 {
-//                    let json = JSON(response.result.value!)
-//                    print("Success for beat: ", beat.title)
-//                    beat.mediaDataId = json["_id"].stringValue
-//                    beat.uploaded = true
-//                    saveContext(self.stack.mainContext)
-//                    self.progressView.progress = Float((100/self.beats.count)/100)
-//                }
-//            }
+            /** Parameters to send to the API.*/
+            let parameters = ["timeCapture": beat.timestamp, "journeyId": beat.journeyId, "data": beat.mediaData!]
+            
+            /** The URL for the post*/
+            let url = IPAddress + "journeys/" + beat.journeyId + "/images"
+            
+            Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
+                print(response)
+                if response.response?.statusCode == 200 {
+                    let json = JSON(response.result.value!)
+                    print("Success for beat: ", beat.title)
+                    beat.mediaDataId = json["_id"].stringValue
+                    beat.uploaded = true
+                    saveContext(self.stack.mainContext)
+                    self.progressView.progress = Float((100/self.beats.count)/100)
+                }
+            }
         }
 
         

@@ -75,7 +75,7 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
                 let parameters = ["headline": currentBeat!.title!, "text": currentBeat!.message!, "lat": currentBeat!.latitude, "lng": currentBeat!.longitude, "timeCapture": currentBeat!.timestamp, "journeyId": (activeJourney?.journeyId)!]
                 
                 // Sending the beat message
-                Alamofire.request(.POST, url, parameters: parameters, headers: Headers).responseJSON { response in
+                Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
                     print("The Response")
                     print(response.response?.statusCode)
                     
@@ -97,7 +97,7 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
                             let imageUrl = IPAddress + "journeys/" + (self.activeJourney?.journeyId)! + "/images"
                             
                             // Sending the image.
-                            Alamofire.request(.POST, imageUrl, parameters: imageParams, headers: Headers).responseJSON { imageResponse in
+                            Alamofire.request(.POST, imageUrl, parameters: imageParams, encoding: .JSON, headers: Headers).responseJSON { imageResponse in
                                 // If everything is 200 OK from server save the imageId in currentBeat variable mediaDataId.
                                 if imageResponse.response?.statusCode == 200 {
                                     let imageJson = JSON(imageResponse.result.value!)
@@ -135,14 +135,14 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
                 }
             } else {
                 // Temporaily save everything instead of sending sms.
-                self.currentBeat?.uploaded = false
-                saveContext(self.stack.mainContext)
-                self.clearTextAndImage()
-                self.setInitialState(true)
+//                self.currentBeat?.uploaded = false
+//                saveContext(self.stack.mainContext)
+//                self.clearTextAndImage()
+//                self.setInitialState(true)
                 
                 // This will send it via SMS, which is temporarily disabled.
-//                let messageText = self.genSMSMessageString(titleTextView.text, message: messageTextView.text, journeyId: self.userDefaults.objectForKey("activeJourneyId") as! String)
-//                self.sendSMS(messageText)
+                let messageText = self.genSMSMessageString(titleTextView.text, message: messageTextView.text, journeyId: self.activeJourney!.journeyId)
+                self.sendSMS(messageText)
                 // The save and setInitial is done in the message methods as it knows whether it fails.
             }
             
@@ -160,9 +160,10 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
     
     /** Button creating a Beat from the information and showing the beatView.*/
     @IBAction func showBeat(sender: AnyObject) {
-        
-        if titleTextView.text == "" && messageTextView.text == "" && currentImage == nil || self.activeJourney == nil {
+        let locationTuple = self.getTimeAndLocation()
+        if titleTextView.text == "" && messageTextView.text == "" && currentImage == nil || self.activeJourney == nil && locationTuple.latitude != "" && locationTuple.longitude != "" {
             // Give a warning that there is not text or no active journey.
+            print("Something is missing")
         } else {
             var title: String? = nil
             var message: String? = nil
@@ -180,7 +181,7 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
                 mediaData = base64String
             }
             
-            let locationTuple = self.getTimeAndLocation()
+//            let locationTuple = self.getTimeAndLocation()
             print("Just Before Crash!")
             self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple.latitude, longitude: locationTuple.longitude, timestamp: locationTuple.timestamp, mediaType: MediaType.image, mediaData: mediaData, mediaDataId: nil, messageId: nil, uploaded: false, journey: activeJourney!)
             print("Just After Crash!")
@@ -206,7 +207,7 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("ViewDidLoad")
         // Set up the core data stack
         let model = CoreDataModel(name: ModelName, bundle: Bundle)
         let factory = CoreDataStackFactory(model: model)
@@ -252,6 +253,15 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
 //        bigGreenBox.layer.borderWidth = 3
 //        bigGreenBox.layer.borderColor = UIColor.greenColor().CGColor
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        print("viewDidAppear")
+        if self.stack != nil {
+            print("Getting active journey")
+            self.getActiveJourney()
+        }
+        //self.getActiveJourney()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -273,9 +283,15 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
         
         do {
             let result = try fetch(request: activeJourney, inContext: stack.mainContext)
-            print("result fetched")
-            print(result[0].headline)
-            self.activeJourney = result[0]
+//            print("result fetched")
+//            print(result[0].headline)
+            if result.count != 0 {
+                print("The new journey has been successfully fetched")
+                self.activeJourney = result[0]
+            } else {
+                print("There is no active journey")
+            }
+            
         } catch {
             print("failed in fetching data")
             assertionFailure("Failed to fetch: \(error)")
@@ -550,6 +566,7 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
         imageButton.imageView?.image = nil
         imageButton.titleLabel?.text = ""
         currentImage = image
+        UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
