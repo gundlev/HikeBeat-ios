@@ -277,14 +277,11 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
         let e = entity(name: EntityType.DataJourney, context: self.stack.mainContext)
         let activeJourney = FetchRequest<DataJourney>(entity: e)
         let firstDesc = NSSortDescriptor(key: "activeString", ascending: true)
-//        let journeyId = userDefaults.stringForKey("activeJourneyId")
         activeJourney.predicate = NSPredicate(format: "active == %@", true)
         activeJourney.sortDescriptors = [firstDesc]
         
         do {
             let result = try fetch(request: activeJourney, inContext: stack.mainContext)
-//            print("result fetched")
-//            print(result[0].headline)
             if result.count != 0 {
                 print("The new journey has been successfully fetched")
                 self.activeJourney = result[0]
@@ -310,9 +307,6 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
             longitude = String(location.coordinate.longitude)
             latitude = String(location.coordinate.latitude)
         }
-//        latitude: 55.700746, longitude: 12.551740999999993
-//        latitude: 55.7039287, longitude: 12.546988499999998)
-//        latitude: 55.7057502, longitude: 12.543364699999984
         return (timeCapture, latitude, longitude)
     }
     

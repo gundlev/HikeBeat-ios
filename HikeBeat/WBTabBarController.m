@@ -55,7 +55,7 @@
     [super viewDidLoad];
 
     [self addCenterButtonWithImage:[UIImage imageNamed:@"hood.png"] highlightImage:[UIImage imageNamed:@"hood-selected.png"] target:self action:@selector(buttonPressed:)];
-    self.selectedIndex = 1;
+    self.selectedIndex = 2;
 }
 
 - (void)viewDidUnload
@@ -92,10 +92,10 @@
     [self.view addSubview:button];
     self.centerButton = button;
 }
-
+// Set the index for the center button.
 - (void)buttonPressed:(id)sender
 {
-    [self setSelectedIndex:1];
+    [self setSelectedIndex:2];
     [self performSelector:@selector(doHighlight:) withObject:sender afterDelay:0];
 }
 

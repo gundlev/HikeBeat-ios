@@ -21,6 +21,10 @@ class UploadVC: UIViewController {
     var stack: CoreDataStack!
     var beats: [DataBeat]!
     
+    @IBAction func logout(sender: AnyObject) {
+        self.userDefaults.setBool(false, forKey: "loggedIn")
+    }
+    
     @IBOutlet weak var test: UIButton!
     @IBAction func performtest(sender: AnyObject) {
         let localBeats = getBeats()

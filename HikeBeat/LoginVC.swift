@@ -171,4 +171,22 @@ class LoginVC: UIViewController {
             }
         }
     }
+    
+    func getBeats() -> [DataBeat]? {
+        
+        
+        let beatEntity = entity(name: EntityType.DataBeat, context: stack.mainContext)
+        
+        let fetchRequest = FetchRequest<DataBeat>(entity: beatEntity)
+        //fetchRequest.predicate = NSPredicate(format: "uploaded == %@", false)
+        //        fetchRequest.predicate = NSPredicate(format: "mediaData != %@", "")
+        
+        do {
+            let result = try fetch(request: fetchRequest, inContext: stack.mainContext)
+            return result
+        } catch {
+            print("The fetch failed")
+            return nil
+        }
+    }
 }
