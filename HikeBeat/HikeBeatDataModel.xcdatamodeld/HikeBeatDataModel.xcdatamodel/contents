@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15A284" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
     <entity name="DataBeat" representedClassName=".DataBeat" syncable="YES">
         <attribute name="journeyId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
@@ -7,11 +7,12 @@
         <attribute name="mediaData" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mediaDataId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mediaType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mediaUploaded" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="messageId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="messageUploaded" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="uploaded" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="journey" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DataJourney" inverseName="beats" inverseEntity="DataJourney" syncable="YES"/>
     </entity>
     <entity name="DataJourney" representedClassName=".DataJourney" syncable="YES">
@@ -26,7 +27,7 @@
         <relationship name="beats" toMany="YES" deletionRule="Cascade" destinationEntity="DataBeat" inverseName="journey" inverseEntity="DataBeat" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DataBeat" positionX="-63" positionY="-18" width="128" height="223"/>
+        <element name="DataBeat" positionX="-63" positionY="-18" width="128" height="240"/>
         <element name="DataJourney" positionX="196" positionY="93" width="128" height="178"/>
     </elements>
 </model>

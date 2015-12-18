@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 let phoneNumber = "004530962591"
 
@@ -18,12 +19,11 @@ public let Headers = [
     "Authorization": "Basic YnpiNDJ1dEpVdzFadVdTSlZtcExkd1hNeFNjZ3dYT3U0WnJBb0w4c3BFSnN0eWp1cm9Ubm5JdHMybTVRZ3hvOjFkZnBqZFM2Z21rRHRkUVFLYkpWeTRIZXpNSzRtUVlhSVdnd3lsamJkWXBNRkpPM2tuUXkwMTJMazJ6QlZTMA=="
 ]
 
-public let IPAddress = "http://178.62.140.147/api/"
+public let IPAddress = "http://95.85.15.125:3000/api/"
 
 func getUserExample() -> JSON {
     
     let user: JSON = ["_id": "00000001","username": "nsg", "permittedPhoneNumbers": ["+4531585010", "+4528357657"], "email": "Niklas@gundlev.dk", "journeyIds": ["J1","J2","J4"], "options": ["name": "Niklas Stokkebro Gundlev", "gender": "Male", "nationality": "Denmark", "notifications": true], "following": ["U2","U3","U4"], "activeJourneyId": "J1", "deviceTokens": ["gfhkdsgafigudsbfudabslifbdksa", "fgdhsaægfildgbfldasbilfuda"]]
-
     return user
 }
 
@@ -50,3 +50,16 @@ func randomStringWithLength (len : Int) -> NSString {
     
     return randomString
 }
+
+func alert(alertTitle: String, alertMessage: String, vc: UIViewController, actions:(title: String, style: UIAlertActionStyle, function: ()->())...) {
+    let alertController = UIAlertController(title: alertTitle, message:
+        alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+    
+    for action in actions {
+        alertController.addAction(UIAlertAction(title: action.title, style: action.style ,handler: {(alert: UIAlertAction!) in
+            action.function()
+        }))
+    }
+    vc.presentViewController(alertController, animated: true, completion: nil)
+}
+

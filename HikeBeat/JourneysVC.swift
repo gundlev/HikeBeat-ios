@@ -172,8 +172,10 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
 //        print(5.1)
 //        cell.setupCell(self.stack, journey: journey, active: (indexPath.section == 0))
-        cell.setupCell2(journeyBeats)
-//        print(5.11)
+        
+//        cell.setupCell2(journeyBeats)
+//      
+        //print(5.11)
         cell.headline.text = journey.headline
 //        print(5.12)
         if indexPath.section == 0 {

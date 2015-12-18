@@ -38,7 +38,7 @@ class LoginVC: UIViewController {
         
 
         /* Sending POST to API to check if the user exists. Will return a json with the user.*/
-        Alamofire.request(.POST, "http://178.62.140.147/api/auth", parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
+        Alamofire.request(.POST, IPAddress + "auth", parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
             
 //            print("\n\n")
 //            print(data!.description)
@@ -53,7 +53,7 @@ class LoginVC: UIViewController {
 //            print("\n\n")
             
             if response.response?.statusCode == 200 {
-                    let user = JSON(response.result.value!)
+                let user = JSON(response.result.value!)
                 
                 print("setting user")
                 self.userDefaults.setObject(user["username"].stringValue, forKey: "username")
@@ -62,6 +62,8 @@ class LoginVC: UIViewController {
                 for (key, value) in user["options"].dictionaryValue {
                     optionsDictionary[key] = value.stringValue
                 }
+                
+                let options = user["options"].dictionaryValue
                 
                 var journeyIdsArray = [String]()
                 for (value) in user["journeyIds"].arrayValue {
@@ -93,6 +95,10 @@ class LoginVC: UIViewController {
                 self.userDefaults.setObject(user["activeJourneyId"].stringValue, forKey: "activeJourneyId")
                 self.userDefaults.setBool(true, forKey: "loggedIn")
                 self.userDefaults.setObject(permittedPhoneNumbersArray, forKey: "permittedPhoneNumbers")
+                self.userDefaults.setBool((options["notifications"]!.boolValue), forKey: "notifications")
+                self.userDefaults.setObject((options["name"]!.stringValue), forKey: "name")
+                self.userDefaults.setObject((options["gender"]!.stringValue), forKey: "gender")
+                self.userDefaults.setObject((options["nationality"]!.stringValue), forKey: "nationality")
 
                 /* Get all the journeys*/
                 print("Getting the journeys")
@@ -117,7 +123,7 @@ class LoginVC: UIViewController {
                                 for (_, message) in journey["messages"]  {
                                     print("Slug: ", message["slug"].stringValue, " for journey: ", headline)
                                     //print(message)
-                                    _ = DataBeat(context: self.stack.mainContext, title: message["headline"].stringValue, journeyId: journey["_id"].stringValue, message: message["text"].stringValue, latitude: message["lat"].stringValue, longitude: message["lng"].stringValue, timestamp: message["timeCapture"].stringValue, mediaType: MediaType.none, mediaData: "", mediaDataId: "", messageId: message["_id"].stringValue, uploaded: true, journey: dataJourney)
+                                    _ = DataBeat(context: self.stack.mainContext, title: message["headline"].stringValue, journeyId: journey["_id"].stringValue, message: message["text"].stringValue, latitude: message["lat"].stringValue, longitude: message["lng"].stringValue, timestamp: message["timeCapture"].stringValue, mediaType: MediaType.none, mediaData: "", mediaDataId: "", messageId: message["_id"].stringValue, mediaUploaded: true, messageUploaded: true, journey: dataJourney)
                                     saveContext(self.stack.mainContext)
                                     
                                 }
@@ -155,8 +161,8 @@ class LoginVC: UIViewController {
         loginButton.layer.borderWidth = 1;
         loginButton.layer.borderColor = UIColor.whiteColor().CGColor
         
-        usernameTextField.text = "lindekaer"
-        passwordTextField.text = "gkBB1991"
+//        usernameTextField.text = "lindekaer"
+//        passwordTextField.text = "gkBB1991"
         
         let model = CoreDataModel(name: ModelName, bundle: Bundle)
         let factory = CoreDataStackFactory(model: model)

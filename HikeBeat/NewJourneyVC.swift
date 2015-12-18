@@ -22,14 +22,16 @@ class NewJourneyVC: UIViewController, UITextFieldDelegate {
     @IBAction func createJourney(sender: AnyObject) {
         
         if slugInput.text != "" && headlineInput.text != "" {
+            print((userDefaults.stringForKey("_id"))!)
+            print(slugInput.text!)
             let parameters: [String: AnyObject] = ["userId": (userDefaults.stringForKey("_id"))!, "slug": slugInput.text!, "options": ["headline": headlineInput.text!]]
             let url = IPAddress + "users/" + userDefaults.stringForKey("_id")! + "/journeys"
             
             Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
                 print(response.response)
                 print(response.response?.statusCode)
-                let json = JSON(response.result.value!)
                 if response.response?.statusCode == 200 {
+                    let json = JSON(response.result.value!)
                     print("Journey Created!")
                     _ = DataJourney(context: self.stack.mainContext, slug: self.slugInput.text, userId: (self.userDefaults.stringForKey("_id"))!, journeyId: json["_id"].stringValue, headline: self.headlineInput.text, journeyDescription: nil, active: false, type: "straight")
                     saveContext(self.stack.mainContext)

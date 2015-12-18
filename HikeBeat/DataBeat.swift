@@ -22,7 +22,8 @@ public final class DataBeat: NSManagedObject, Comparable {
     @NSManaged var mediaData: String?
     @NSManaged var mediaDataId: String?
     @NSManaged var messageId: String?
-    @NSManaged var uploaded: Bool
+    @NSManaged var mediaUploaded: Bool
+    @NSManaged var messageUploaded: Bool
 //    @NSManaged var hike: String
     @NSManaged var journey: DataJourney
     
@@ -38,7 +39,8 @@ public final class DataBeat: NSManagedObject, Comparable {
         mediaData: String?,
         mediaDataId: String?,
         messageId: String?,
-        uploaded: Bool,
+        mediaUploaded: Bool,
+        messageUploaded: Bool,
 //        hike: String,
         journey: DataJourney) {
             
@@ -55,7 +57,8 @@ public final class DataBeat: NSManagedObject, Comparable {
         self.mediaData = mediaData
         self.mediaDataId = mediaDataId
         self.messageId = messageId
-        self.uploaded = uploaded
+        self.mediaUploaded = mediaUploaded
+        self.messageUploaded = messageUploaded
 //        self.hike = hike
         self.journey = journey
             

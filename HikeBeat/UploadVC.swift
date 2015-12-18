@@ -22,7 +22,8 @@ class UploadVC: UIViewController {
     var beats: [DataBeat]!
     
     @IBAction func logout(sender: AnyObject) {
-        self.userDefaults.setBool(false, forKey: "loggedIn")
+        let success = syncWithAPI(stack)
+        print("Success: ", success)
     }
     
     @IBOutlet weak var test: UIButton!
@@ -33,7 +34,7 @@ class UploadVC: UIViewController {
         for beat in localBeats! {
             print(beat.title)
             print(beat.mediaDataId)
-            print(beat.uploaded)
+            print(beat.mediaUploaded)
         }
     }
     
@@ -43,7 +44,28 @@ class UploadVC: UIViewController {
         
         for beat in beats {
             print(beat.title)
-            print(beat.uploaded)
+            print(beat.mediaUploaded)
+            
+            // Real solution
+            
+            /** Parameters to send to the API.*/
+            let parameters = ["timeCapture": beat.timestamp, "journeyId": beat.journeyId, "data": beat.mediaData!]
+            
+            /** The URL for the post*/
+            let url = IPAddress + "journeys/" + beat.journeyId + "/images"
+            
+            Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
+                print(response)
+                if response.response?.statusCode == 200 {
+                    let json = JSON(response.result.value!)
+                    print("Success for beat: ", beat.title)
+                    beat.mediaDataId = json["_id"].stringValue
+                    beat.mediaUploaded = true
+                    saveContext(self.stack.mainContext)
+                    self.progressView.progress = Float((100/self.beats.count)/100)
+                }
+            }
+        }
             
             // Temporary solution
             
@@ -113,26 +135,8 @@ class UploadVC: UIViewController {
 //            }
             
             
-            // Real solution
-            
-            /** Parameters to send to the API.*/
-            let parameters = ["timeCapture": beat.timestamp, "journeyId": beat.journeyId, "data": beat.mediaData!]
-            
-            /** The URL for the post*/
-            let url = IPAddress + "journeys/" + beat.journeyId + "/images"
-            
-            Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
-                print(response)
-                if response.response?.statusCode == 200 {
-                    let json = JSON(response.result.value!)
-                    print("Success for beat: ", beat.title)
-                    beat.mediaDataId = json["_id"].stringValue
-                    beat.uploaded = true
-                    saveContext(self.stack.mainContext)
-                    self.progressView.progress = Float((100/self.beats.count)/100)
-                }
-            }
-        }
+
+        
 
         
         
@@ -171,7 +175,7 @@ class UploadVC: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        if Reachability.isConnectedToNetwork() {
+        if SimpleReachability.isConnectedToNetwork() {
             conLabel.text = "Connected To Network"
             uploadButton.enabled = true
         } else {
@@ -188,7 +192,7 @@ class UploadVC: UIViewController {
         let beatEntity = entity(name: EntityType.DataBeat, context: stack.mainContext)
 
         let fetchRequest = FetchRequest<DataBeat>(entity: beatEntity)
-        fetchRequest.predicate = NSPredicate(format: "uploaded == %@", false)
+        fetchRequest.predicate = NSPredicate(format: "mediaUploaded == %@", false)
 //        fetchRequest.predicate = NSPredicate(format: "mediaData != %@", "")
         
         do {

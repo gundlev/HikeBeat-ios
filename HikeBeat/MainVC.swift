@@ -66,7 +66,7 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
         if ((titleTextView.text.characters.count + messageTextView.text.characters.count) > 0) {
             
             // Check if there is any network connection and send via the appropriate means.
-            if Reachability.isConnectedToNetwork() {
+            if SimpleReachability.isConnectedToNetwork() {
                 // TODO: send via alamofire
                 let url = IPAddress + "journeys/" + (activeJourney?.journeyId)! + "/messages"
                 print("url: ", url)
@@ -109,14 +109,14 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
                                     self.currentBeat?.mediaDataId = imageJson["_id"].stringValue
                                     
                                     // Set the uploaded variable to true as the image has been uplaoded.
-                                    self.currentBeat?.uploaded = true
+                                    self.currentBeat?.mediaUploaded = true
                                     saveContext(self.stack.mainContext)
                                 } else if imageResponse.response?.statusCode == 400 {
                                     print("Error posting the image")
                                 }
                             }
                         } else {
-                            self.currentBeat?.uploaded = true
+                            self.currentBeat?.mediaUploaded = true
                             saveContext(self.stack.mainContext)
                         }
                         saveContext(self.stack.mainContext)
@@ -183,7 +183,7 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
             
 //            let locationTuple = self.getTimeAndLocation()
             print("Just Before Crash!")
-            self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple.latitude, longitude: locationTuple.longitude, timestamp: locationTuple.timestamp, mediaType: MediaType.image, mediaData: mediaData, mediaDataId: nil, messageId: nil, uploaded: false, journey: activeJourney!)
+            self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple.latitude, longitude: locationTuple.longitude, timestamp: locationTuple.timestamp, mediaType: MediaType.image, mediaData: mediaData, mediaDataId: nil, messageId: nil, mediaUploaded: false, messageUploaded: false, journey: activeJourney!)
             print("Just After Crash!")
             self.getBeatBox()
         }
@@ -350,7 +350,7 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
     */
     func getBeatBox() {
         
-        if Reachability.isConnectedToNetwork() {
+        if SimpleReachability.isConnectedToNetwork() {
             // TODO: Set icon for cennected.
         }
         
@@ -397,7 +397,8 @@ class MainVC: UIViewController, MFMessageComposeViewControllerDelegate, UIImageP
             print("Message Sent")
             
             /* Save the Beat and setInitial*/
-            self.currentBeat?.uploaded = false
+            self.currentBeat?.mediaUploaded = false
+            self.currentBeat?.messageUploaded = true
             saveContext(stack.mainContext)
             self.clearTextAndImage()
             self.setInitialState(true)

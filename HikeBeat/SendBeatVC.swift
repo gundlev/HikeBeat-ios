@@ -299,6 +299,24 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
     override func viewDidAppear(animated: Bool) {
         print("Original x", titleView.center.x)
         
+        if self.stack != nil {
+            // Set up the core data stack
+            let model = CoreDataModel(name: ModelName, bundle: Bundle)
+            let factory = CoreDataStackFactory(model: model)
+            
+            factory.createStackInBackground { (result: CoreDataStackResult) -> Void in
+                switch result {
+                case .Success(let s):
+                    print("Created stack!")
+                    self.stack = s
+                    self.getActiveJourney()
+                case .Failure(let err):
+                    print("Failed creating the stack")
+                    print(err)
+                }
+            }
+        }
+        
         // Get active journey if its not already there
         if self.stack != nil {
             print("Getting active journey")
@@ -314,7 +332,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
             swipeView.title.textColor = UIColor.whiteColor()
             swipeView.title.font = UIFont.boldSystemFontOfSize(17.0)
             swipeView.action = {
-                self.alert("It's send!", alertMessage: "Your Beat has been sent", actionTitle: "Awesome!")
+                //self.alert("It's send!", alertMessage: "Your Beat has been sent", actionTitle: "Awesome!")
                 self.checkForCorrectInput()
             }
             self.firstTimeAppearing = false
@@ -342,10 +360,13 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
     
     func checkForCorrectInput() {
         let locationTuple = self.getTimeAndLocation()
-        if titleTextField.text == "" && messageTextView.text == "" && currentImage == nil || self.activeJourney == nil && locationTuple.latitude != "" && locationTuple.longitude != "" {
-            print("Something is not correct")
+        if ((titleTextField.text == "" && messageTextView.text == "" && currentImage == nil) || self.activeJourney == nil || locationTuple.latitude == "" || locationTuple.longitude == "") {
             // Give a warning that there is not text or no active journey.
             print("Something is missing")
+            print("Text: ", titleTextField.text == "" && messageTextView.text == "" && currentImage == nil)
+            print("Journey: ", self.activeJourney == nil)
+            print("Lat: ", locationTuple.latitude)
+            print("Lng: ", locationTuple.longitude)
         } else {
             var title: String? = nil
             var message: String? = nil
@@ -365,7 +386,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
             
             //            let locationTuple = self.getTimeAndLocation()
             print("Just Before Crash!")
-            self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple.latitude, longitude: locationTuple.longitude, timestamp: locationTuple.timestamp, mediaType: MediaType.image, mediaData: mediaData, mediaDataId: nil, messageId: nil, uploaded: false, journey: activeJourney!)
+            self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple.latitude, longitude: locationTuple.longitude, timestamp: locationTuple.timestamp, mediaType: MediaType.image, mediaData: mediaData, mediaDataId: nil, messageId: nil, mediaUploaded: false, messageUploaded: false, journey: activeJourney!)
             print("Just After Crash!")
             self.sendBeat()
         }
@@ -375,22 +396,39 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
         if ((titleTextField.text!.characters.count + messageTextView.text.characters.count) > 0) {
             
             // Check if there is any network connection and send via the appropriate means.
-            if Reachability.isConnectedToNetwork() {
+            if SimpleReachability.isConnectedToNetwork() {
                 // TODO: send via alamofire
                 let url = IPAddress + "journeys/" + (activeJourney?.journeyId)! + "/messages"
                 print("url: ", url)
                 
                 // Parameters for the beat message
-                let parameters = ["headline": currentBeat!.title!, "text": currentBeat!.message!, "lat": currentBeat!.latitude, "lng": currentBeat!.longitude, "timeCapture": currentBeat!.timestamp, "journeyId": (activeJourney?.journeyId)!]
+                print("activeJourneyId", (activeJourney?.journeyId)!)
+                print(currentBeat?.latitude)
+                print(currentBeat?.longitude)
+                print(currentBeat?.title)
+                print(currentBeat?.message)
+                print(currentBeat?.timestamp)
+                var localTitle = ""
+                var localMessage = ""
+                if currentBeat!.message != nil {
+                    localTitle = currentBeat!.message!
+                }
+                if currentBeat!.title != nil {
+                    localMessage = currentBeat!.title!
+                }
                 
+                let parameters = ["headline": localTitle, "text": localMessage, "lat": currentBeat!.latitude, "lng": currentBeat!.longitude, "timeCapture": currentBeat!.timestamp]
+                print(1)
                 // Sending the beat message
                 Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
                     print("The Response")
                     print(response.response?.statusCode)
+                    print(response)
                     
                     // if response is 200 OK from server go on.
                     if response.response?.statusCode == 200 {
                         print("The text was send")
+                        self.currentBeat?.messageUploaded = true
                         
                         // Save the messageId to the currentBeat
                         let messageJson = JSON(response.result.value!)
@@ -418,15 +456,21 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                                     self.currentBeat?.mediaDataId = imageJson["_id"].stringValue
                                     
                                     // Set the uploaded variable to true as the image has been uplaoded.
-                                    self.currentBeat?.uploaded = true
+                                    self.currentBeat?.mediaUploaded = true
                                     saveContext(self.stack.mainContext)
                                 } else if imageResponse.response?.statusCode == 400 {
                                     print("Error posting the image")
                                 }
+                                
+                                self.setInitial(true)
+                                self.swipeView.setBack(true)
                             }
                         } else {
-                            self.currentBeat?.uploaded = true
+                            print("There's no image")
+                            self.currentBeat?.mediaUploaded = true
                             saveContext(self.stack.mainContext)
+                            self.setInitial(true)
+                            self.swipeView.setBack(true)
                         }
                         saveContext(self.stack.mainContext)
                     } else if response.response?.statusCode == 400 {
@@ -439,11 +483,14 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                     // TODO: save the Beat
                     saveContext(self.stack.mainContext)
                     //                    self.saveCurrentBeat(uploaded)
-                    self.setInitial(true)
+                    //self.setInitial(true)
                 }
+//                self.setInitial(true)
+//                self.swipeView.setBack(true)
             } else {
                 
                 // This will send it via SMS, which is temporarily disabled.
+                print("Not reachable, should send sms")
                 let messageText = self.genSMSMessageString(titleTextField.text!, message: messageTextView.text, journeyId: self.activeJourney!.journeyId)
                 self.sendSMS(messageText)
                 // The save and setInitial is done in the message methods as it knows whether it fails.
@@ -627,12 +674,18 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
             self.dismissViewControllerAnimated(true, completion: nil)
         case MessageComposeResultFailed.rawValue:
             print("Message Failed")
+            
             self.dismissViewControllerAnimated(true, completion: nil)
         case MessageComposeResultSent.rawValue:
             print("Message Sent")
             
             /* Save the Beat and setInitial*/
-            self.currentBeat?.uploaded = false
+            if currentBeat?.mediaData != nil {
+                self.currentBeat?.mediaUploaded = false
+            } else {
+                self.currentBeat?.mediaUploaded = true
+            }
+            self.currentBeat?.messageUploaded = true
             saveContext(stack.mainContext)
             self.setInitial(true)
             self.swipeView.setBack(true)
@@ -652,6 +705,8 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
      
      */
     func sendSMS(smsBody: String) {
+        
+        print("In sms function")
         let messageVC = MFMessageComposeViewController()
         if MFMessageComposeViewController.canSendText() {
             messageVC.body = smsBody
