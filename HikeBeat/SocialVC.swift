@@ -16,6 +16,8 @@ class SocialVC: UIViewController, CAPSPageMenuDelegate {
     @IBOutlet weak var subView: UIView!
     override func viewDidLoad() {
         
+        self.view.backgroundColor = UIColor.greenColor()
+        
         // Array to keep track of controllers in page menu
         var controllerArray : [UIViewController] = []
         
@@ -34,9 +36,14 @@ class SocialVC: UIViewController, CAPSPageMenuDelegate {
         discoverVC.title = "Discover"
         let followsVC = storyboard.instantiateViewControllerWithIdentifier("follows")
         followsVC.title = "Follows"
+        let followNavVC = storyboard.instantiateViewControllerWithIdentifier("followNav")
+        followNavVC.title = "FollowNav"
         
         controllerArray.append(discoverVC)
         controllerArray.append(followsVC)
+        controllerArray.append(followNavVC)
+        
+        var font = UIFont.systemFontOfSize(23)
         
         // Customize page menu to your liking (optional) or use default settings by sending nil for 'options' in the init
         // Example:
@@ -46,7 +53,10 @@ class SocialVC: UIViewController, CAPSPageMenuDelegate {
             .MenuItemSeparatorPercentageHeight(0.0),
             .MenuHeight(50),
             .ScrollMenuBackgroundColor(UIColor.greenColor()),
-            .SelectionIndicatorColor(UIColor.whiteColor())
+            .SelectionIndicatorColor(UIColor.whiteColor()),
+            .ScrollAnimationDurationOnMenuItemTap(300),
+            .AddBottomMenuHairline(true),
+            .MenuItemFont(font)
         ]
         
         // Initialize page menu with controller array, frame, and optional parameters

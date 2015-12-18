@@ -63,6 +63,7 @@
 		85A44FD71C237B8100F3C7FD /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A44FD61C237B8100F3C7FD /* CAPSPageMenu.swift */; };
 		85A44FD91C24003800F3C7FD /* DiscoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A44FD81C24003800F3C7FD /* DiscoverVC.swift */; };
 		85A44FDB1C24006200F3C7FD /* FollowsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A44FDA1C24006200F3C7FD /* FollowsVC.swift */; };
+		85A44FDD1C2406AF00F3C7FD /* FollowRootViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A44FDC1C2406AF00F3C7FD /* FollowRootViewVC.swift */; };
 		85B3FA671C17327C001A46AB /* NSGSwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B3FA661C17327C001A46AB /* NSGSwipeView.swift */; };
 		85B3FA6D1C17380A001A46AB /* SendBeatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B3FA6C1C17380A001A46AB /* SendBeatVC.swift */; };
 		85FF53B91BE3B8FF00B413BA /* JourneysCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FF53B81BE3B8FF00B413BA /* JourneysCell.swift */; };
@@ -209,6 +210,7 @@
 		85A44FD61C237B8100F3C7FD /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
 		85A44FD81C24003800F3C7FD /* DiscoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverVC.swift; sourceTree = "<group>"; };
 		85A44FDA1C24006200F3C7FD /* FollowsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowsVC.swift; sourceTree = "<group>"; };
+		85A44FDC1C2406AF00F3C7FD /* FollowRootViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowRootViewVC.swift; sourceTree = "<group>"; };
 		85B3FA661C17327C001A46AB /* NSGSwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSGSwipeView.swift; sourceTree = "<group>"; };
 		85B3FA6C1C17380A001A46AB /* SendBeatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendBeatVC.swift; sourceTree = "<group>"; };
 		85FF53B81BE3B8FF00B413BA /* JourneysCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneysCell.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				8558C1E71C1CA70D0033F873 /* SocialVC.swift */,
 				85A44FD81C24003800F3C7FD /* DiscoverVC.swift */,
 				85A44FDA1C24006200F3C7FD /* FollowsVC.swift */,
+				85A44FDC1C2406AF00F3C7FD /* FollowRootViewVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 				853003E71BBD686700A6D27F /* SwiftyJSON.swift in Sources */,
 				851841361BD009C2002BBCD1 /* Async.swift in Sources */,
 				8518412A1BCD3F5F002BBCD1 /* CoreDataStackResult.swift in Sources */,
+				85A44FDD1C2406AF00F3C7FD /* FollowRootViewVC.swift in Sources */,
 				8558C1EE1C1CA73B0033F873 /* SettingsVC.swift in Sources */,
 				853003A71BBD65F900A6D27F /* AppDelegate.swift in Sources */,
 				8530043B1BBD6C5200A6D27F /* ProfileVC.swift in Sources */,
