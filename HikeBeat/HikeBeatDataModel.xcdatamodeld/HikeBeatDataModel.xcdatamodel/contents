@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
+    <entity name="Change" representedClassName=".Change" syncable="YES">
+        <attribute name="boolValue" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="changeAction" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="instanceId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="instanceType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="property" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stringValue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeCommitted" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="DataBeat" representedClassName=".DataBeat" syncable="YES">
         <attribute name="journeyId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
@@ -27,6 +36,7 @@
         <relationship name="beats" toMany="YES" deletionRule="Cascade" destinationEntity="DataBeat" inverseName="journey" inverseEntity="DataBeat" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Change" positionX="63" positionY="117" width="128" height="150"/>
         <element name="DataBeat" positionX="-63" positionY="-18" width="128" height="240"/>
         <element name="DataJourney" positionX="196" positionY="93" width="128" height="178"/>
     </elements>

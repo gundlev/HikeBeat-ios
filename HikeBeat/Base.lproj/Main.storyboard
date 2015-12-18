@@ -19,14 +19,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNN-Vo-GtL">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNN-Vo-GtL">
                                 <rect key="frame" x="275" y="435" width="50" height="30"/>
                                 <state key="normal" title="Upload"/>
                                 <connections>
                                     <action selector="uploadImages:" destination="9pv-A4-QxB" eventType="touchUpInside" id="GSP-mG-enY"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vEg-5h-6aN">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vEg-5h-6aN">
                                 <rect key="frame" x="51" y="508" width="498" height="2"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Con" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmr-FE-UHP">
@@ -466,7 +466,27 @@
                     <view key="view" contentMode="scaleToFill" id="AQG-O5-5T0">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4H6-Gi-GRI">
+                                <rect key="frame" x="252" y="319" width="97" height="30"/>
+                                <state key="normal" title="Print Changes"/>
+                                <connections>
+                                    <action selector="printChanges:" destination="fdH-Wq-1qq" eventType="touchUpInside" id="FYm-bO-NyJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hu7-Tu-8CN">
+                                <rect key="frame" x="249" y="173" width="103" height="30"/>
+                                <state key="normal" title="Create Change"/>
+                                <connections>
+                                    <action selector="createChange:" destination="fdH-Wq-1qq" eventType="touchUpInside" id="6FI-d7-n46"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4H6-Gi-GRI" firstAttribute="centerX" secondItem="AQG-O5-5T0" secondAttribute="centerX" id="DIL-MQ-yYg"/>
+                            <constraint firstItem="hu7-Tu-8CN" firstAttribute="centerX" secondItem="AQG-O5-5T0" secondAttribute="centerX" id="XMX-eU-IVj"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" image="first" id="HFg-dl-LEE"/>
                 </viewController>

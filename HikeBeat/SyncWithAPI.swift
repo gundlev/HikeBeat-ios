@@ -11,6 +11,20 @@ import Alamofire
 
 let userDefaults = NSUserDefaults.standardUserDefaults()
 
+
+/*
+    Sync with API to get changes made on the website.
+*/
+
+
+/**
+    Creates a datastructure describing the current state of journeys and beats.
+
+    - parameters:
+        - CoreDataStack: stack
+
+    - returns: [String: AnyObject]?
+*/
 private func createDataStructureForSync(stack: CoreDataStack) -> [String: AnyObject]? {
     let tuble = getAllLocalData(stack)
     
@@ -19,10 +33,8 @@ private func createDataStructureForSync(stack: CoreDataStack) -> [String: AnyObj
         let journeys = tuble!.journeys
         let beats = tuble!.beats
         
-//        var dataStructure : [Dictionary<String,AnyObject>] = [Dictionary<String,AnyObject>]()
         var structure: [[String:AnyObject]] = [[String:AnyObject]]()
         for journey in journeys {
-            //var localObject = Dictionary<String,AnyObject>()
             var localObject = [String: AnyObject]()
             
             // Create beatId array
@@ -46,7 +58,16 @@ private func createDataStructureForSync(stack: CoreDataStack) -> [String: AnyObj
     }
 }
 
-func syncWithAPI(stack: CoreDataStack) -> Bool? {
+/**
+    public function to sync with the API.
+ 
+    - parameters:
+        - CoreDataStack: stack
+ 
+    - returns: Bool
+ 
+*/
+public func syncWithAPI(stack: CoreDataStack) -> Bool? {
     let data = createDataStructureForSync(stack)
     
     if data != nil {
