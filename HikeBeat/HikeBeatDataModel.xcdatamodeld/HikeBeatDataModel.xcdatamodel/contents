@@ -8,6 +8,7 @@
         <attribute name="property" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stringValue" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeCommitted" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="DataBeat" representedClassName=".DataBeat" syncable="YES">
         <attribute name="journeyId" optional="YES" attributeType="String" syncable="YES"/>
@@ -36,7 +37,7 @@
         <relationship name="beats" toMany="YES" deletionRule="Cascade" destinationEntity="DataBeat" inverseName="journey" inverseEntity="DataBeat" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Change" positionX="63" positionY="117" width="128" height="150"/>
+        <element name="Change" positionX="63" positionY="117" width="128" height="165"/>
         <element name="DataBeat" positionX="-63" positionY="-18" width="128" height="240"/>
         <element name="DataJourney" positionX="196" positionY="93" width="128" height="178"/>
     </elements>

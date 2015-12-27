@@ -9,8 +9,8 @@
 import UIKit
 import MessageUI
 import CoreData
-//import JSQCoreDataKit
 import Alamofire
+import CoreTelephony
 
 class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFMessageComposeViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -372,10 +372,10 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
             var message: String? = nil
             var mediaData: String? = nil
             
-            if titleTextField.text != "" {
+            if titleTextField.text != "" || titleTextField.text != " " || titleTextField.text != "  " || titleTextField.text != "   " {
                 title = self.titleTextField.text
             }
-            if messageTextView.text != "" {
+            if messageTextView.text != "" || titleTextField.text != " " || titleTextField.text != "  " || titleTextField.text != "   "{
                 message = self.messageTextView.text
             }
             if currentImage != nil {
@@ -392,7 +392,13 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
         }
     }
     
+    
+    func what() {
+        
+    }
+    
     func sendBeat() {
+        
         if ((titleTextField.text!.characters.count + messageTextView.text.characters.count) > 0) {
             
             // Check if there is any network connection and send via the appropriate means.
@@ -431,11 +437,13 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                         self.currentBeat?.messageUploaded = true
                         
                         // Save the messageId to the currentBeat
-                        let messageJson = JSON(response.result.value!)
+                        let rawMessageJson = JSON(response.result.value!)
+                        let messageJson = rawMessageJson["data"][0]
                         self.currentBeat?.messageId = messageJson["_id"].stringValue
                         
                         // If the is an image in the currentBeat, send the image.
                         if self.currentBeat?.mediaData != nil {
+                            print("There is an image!")
                             // Send Image
                             /** Image Parameters including the image in base64 format. */
                             let imageParams = ["timeCapture": self.currentBeat!.timestamp, "journeyId": (self.activeJourney?.journeyId)!, "data": (self.currentBeat?.mediaData)!]
@@ -447,7 +455,8 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                             Alamofire.request(.POST, imageUrl, parameters: imageParams, encoding: .JSON, headers: Headers).responseJSON { imageResponse in
                                 // If everything is 200 OK from server save the imageId in currentBeat variable mediaDataId.
                                 if imageResponse.response?.statusCode == 200 {
-                                    let imageJson = JSON(imageResponse.result.value!)
+                                    let rawImageJson = JSON(imageResponse.result.value!)
+                                    let imageJson = rawImageJson["data"][0]
                                     print(imageResponse)
                                     print("The image has been posted")
                                     
@@ -489,7 +498,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
 //                self.swipeView.setBack(true)
             } else {
                 
-                // This will send it via SMS, which is temporarily disabled.
+                // This will send it via SMS.
                 print("Not reachable, should send sms")
                 let messageText = self.genSMSMessageString(titleTextField.text!, message: messageTextView.text, journeyId: self.activeJourney!.journeyId)
                 self.sendSMS(messageText)
@@ -681,8 +690,10 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
             
             /* Save the Beat and setInitial*/
             if currentBeat?.mediaData != nil {
+                print("SMS function: There is an image")
                 self.currentBeat?.mediaUploaded = false
             } else {
+                print("SMS function: There is no image")
                 self.currentBeat?.mediaUploaded = true
             }
             self.currentBeat?.messageUploaded = true

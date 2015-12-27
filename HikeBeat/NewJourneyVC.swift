@@ -31,7 +31,8 @@ class NewJourneyVC: UIViewController, UITextFieldDelegate {
                 print(response.response)
                 print(response.response?.statusCode)
                 if response.response?.statusCode == 200 {
-                    let json = JSON(response.result.value!)
+                    let rawJson = JSON(response.result.value!)
+                    let json = rawJson["data"][0]
                     print("Journey Created!")
                     _ = DataJourney(context: self.stack.mainContext, slug: self.slugInput.text, userId: (self.userDefaults.stringForKey("_id"))!, journeyId: json["_id"].stringValue, headline: self.headlineInput.text, journeyDescription: nil, active: false, type: "straight")
                     saveContext(self.stack.mainContext)

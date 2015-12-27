@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 import MapKit
+import Alamofire
 
 class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, MKMapViewDelegate {
     
@@ -45,9 +46,15 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
             
             var title = ""
             var subtitle = ""
-            if beat.title != nil {
+            if beat.title != nil  && beat.message != nil {
                 title = beat.title!
+                subtitle = beat.message!
+            } else if beat.title != nil  && beat.message == nil {
+                title = beat.title!
+            } else if beat.title == nil  && beat.message != nil {
+                title = beat.message!
             }
+            
             if beat.message != nil {
                 subtitle = beat.message!
             }
@@ -252,7 +259,37 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
                 mapView.removeAnnotation(lastPin!)
                 mapView.addAnnotation(lastPin!)
             }
+ /*
+            Ready for beat timestamp implementation.
             
+            let url = IPAddress + "journeys/" + obj.journeyId + "/messages/" + obj.timestamp
+            
+            // Sending deletion to API or saving to Changes Core Data store
+            if SimpleReachability.isConnectedToNetwork() {
+                Alamofire.request(.DELETE, url, encoding: .JSON, headers: Headers).responseJSON { response in
+                    if response.response != nil {
+                        switch response.response!.statusCode {
+                        case 200:
+                            print("It was successfully dealeted")
+                            deleteObjects([obj], inContext: self.stack.mainContext)
+                            saveContext(self.stack.mainContext)
+                        default:
+                            print("Unknown error with code: ", response.response?.statusCode)
+                            _ = Change(context: self.stack.mainContext, instanceType: InstanceType.beat, timeCommitted: String(CACurrentMediaTime()), stringValue: nil, boolValue: false, property: nil, instanceId: obj.journeyId, changeAction: ChangeAction.delete, timestamp: obj.timestamp)
+                            saveContext(self.stack.mainContext)
+                        }
+                    } else {
+                        print("For some reason response is nil")
+                    }
+                }
+            } else {
+                // There is no connection so the deletion will be saved in changes.
+                
+                _ = Change(context: self.stack.mainContext, instanceType: InstanceType.beat, timeCommitted: String(CACurrentMediaTime()), stringValue: nil, boolValue: false, property: nil, instanceId: obj.journeyId, changeAction: ChangeAction.delete, timestamp: obj.timestamp)
+                saveContext(self.stack.mainContext)
+            }
+*/
+
             // Deleting the object in the database.
             deleteObjects([obj], inContext: self.stack.mainContext)
             saveContext(self.stack.mainContext)

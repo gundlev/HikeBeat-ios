@@ -69,13 +69,17 @@ class SettingsVC: FormViewController {
                 
                 if response.response?.statusCode == 200 {
                     print("It has been changes in the db")
-                    
+                    ChangeAction.update
                 } else {
-                    print("Something went wrong")
+                    print("No connection or fail, saving change")
+                    _ = Change(context: self.stack.mainContext, instanceType: InstanceType.user, timeCommitted: String(CACurrentMediaTime()), stringValue: nil, boolValue: value, property: UserProperty.notifications, instanceId: nil, changeAction: ChangeAction.update, timestamp: nil)
+                    saveContext(self.stack.mainContext)
                 }
             }
         } else {
             // Save to changes data structure when created.
+            _ = Change(context: self.stack.mainContext, instanceType: InstanceType.user, timeCommitted: String(CACurrentMediaTime()), stringValue: nil, boolValue: value, property: UserProperty.notifications, instanceId: nil, changeAction: ChangeAction.update, timestamp: nil)
+            saveContext(self.stack.mainContext)
         }
     }
     
@@ -90,8 +94,8 @@ class SettingsVC: FormViewController {
                     "Are you sure",
                     alertMessage: "Logging back in requires network connection",
                     vc: self,
-                    actions:(
-                        title: "Logout", style: UIAlertActionStyle.Default, function: {
+                    actions:
+                        (title: "Logout", style: UIAlertActionStyle.Default, function: {
                             print("Logging out")
                             self.performSegueWithIdentifier("logout", sender: self)
                         }),

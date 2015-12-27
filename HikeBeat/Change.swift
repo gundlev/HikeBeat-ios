@@ -16,9 +16,10 @@ public final class Change: NSManagedObject, Comparable {
     @NSManaged var timeCommitted: String
     @NSManaged var stringValue: String?
     @NSManaged var boolValue: Bool
-    @NSManaged var property: String
-    @NSManaged var instanceId: String
+    @NSManaged var property: String?
+    @NSManaged var instanceId: String?
     @NSManaged var changeAction: String
+    @NSManaged var timestamp: String?
     
     convenience init(
         context: NSManagedObjectContext,
@@ -26,9 +27,10 @@ public final class Change: NSManagedObject, Comparable {
         timeCommitted: String,
         stringValue: String?,
         boolValue: Bool,
-        property: String,
-        instanceId: String,
-        changeAction: String) {
+        property: String?,
+        instanceId: String?,
+        changeAction: String,
+        timestamp: String?) {
             
         let entity = NSEntityDescription.entityForName(EntityType.Change, inManagedObjectContext: context)
         self.init(entity: entity!, insertIntoManagedObjectContext: context)
@@ -40,6 +42,7 @@ public final class Change: NSManagedObject, Comparable {
         self.property = property
         self.instanceId = instanceId
         self.changeAction = changeAction
+        self.timestamp = timestamp
     }
     
 }

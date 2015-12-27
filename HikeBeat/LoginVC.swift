@@ -44,7 +44,7 @@ class LoginVC: UIViewController {
 //            print(data!.description)
 //            print("\n\n")
 //            print("\n\n")
-            print(response)
+            print("Response: ",response)
             print(response.response?.statusCode)
             
 //            print("\n\n")
@@ -53,23 +53,26 @@ class LoginVC: UIViewController {
 //            print("\n\n")
             
             if response.response?.statusCode == 200 {
-                let user = JSON(response.result.value!)
+                print("value: ", response.result.value)
+                let firstJson = JSON(response.result.value!)
+                let user = firstJson["data"][0]
                 
                 print("setting user")
                 self.userDefaults.setObject(user["username"].stringValue, forKey: "username")
-                
+                print(1)
                 var optionsDictionary = [String:String]()
                 for (key, value) in user["options"].dictionaryValue {
                     optionsDictionary[key] = value.stringValue
                 }
-                
-                let options = user["options"].dictionaryValue
-                
+                print(2)
+//                let options = user["options"].dictionaryValue
+//                print("Options: ", options)
+                print(3)
                 var journeyIdsArray = [String]()
                 for (value) in user["journeyIds"].arrayValue {
                     journeyIdsArray.append(value.stringValue)
                 }
-                
+                print(4)
                 var followingArray = [String]()
                 for (value) in user["following"].arrayValue {
                     followingArray.append(value.stringValue)
@@ -79,26 +82,27 @@ class LoginVC: UIViewController {
                 for (value) in user["deviceTokens"].arrayValue {
                     deviceTokensArray.append(value.stringValue)
                 }
-
+                print(5)
                 var permittedPhoneNumbersArray = [String]()
                 for (value) in user["permittedPhoneNumbers"].arrayValue {
                     permittedPhoneNumbersArray.append(value.stringValue)
                 }
-                
+                print(6)
                 self.userDefaults.setObject(optionsDictionary, forKey: "options")
                 self.userDefaults.setObject(journeyIdsArray, forKey: "journeyIds")
                 self.userDefaults.setObject(followingArray, forKey: "following")
                 self.userDefaults.setObject(deviceTokensArray, forKey: "deviceTokens")
                 self.userDefaults.setObject(user["_id"].stringValue, forKey: "_id")
+                print(user["_id"].stringValue)
                 self.userDefaults.setObject(user["username"].stringValue, forKey: "username")
                 self.userDefaults.setObject(user["email"].stringValue, forKey: "email")
                 self.userDefaults.setObject(user["activeJourneyId"].stringValue, forKey: "activeJourneyId")
                 self.userDefaults.setBool(true, forKey: "loggedIn")
                 self.userDefaults.setObject(permittedPhoneNumbersArray, forKey: "permittedPhoneNumbers")
-                self.userDefaults.setBool((options["notifications"]!.boolValue), forKey: "notifications")
-                self.userDefaults.setObject((options["name"]!.stringValue), forKey: "name")
-                self.userDefaults.setObject((options["gender"]!.stringValue), forKey: "gender")
-                self.userDefaults.setObject((options["nationality"]!.stringValue), forKey: "nationality")
+                self.userDefaults.setBool((user["options"]["notifications"].boolValue), forKey: "notifications")
+                self.userDefaults.setObject((user["options"]["name"].stringValue), forKey: "name")
+                self.userDefaults.setObject((user["options"]["gender"].stringValue), forKey: "gender")
+                self.userDefaults.setObject((user["options"]["nationality"].stringValue), forKey: "nationality")
 
                 /* Get all the journeys*/
                 print("Getting the journeys")
@@ -109,9 +113,11 @@ class LoginVC: UIViewController {
                     //print(response)
                     if response.response?.statusCode == 200 {
                         if response.result.value != nil {
-                            let json = JSON(response.result.value!)
+                            print(response.result.value!)
+                            let rawJson = JSON(response.result.value!)
+                            let json = rawJson["data"]
                             print(json)
-                            
+                            print(8)
                             for (_, journey) in json {
                                 let headline = journey["options"]["headline"].stringValue
                                 print(headline)
@@ -163,6 +169,9 @@ class LoginVC: UIViewController {
         
 //        usernameTextField.text = "lindekaer"
 //        passwordTextField.text = "gkBB1991"
+        
+//        usernameTextField.text = "Niklas"
+//        passwordTextField.text = "ABC123"
         
         let model = CoreDataModel(name: ModelName, bundle: Bundle)
         let factory = CoreDataStackFactory(model: model)

@@ -17,13 +17,22 @@ class ProfileVC: UIViewController {
     var count = 0
 
     @IBAction func createChange(sender: AnyObject) {
-        let CurrentTime = CACurrentMediaTime()
-        let change = Change(context: stack.mainContext, instanceType: InstanceType.journey, timeCommitted: String(CurrentTime), stringValue: String(self.count++), boolValue: false, property: JourneyProperty.headline, instanceId: "hd74qhody80iho3q298bf9oh", changeAction: ChangeAction.update)
+        let CurrentTime = String(CACurrentMediaTime())
+        let change = Change(context: stack.mainContext, instanceType: InstanceType.journey, timeCommitted: String(CurrentTime), stringValue: String(self.count++), boolValue: false, property: JourneyProperty.headline, instanceId: "hd74qhody80iho3q298bf9oh", changeAction: ChangeAction.update, timestamp: "20150417174073")
         saveContext(stack.mainContext)
     }
     
     @IBAction func printChanges(sender: AnyObject) {
-        sendChanges(self.stack)
+//        let future = sendChanges(self.stack)
+//        if future != nil {
+//            future!.onSuccess { (success) -> Void in
+//                if success {
+//                    print("Everything has been uploaded")
+//                } else {
+//                    print("Something went wrong")
+//                }
+//            }
+//        }
     }
     
     override func viewDidLoad() {

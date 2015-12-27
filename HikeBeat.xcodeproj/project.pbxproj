@@ -57,6 +57,8 @@
 		858CE3831BC11996000594DD /* HikeBeatDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3811BC11996000594DD /* HikeBeatDataModel.xcdatamodeld */; };
 		858CE3DB1BC26034000594DD /* DataBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3DA1BC26034000594DD /* DataBeat.swift */; };
 		858CE3DD1BC260F4000594DD /* DataModelUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3DC1BC260F4000594DD /* DataModelUtils.swift */; };
+		859C36EB1C287ACE00B88168 /* SyncAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859C36EA1C287ACE00B88168 /* SyncAll.swift */; };
+		859C36ED1C287E4600B88168 /* SendBeats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859C36EC1C287E4600B88168 /* SendBeats.swift */; };
 		859D85701BC3300400E26DCD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 859D85671BC32FF000E26DCD /* Alamofire.framework */; };
 		859D85711BC3300400E26DCD /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 859D85671BC32FF000E26DCD /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		85A44FD11C22E19000F3C7FD /* SyncWithAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A44FD01C22E19000F3C7FD /* SyncWithAPI.swift */; };
@@ -208,6 +210,8 @@
 		858CE3821BC11996000594DD /* HikeBeatDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HikeBeatDataModel.xcdatamodel; sourceTree = "<group>"; };
 		858CE3DA1BC26034000594DD /* DataBeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBeat.swift; sourceTree = "<group>"; };
 		858CE3DC1BC260F4000594DD /* DataModelUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelUtils.swift; sourceTree = "<group>"; };
+		859C36EA1C287ACE00B88168 /* SyncAll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncAll.swift; sourceTree = "<group>"; };
+		859C36EC1C287E4600B88168 /* SendBeats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendBeats.swift; sourceTree = "<group>"; };
 		859D855E1BC32FF000E26DCD /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		85A44FD01C22E19000F3C7FD /* SyncWithAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncWithAPI.swift; sourceTree = "<group>"; };
 		85A44FD61C237B8100F3C7FD /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
@@ -293,6 +297,7 @@
 		853003A51BBD65F900A6D27F /* HikeBeat */ = {
 			isa = PBXGroup;
 			children = (
+				859C36E91C28799800B88168 /* Sync */,
 				85A44FE51C244E4400F3C7FD /* ConfigAndUtils */,
 				8518410A1BCD1BA6002BBCD1 /* TableViewCells */,
 				853003DC1BBD683300A6D27F /* Supporting Files */,
@@ -403,6 +408,18 @@
 			name = Notie;
 			sourceTree = "<group>";
 		};
+		859C36E91C28799800B88168 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				85A44FD01C22E19000F3C7FD /* SyncWithAPI.swift */,
+				8558C2441C21CA320033F873 /* Upload.swift */,
+				85A44FE61C24504A00F3C7FD /* SendChanges.swift */,
+				859C36EC1C287E4600B88168 /* SendBeats.swift */,
+				859C36EA1C287ACE00B88168 /* SyncAll.swift */,
+			);
+			name = Sync;
+			sourceTree = "<group>";
+		};
 		859D855F1BC32FF000E26DCD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -418,10 +435,7 @@
 		85A44FE51C244E4400F3C7FD /* ConfigAndUtils */ = {
 			isa = PBXGroup;
 			children = (
-				8558C2441C21CA320033F873 /* Upload.swift */,
-				85A44FD01C22E19000F3C7FD /* SyncWithAPI.swift */,
 				853003D91BBD670C00A6D27F /* Config.swift */,
-				85A44FE61C24504A00F3C7FD /* SendChanges.swift */,
 				858CE3DC1BC260F4000594DD /* DataModelUtils.swift */,
 				85A44FE81C2457B800F3C7FD /* Structs.swift */,
 			);
@@ -652,6 +666,7 @@
 				853003E71BBD686700A6D27F /* SwiftyJSON.swift in Sources */,
 				851841361BD009C2002BBCD1 /* Async.swift in Sources */,
 				8518412A1BCD3F5F002BBCD1 /* CoreDataStackResult.swift in Sources */,
+				859C36EB1C287ACE00B88168 /* SyncAll.swift in Sources */,
 				85A44FDD1C2406AF00F3C7FD /* FollowRootViewVC.swift in Sources */,
 				8558C1EE1C1CA73B0033F873 /* SettingsVC.swift in Sources */,
 				853003A71BBD65F900A6D27F /* AppDelegate.swift in Sources */,
@@ -675,6 +690,7 @@
 				853003DB1BBD670C00A6D27F /* Config.swift in Sources */,
 				851841911BD50C22002BBCD1 /* BeatPolyline.swift in Sources */,
 				85FF53B91BE3B8FF00B413BA /* JourneysCell.swift in Sources */,
+				859C36ED1C287E4600B88168 /* SendBeats.swift in Sources */,
 				8558C2391C1F73560033F873 /* CreateUserVC.swift in Sources */,
 				85B3FA6D1C17380A001A46AB /* SendBeatVC.swift in Sources */,
 				851841271BCD3F5F002BBCD1 /* CoreDataSaveResult.swift in Sources */,

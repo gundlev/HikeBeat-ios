@@ -301,8 +301,43 @@ class JourneysVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         let delete = UITableViewRowAction(style: .Default, title: "Delete") { (UITableViewRowAction, NSIndexPath) -> Void in
             let obj = self.journeys?.objectAtIndexPath(indexPath) as! DataJourney
-            deleteObjects([obj], inContext: self.stack.mainContext)
-            saveContext(self.stack.mainContext)
+            
+            let url = IPAddress + "api/users/" + userDefaults.stringForKey("_id")! + "/journeys/" + obj.journeyId
+            alert("Delete Journey?", alertMessage: "Are you sure you want to delete the journey: " + obj.headline!, vc: self, actions:
+                (title: "Yes",
+                style: UIAlertActionStyle.Default,
+                function: {
+                    if SimpleReachability.isConnectedToNetwork() {
+                        Alamofire.request(.DELETE, url, encoding: .JSON, headers: Headers).responseJSON { response in
+                            if response.response != nil {
+                                switch response.response!.statusCode {
+                                case 200:
+                                    print("It was successfully dealeted")
+                                    deleteObjects([obj], inContext: self.stack.mainContext)
+                                    saveContext(self.stack.mainContext)
+                                default:
+                                    print("Unknown error with code: ", response.response?.statusCode)
+                                    let change = Change(context: self.stack.mainContext, instanceType: InstanceType.journey, timeCommitted: String(CACurrentMediaTime()), stringValue: nil, boolValue: false, property: nil, instanceId: obj.journeyId, changeAction: ChangeAction.delete, timestamp: nil)
+                                    saveContext(self.stack.mainContext)
+                                }
+                            } else {
+                                print("For some reason response is nil")
+                            }
+                        }
+                    } else {
+                        // There is no connection so the deletion will be saved in changes.
+                        
+                        let change = Change(context: self.stack.mainContext, instanceType: InstanceType.journey, timeCommitted: String(CACurrentMediaTime()), stringValue: nil, boolValue: false, property: nil, instanceId: obj.journeyId, changeAction: ChangeAction.delete, timestamp: nil)
+                        saveContext(self.stack.mainContext)
+                    }
+
+                }),
+                (title: "Cancel",
+                style: UIAlertActionStyle.Cancel,
+                function: {})
+                
+            )
+
         }
         
         if self.journeys?.sections?.count == 2 {

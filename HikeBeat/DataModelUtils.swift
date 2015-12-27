@@ -11,6 +11,19 @@ import Foundation
 public let ModelName = "HikeBeatDataModel"
 public let Bundle = NSBundle(identifier: "com.hikebeat.HikeBeat")!
 
+//func createChange(property: Property, value : AnyObject) -> [String: AnyObject] {
+//    let parameters:[String: AnyObject] = ["changes": [[
+//        "property"  :   property,
+//        "value"     :   value
+//        ]]]
+//    return parameters
+//}
+//
+//let parameters:[String: AnyObject] = ["changes": [[
+//                                        "property"  :   "options.notifications",
+//                                        "value"     :   value
+//                                    ]]]
+
 //public struct MediaType {
 //    public static let image = "image"
 //    public static let none = "none"

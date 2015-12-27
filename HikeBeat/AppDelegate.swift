@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import CoreData
+import FutureKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
@@ -98,14 +99,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func synced() -> Bool? {
         if self.stack != nil {
             let beatEntity = entity(name: EntityType.DataBeat, context: stack.mainContext)
-            
             let fetchRequest = FetchRequest<DataBeat>(entity: beatEntity)
             fetchRequest.predicate = NSPredicate(format: "mediaUploaded == %@", false)
-            //        fetchRequest.predicate = NSPredicate(format: "mediaData != %@", "")
+            
+            let changeEntity = entity(name: EntityType.Change, context: stack.mainContext)
+            let fetchReq = FetchRequest<Change>(entity: changeEntity)
+            
             
             do {
-                let result = try fetch(request: fetchRequest, inContext: stack.mainContext)
-                if result.count == 0 {
+                let beats = try fetch(request: fetchRequest, inContext: stack.mainContext)
+                let changes = try fetch(request: fetchReq, inContext: stack.mainContext)
+                if beats.count + changes.count == 0 {
                     return true
                 } else {
                     return false
@@ -134,8 +138,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let sync = self.synced()
             if sync != nil {
                 if !sync! {
+                    print("There are things to be uploaded")
                     if !self.currentlyShowingNotie {
-                        self.currentlyShowingNotie = true
+                        print("There are no current Notie showing")
+                        
                         dispatch_async(dispatch_get_main_queue()) {
                             print("Reachable")
                             if let topController = UIApplication.sharedApplication().keyWindow?.rootViewController {
@@ -146,7 +152,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                                         notie.dismiss()
                                         let progressNotie = Notie(view: topController.view, message: " ", style: .Progress)
                                         progressNotie.show()
-                                        _ = Upload(notie: progressNotie, appDelegate: self)
+                                        let future = syncAll(progressNotie.progressView, stack: self.stack)
+                                        
+                                        if future != nil {
+                                            future!.onSuccess(block: { success in
+                                                progressNotie.dismiss()
+                                                if success {
+                                                    print("All is syncronized!")
+                                                    self.currentlyShowingNotie = false
+                                                } else {
+                                                    print("Not everything was syncronized!")
+                                                }
+                                            })
+                                        } else {
+                                            print("Failed to fetch")
+                                            progressNotie.dismiss()
+                                        }
+//                                        _ = Upload(notie: progressNotie, appDelegate: self)
                                     }
                                     notie.rightButtonAction = {
                                         // Add your right button action here
@@ -154,6 +176,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                                         self.currentlyShowingNotie = false
                                     }
                                     notie.show()
+                                    self.currentlyShowingNotie = true
                                     notie.progressView.progress = 0
                                     
                                 } else {
@@ -161,7 +184,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                                 }
                             }
                         }
+                    } else {
+                        print("A notie is already showing!")
                     }
+                } else {
+                    print("nothing to sync")
                 }
             }
             

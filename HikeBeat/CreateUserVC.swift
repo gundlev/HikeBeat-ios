@@ -34,7 +34,9 @@ class CreateUserVc: UIViewController {
             Alamofire.request(.POST, IPAddress + "users", parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
                 if response.response?.statusCode == 200 {
                     print("user has been created")
-                    let user = JSON(response.result.value!)
+                    let rawUser = JSON(response.result.value!)
+                    let user = rawUser["data"][0]
+                    print("This is the user: ",user)
                     
                     print("setting user")
                     self.userDefaults.setObject(user["username"].stringValue, forKey: "username")
@@ -65,6 +67,10 @@ class CreateUserVc: UIViewController {
                     }
                     
                     self.userDefaults.setObject(optionsDictionary, forKey: "options")
+                    self.userDefaults.setBool((user["options"]["notifications"].boolValue), forKey: "notifications")
+                    self.userDefaults.setObject((user["options"]["name"].stringValue), forKey: "name")
+                    self.userDefaults.setObject((user["options"]["gender"].stringValue), forKey: "gender")
+                    self.userDefaults.setObject((user["options"]["nationality"].stringValue), forKey: "nationality")
                     self.userDefaults.setObject(journeyIdsArray, forKey: "journeyIds")
                     self.userDefaults.setObject(followingArray, forKey: "following")
                     self.userDefaults.setObject(deviceTokensArray, forKey: "deviceTokens")
