@@ -9,12 +9,12 @@
 import Foundation
 import CoreData
 import Alamofire
-
+import BrightFutures
 import UIKit
 
-func sendBeats(beats: [DataBeat], stack: CoreDataStack, progressView: UIProgressView, increase: Float) -> Future<Bool> {
+func sendBeats(beats: [DataBeat], stack: CoreDataStack, progressView: UIProgressView, increase: Float) -> Future<Bool, NoError> {
     
-    let promise = Promise<Bool>()
+    let promise = Promise<Bool, NoError>()
     var count = 0
     for beat in beats {
         print(beat.title)
@@ -23,7 +23,7 @@ func sendBeats(beats: [DataBeat], stack: CoreDataStack, progressView: UIProgress
         // Real solution
         
         /** Parameters to send to the API.*/
-        let parameters = ["timeCapture": beat.timestamp, "journeyId": beat.journeyId, "data": beat.mediaData!]
+        let parameters: [String: AnyObject] = ["timeCapture": beat.timestamp, "journeyId": beat.journeyId, "data": beat.mediaData!, "orientation": beat.orientation!]
         
         /** The URL for the post*/
         let url = IPAddress + "journeys/" + beat.journeyId + "/images"
@@ -52,12 +52,12 @@ func sendBeats(beats: [DataBeat], stack: CoreDataStack, progressView: UIProgress
                 count++
                 if count == beats.count {
                     print(5)
-                    promise.completeWithSuccess(true)
+                    promise.success(true)
 //                    appDelegate.currentlyShowingNotie = false
                 }
                 //print(5)
             } else {
-                promise.completeWithSuccess(false)
+                promise.success(false)
             }
         }
     }

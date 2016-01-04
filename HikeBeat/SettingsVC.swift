@@ -13,6 +13,7 @@ import Alamofire
 class SettingsVC: FormViewController {
     
     let userDefaults = NSUserDefaults.standardUserDefaults()
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     var stack: CoreDataStack!
     
     override func viewDidLoad() {
@@ -44,6 +45,32 @@ class SettingsVC: FormViewController {
                     print("Value changed to: ", SwitchRow.value)
                     self.notificationChange(SwitchRow.value!)
                 })
+            
+            <<< SwitchRow() {
+                $0.title = "GPS Check"
+                $0.value = userDefaults.boolForKey("GPS-check")
+                }.onChange({ (SwitchRow) -> () in
+                    print("Value changed to: ", SwitchRow.value)
+                    self.userDefaults.setObject(SwitchRow.value, forKey: "GPS-check")
+                })
+            
+            <<< ButtonRow("Sync now") { row in
+                    row.title = row.tag
+                    row.onCellSelection({ (cell, row) -> () in
+                        if SimpleReachability.isConnectedToNetwork() {
+                            print("Have network")
+                            let synced = self.appDelegate.synced()
+                            if synced != nil {
+                                print("synced is not nil")
+                                print("synced value: ", synced)
+                                if !synced! {
+                                    print("There are things to sync")
+                                    self.sync()
+                                }
+                            }
+                        }
+                    })
+                }
     
             <<< ButtonRow("Logout") { row in
                     row.title = row.tag
@@ -81,6 +108,33 @@ class SettingsVC: FormViewController {
             _ = Change(context: self.stack.mainContext, instanceType: InstanceType.user, timeCommitted: String(CACurrentMediaTime()), stringValue: nil, boolValue: value, property: UserProperty.notifications, instanceId: nil, changeAction: ChangeAction.update, timestamp: nil)
             saveContext(self.stack.mainContext)
         }
+    }
+    
+    func sync() {
+        if #available(iOS 9.0, *) {
+            let progressNotie = Notie(view: self.view, message: " ", style: .Progress)
+            progressNotie.show()
+            self.appDelegate.currentlyShowingNotie = true
+            let future = syncAll(progressNotie.progressView, stack: self.stack)
+            
+            if future != nil {
+                future!.onSuccess{ success in
+                    progressNotie.dismiss()
+                    self.appDelegate.currentlyShowingNotie = false
+                    if success {
+                        print("All is syncronized!")
+                    } else {
+                        print("Not everything was syncronized!")
+                    }
+                }
+            } else {
+                print("Failed to fetch")
+                progressNotie.dismiss()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        
     }
     
     func logout() {

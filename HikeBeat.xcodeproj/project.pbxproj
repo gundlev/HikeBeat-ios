@@ -57,6 +57,8 @@
 		858CE3831BC11996000594DD /* HikeBeatDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3811BC11996000594DD /* HikeBeatDataModel.xcdatamodeld */; };
 		858CE3DB1BC26034000594DD /* DataBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3DA1BC26034000594DD /* DataBeat.swift */; };
 		858CE3DD1BC260F4000594DD /* DataModelUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3DC1BC260F4000594DD /* DataModelUtils.swift */; };
+		858D817F1C3010720006EC07 /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858D817D1C3010720006EC07 /* BrightFutures.framework */; };
+		858D81801C3010720006EC07 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858D817E1C3010720006EC07 /* Result.framework */; };
 		859C36EB1C287ACE00B88168 /* SyncAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859C36EA1C287ACE00B88168 /* SyncAll.swift */; };
 		859C36ED1C287E4600B88168 /* SendBeats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859C36EC1C287E4600B88168 /* SendBeats.swift */; };
 		859D85701BC3300400E26DCD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 859D85671BC32FF000E26DCD /* Alamofire.framework */; };
@@ -210,6 +212,8 @@
 		858CE3821BC11996000594DD /* HikeBeatDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HikeBeatDataModel.xcdatamodel; sourceTree = "<group>"; };
 		858CE3DA1BC26034000594DD /* DataBeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBeat.swift; sourceTree = "<group>"; };
 		858CE3DC1BC260F4000594DD /* DataModelUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelUtils.swift; sourceTree = "<group>"; };
+		858D817D1C3010720006EC07 /* BrightFutures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightFutures.framework; path = Carthage/Build/iOS/BrightFutures.framework; sourceTree = "<group>"; };
+		858D817E1C3010720006EC07 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		859C36EA1C287ACE00B88168 /* SyncAll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncAll.swift; sourceTree = "<group>"; };
 		859C36EC1C287E4600B88168 /* SendBeats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendBeats.swift; sourceTree = "<group>"; };
 		859D855E1BC32FF000E26DCD /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
@@ -232,6 +236,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				859D85701BC3300400E26DCD /* Alamofire.framework in Frameworks */,
+				858D817F1C3010720006EC07 /* BrightFutures.framework in Frameworks */,
+				858D81801C3010720006EC07 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +282,8 @@
 		8530039A1BBD65F900A6D27F = {
 			isa = PBXGroup;
 			children = (
+				858D817D1C3010720006EC07 /* BrightFutures.framework */,
+				858D817E1C3010720006EC07 /* Result.framework */,
 				859D855E1BC32FF000E26DCD /* Alamofire.xcodeproj */,
 				853003A51BBD65F900A6D27F /* HikeBeat */,
 				853003BC1BBD65F900A6D27F /* HikeBeatTests */,
@@ -469,6 +477,7 @@
 				853003A01BBD65F900A6D27F /* Frameworks */,
 				853003A11BBD65F900A6D27F /* Resources */,
 				859D85741BC3300400E26DCD /* Embed Frameworks */,
+				858D81851C30107A0006EC07 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -630,6 +639,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		858D81851C30107A0006EC07 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/BrightFutures.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8530039F1BBD65F900A6D27F /* Sources */ = {
@@ -842,6 +869,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = HikeBeat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -860,6 +891,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = HikeBeat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

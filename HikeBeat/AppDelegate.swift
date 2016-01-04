@@ -9,7 +9,6 @@
 import UIKit
 import CoreLocation
 import CoreData
-import FutureKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
@@ -109,6 +108,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             do {
                 let beats = try fetch(request: fetchRequest, inContext: stack.mainContext)
                 let changes = try fetch(request: fetchReq, inContext: stack.mainContext)
+                print("Beats to be uploaded ", beats.count)
+                print("Changes to be uploaded ", changes.count)
                 if beats.count + changes.count == 0 {
                     return true
                 } else {
@@ -155,7 +156,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                                         let future = syncAll(progressNotie.progressView, stack: self.stack)
                                         
                                         if future != nil {
-                                            future!.onSuccess(block: { success in
+                                            future!.onSuccess{ success in
                                                 progressNotie.dismiss()
                                                 if success {
                                                     print("All is syncronized!")
@@ -163,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                                                 } else {
                                                     print("Not everything was syncronized!")
                                                 }
-                                            })
+                                            }
                                         } else {
                                             print("Failed to fetch")
                                             progressNotie.dismiss()

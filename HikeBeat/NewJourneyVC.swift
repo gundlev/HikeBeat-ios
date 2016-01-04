@@ -26,9 +26,10 @@ class NewJourneyVC: UIViewController, UITextFieldDelegate {
             print(slugInput.text!)
             let parameters: [String: AnyObject] = ["userId": (userDefaults.stringForKey("_id"))!, "slug": slugInput.text!, "options": ["headline": headlineInput.text!]]
             let url = IPAddress + "users/" + userDefaults.stringForKey("_id")! + "/journeys"
+            print(url)
             
             Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
-                print(response.response)
+                print(response.result.value)
                 print(response.response?.statusCode)
                 if response.response?.statusCode == 200 {
                     let rawJson = JSON(response.result.value!)

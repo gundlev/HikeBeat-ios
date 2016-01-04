@@ -259,6 +259,7 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
                 mapView.removeAnnotation(lastPin!)
                 mapView.addAnnotation(lastPin!)
             }
+            
  /*
             Ready for beat timestamp implementation.
             

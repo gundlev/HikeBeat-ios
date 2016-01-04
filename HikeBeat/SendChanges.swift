@@ -9,25 +9,26 @@
 import Foundation
 import Alamofire
 import UIKit
-
+import BrightFutures
 
 //TODO: Implement onError and completeWithFail
 
 
-public func sendChanges(stack: CoreDataStack, progressView: UIProgressView, increase: Float) -> Future<Bool> {
+public func sendChanges(stack: CoreDataStack, progressView: UIProgressView, increase: Float) -> Future<Bool, NoError> {
     var changes = getChanges(stack)
     changes?.sortInPlace()
-    let promise = Promise<Bool>()
+    let promise = Promise<Bool, NoError>()
 //    if changes != nil {
 //        if changes?.count > 0 {
             let future = asyncFunc(changes!, stack: stack, progressView: progressView, increase: increase)
-            future.onSuccess(block: { (success) in
+            future.onSuccess{ success in
                 if success {
-                    promise.completeWithSuccess(success)
+                    promise.success(success)
                 } else {
-                    promise.completeWithFail("One or more of the uploads failed.")
+                    // Should be fail
+                    promise.success(success)
                 }
-            })
+            }
             return promise.future
 //        } else {
 //            // There are no changes.
@@ -39,7 +40,7 @@ public func sendChanges(stack: CoreDataStack, progressView: UIProgressView, incr
 //    }
 }
 
-private func asyncFunc(var arr: [Change], stack: CoreDataStack, progressView: UIProgressView, increase: Float) -> Future<Bool> {
+private func asyncFunc(var arr: [Change], stack: CoreDataStack, progressView: UIProgressView, increase: Float) -> Future<Bool, NoError> {
     let change = arr.first
     
     // Creating json changes object
@@ -82,7 +83,7 @@ private func asyncFunc(var arr: [Change], stack: CoreDataStack, progressView: UI
     print("Now sending to url: ", url)
     
     // Creating the promise
-    let p = Promise<Bool>()
+    let p = Promise<Bool, NoError>()
     
     // Setting the HTTP method
     var method = Method.PUT
@@ -105,16 +106,16 @@ private func asyncFunc(var arr: [Change], stack: CoreDataStack, progressView: UI
             progressView.progress = progressView.progress + increase
             print("Uplaoded and removed change with value: ", removed.stringValue)
             if arr.isEmpty {
-                p.completeWithSuccess(true)
+                p.success(true)
             } else {
                 let future = asyncFunc(arr,stack: stack, progressView: progressView, increase: increase)
-                future.onSuccess(block: { success in
-                    p.completeWithSuccess(success)
-                })
+                future.onSuccess { success in
+                    p.success(success)
+                }
             }
         } else {
             print("Something went wrong")
-            p.completeWithSuccess(false)
+            p.success(false)
         }
     }
 

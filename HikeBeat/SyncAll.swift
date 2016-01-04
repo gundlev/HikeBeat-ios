@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 import Alamofire
 import CoreData
-
+import BrightFutures
 
 @available(iOS 9.0, *)
-func syncAll(progressView: UIProgressView, stack: CoreDataStack) -> Future<Bool>? {
+func syncAll(progressView: UIProgressView, stack: CoreDataStack) -> Future<Bool, NoError>? {
     // Performing fetch
     let tuble = getAll(stack)
-    let promise = Promise<Bool>()
+    let promise = Promise<Bool, NoError>()
     
     // Check if fetch succeed.
     if tuble != nil {
@@ -32,27 +32,27 @@ func syncAll(progressView: UIProgressView, stack: CoreDataStack) -> Future<Bool>
         if beats.count > 0 {
             let beatFuture = sendBeats(beats, stack: stack, progressView: progressView, increase: increase)
             
-            beatFuture.onSuccess(block: { (successBeats) in
+            beatFuture.onSuccess{ (successBeats) in
                 if changes.count > 0 {
                     let changeFuture = sendChanges(stack, progressView: progressView, increase: increase)
                     
-                    changeFuture.onSuccess(block: { successChanges in
-                        promise.completeWithSuccess(successChanges && successBeats)
-                    })
+                    changeFuture.onSuccess{ successChanges in
+                        promise.success(successChanges && successBeats)
+                    }
                 } else {
-                    promise.completeWithSuccess(successBeats)
+                    promise.success(successBeats)
                 }
-            })
+            }
         } else if beats.count == 0 && changes.count > 0 {
             if changes.count > 0 {
                 let changeFuture = sendChanges(stack, progressView: progressView, increase: increase)
                 
-                changeFuture.onSuccess(block: { success in
-                    promise.completeWithSuccess(success)
-                })
+                changeFuture.onSuccess{ success in
+                    promise.success(success)
+                }
             }
         } else {
-            promise.completeWithSuccess(true)
+            promise.success(true)
         }
         
         return promise.future

@@ -11,6 +11,7 @@ import MessageUI
 import CoreData
 import Alamofire
 import CoreTelephony
+import BrightFutures
 
 class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFMessageComposeViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -246,6 +247,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                     self.mediaLabel.alpha = 0
                     self.mediaButton.alpha = 0
                     self.mediaImageView.image = nil
+                    self.currentImage = nil
                 }
             })
         }
@@ -360,41 +362,59 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
     
     func checkForCorrectInput() {
         let locationTuple = self.getTimeAndLocation()
-        if ((titleTextField.text == "" && messageTextView.text == "" && currentImage == nil) || self.activeJourney == nil || locationTuple.latitude == "" || locationTuple.longitude == "") {
-            // Give a warning that there is not text or no active journey.
-            print("Something is missing")
-            print("Text: ", titleTextField.text == "" && messageTextView.text == "" && currentImage == nil)
-            print("Journey: ", self.activeJourney == nil)
-            print("Lat: ", locationTuple.latitude)
-            print("Lng: ", locationTuple.longitude)
+        if locationTuple != nil {
+            if ((titleTextField.text == "" && messageTextView.text == "" && currentImage == nil) || self.activeJourney == nil || locationTuple!.latitude == "" || locationTuple!.longitude == "") {
+                // Give a warning that there is not text or no active journey.
+                print("Something is missing")
+                print("Text: ", titleTextField.text == "" && messageTextView.text == "" && currentImage == nil)
+                print("Journey: ", self.activeJourney == nil)
+                print("Lat: ", locationTuple!.latitude)
+                print("Lng: ", locationTuple!.longitude)
+                
+            } else {
+                
+                
+                var title: String? = nil
+                var message: String? = nil
+                var mediaData: String? = nil
+                var orientation: String? = nil
+                
+                if titleTextField.text != "" || titleTextField.text != " " || titleTextField.text != "  " || titleTextField.text != "   " {
+                    title = self.titleTextField.text
+                }
+                if messageTextView.text != "" || titleTextField.text != " " || titleTextField.text != "  " || titleTextField.text != "   "{
+                    message = self.messageTextView.text
+                }
+                if currentImage != nil {
+                    let imageData = UIImageJPEGRepresentation(currentImage!, CGFloat(0.4))
+//                    var orientation = currentImage?.imageOrientation
+//                    print("Orientation: ", orientation?.rawValue)
+                    let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                    mediaData = base64String
+                    
+                    // Gettiong orientation
+                    let rawOrientation = currentImage?.imageOrientation.rawValue
+                    switch rawOrientation! {
+                    case 0: orientation = "landscape"
+                    case 1: orientation = "landscape"
+                    case 2: orientation = "portrait"
+                    case 3: orientation = "portrait"
+                    default: print("No orientation")
+                    }
+                }
+                
+
+
+                
+                //            let locationTuple = self.getTimeAndLocation()
+                print("Just Before Crash!")
+                self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple!.latitude, longitude: locationTuple!.longitude, timestamp: locationTuple!.timestamp, mediaType: MediaType.image, mediaData: mediaData, mediaDataId: nil, messageId: nil, mediaUploaded: false, messageUploaded: false, orientation:  orientation, journey: activeJourney!)
+                print("Just After Crash!")
+                self.sendBeat()
+            }
         } else {
-            var title: String? = nil
-            var message: String? = nil
-            var mediaData: String? = nil
             
-            if titleTextField.text != "" || titleTextField.text != " " || titleTextField.text != "  " || titleTextField.text != "   " {
-                title = self.titleTextField.text
-            }
-            if messageTextView.text != "" || titleTextField.text != " " || titleTextField.text != "  " || titleTextField.text != "   "{
-                message = self.messageTextView.text
-            }
-            if currentImage != nil {
-                let imageData = UIImageJPEGRepresentation(currentImage!, CGFloat(0.2))
-                let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                mediaData = base64String
-            }
-            
-            //            let locationTuple = self.getTimeAndLocation()
-            print("Just Before Crash!")
-            self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple.latitude, longitude: locationTuple.longitude, timestamp: locationTuple.timestamp, mediaType: MediaType.image, mediaData: mediaData, mediaDataId: nil, messageId: nil, mediaUploaded: false, messageUploaded: false, journey: activeJourney!)
-            print("Just After Crash!")
-            self.sendBeat()
         }
-    }
-    
-    
-    func what() {
-        
     }
     
     func sendBeat() {
@@ -417,10 +437,10 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                 var localTitle = ""
                 var localMessage = ""
                 if currentBeat!.message != nil {
-                    localTitle = currentBeat!.message!
+                    localMessage = currentBeat!.message!
                 }
                 if currentBeat!.title != nil {
-                    localMessage = currentBeat!.title!
+                    localTitle = currentBeat!.title!
                 }
                 
                 let parameters = ["headline": localTitle, "text": localMessage, "lat": currentBeat!.latitude, "lng": currentBeat!.longitude, "timeCapture": currentBeat!.timestamp]
@@ -445,8 +465,11 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                         if self.currentBeat?.mediaData != nil {
                             print("There is an image!")
                             // Send Image
+                            
+                            // Find image orientation
+                            
                             /** Image Parameters including the image in base64 format. */
-                            let imageParams = ["timeCapture": self.currentBeat!.timestamp, "journeyId": (self.activeJourney?.journeyId)!, "data": (self.currentBeat?.mediaData)!]
+                            let imageParams: [String: AnyObject] = ["timeCapture": self.currentBeat!.timestamp, "journeyId": (self.activeJourney?.journeyId)!, "data": (self.currentBeat?.mediaData)!, "orientation": (self.currentBeat?.orientation)!]
                             
                             /** The URL for the image*/
                             let imageUrl = IPAddress + "journeys/" + (self.activeJourney?.journeyId)! + "/images"
@@ -467,8 +490,10 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                                     // Set the uploaded variable to true as the image has been uplaoded.
                                     self.currentBeat?.mediaUploaded = true
                                     saveContext(self.stack.mainContext)
-                                } else if imageResponse.response?.statusCode == 400 {
+                                } else {
                                     print("Error posting the image")
+                                    self.currentBeat?.mediaUploaded = false
+                                    saveContext(self.stack.mainContext)
                                 }
                                 
                                 self.setInitial(true)
@@ -482,9 +507,16 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                             self.swipeView.setBack(true)
                         }
                         saveContext(self.stack.mainContext)
-                    } else if response.response?.statusCode == 400 {
+                    } else {
                         // Error occured
                         print("Error posting the message")
+                        alert("Problem sending", alertMessage: "Some error has occured when trying to send, it will be saved and syncronized later", vc: self, actions:
+                            (title: "Ok",
+                                style: UIAlertActionStyle.Cancel,
+                                function: {}))
+                        self.currentBeat?.mediaUploaded = false
+                        self.currentBeat?.messageUploaded = false
+                        saveContext(self.stack.mainContext)
                     }
                     
                     // print(response)
@@ -591,16 +623,16 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
     Utility Functions
 */
 
-    func alert(alertTitle: String, alertMessage: String, actionTitle: String) {
-        let alertController = UIAlertController(title: alertTitle, message:
-            alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-        self.setInitial(true)
-        self.swipeView.setBack(true)
-        }))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
+//    func alert(alertTitle: String, alertMessage: String, actionTitle: String) {
+//        let alertController = UIAlertController(title: alertTitle, message:
+//            alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+//        alertController.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+//        self.setInitial(true)
+//        self.swipeView.setBack(true)
+//        }))
+//        
+//        self.presentViewController(alertController, animated: true, completion: nil)
+//    }
     
     func getActiveJourney() {
         let e = entity(name: EntityType.DataJourney, context: self.stack.mainContext)
@@ -624,7 +656,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
         }
     }
     
-    func getTimeAndLocation() -> (timestamp: String, latitude: String, longitude: String) {
+    func getTimeAndLocation() -> (timestamp: String, latitude: String, longitude: String)? {
         let currentDate = NSDate()
         let timeStamp = NSDateFormatter()
         timeStamp.dateFormat = "yyyyMMddHHmmss"
@@ -633,10 +665,35 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
         var longitude = ""
         var latitude = ""
         if let location = appDelegate.getLocation() {
-            longitude = String(location.coordinate.longitude)
-            latitude = String(location.coordinate.latitude)
+            let gpsCheck = userDefaults.boolForKey("GPS-check")
+            if gpsCheck {
+                // Now performing gps check
+                print("now performing gps check")
+                if location.verticalAccuracy > 150 || location.horizontalAccuracy > 150 {
+                    alert("Poor GPS signal", alertMessage: "The GPS accuracy is too poor as it is within 150m, wait until it is better.", vc: self, actions:
+                        (title: "Ok",
+                            style: UIAlertActionStyle.Cancel,
+                            function: {}
+                        ))
+                    return nil
+                } else {
+                    print("GPS is fine")
+                    print("Vertical Accuracy: ", location.verticalAccuracy)
+                    print("Horizontal Accuracy: ", location.horizontalAccuracy)
+                    longitude = String(location.coordinate.longitude)
+                    latitude = String(location.coordinate.latitude)
+                    return (timeCapture, latitude, longitude)
+                }
+            } else {
+                print("Not performing gps check")
+                longitude = String(location.coordinate.longitude)
+                latitude = String(location.coordinate.latitude)
+                return (timeCapture, latitude, longitude)
+            }
+        } else {
+            print("did not get the location for app delegate")
+            return nil
         }
-        return (timeCapture, latitude, longitude)
     }
     
     
@@ -779,8 +836,14 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+       
+//        let rotatedImage = UIImage(CGImage: image.CGImage!, scale: 1.0, orientation: UIImageOrientation.Right)
         if picker.sourceType == .Camera {
+            
+//            var rotatedImage = UIImage(CGImage: image.CGImage!, scale: 1.0, orientation: .DownMirrored)
+            
             UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+            
         }
         //self.mediaImageView
         self.mediaImageView.image = image

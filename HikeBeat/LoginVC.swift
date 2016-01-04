@@ -103,6 +103,7 @@ class LoginVC: UIViewController {
                 self.userDefaults.setObject((user["options"]["name"].stringValue), forKey: "name")
                 self.userDefaults.setObject((user["options"]["gender"].stringValue), forKey: "gender")
                 self.userDefaults.setObject((user["options"]["nationality"].stringValue), forKey: "nationality")
+                self.userDefaults.setObject(true, forKey: "GPS-check")
 
                 /* Get all the journeys*/
                 print("Getting the journeys")
@@ -129,7 +130,7 @@ class LoginVC: UIViewController {
                                 for (_, message) in journey["messages"]  {
                                     print("Slug: ", message["slug"].stringValue, " for journey: ", headline)
                                     //print(message)
-                                    _ = DataBeat(context: self.stack.mainContext, title: message["headline"].stringValue, journeyId: journey["_id"].stringValue, message: message["text"].stringValue, latitude: message["lat"].stringValue, longitude: message["lng"].stringValue, timestamp: message["timeCapture"].stringValue, mediaType: MediaType.none, mediaData: "", mediaDataId: "", messageId: message["_id"].stringValue, mediaUploaded: true, messageUploaded: true, journey: dataJourney)
+                                    _ = DataBeat(context: self.stack.mainContext, title: message["headline"].stringValue, journeyId: journey["_id"].stringValue, message: message["text"].stringValue, latitude: message["lat"].stringValue, longitude: message["lng"].stringValue, timestamp: message["timeCapture"].stringValue, mediaType: MediaType.none, mediaData: "", mediaDataId: "", messageId: message["_id"].stringValue, mediaUploaded: true, messageUploaded: true, orientation: nil, journey: dataJourney)
                                     saveContext(self.stack.mainContext)
                                     
                                 }
