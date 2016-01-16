@@ -66,6 +66,8 @@ class SettingsVC: FormViewController {
                                 if !synced! {
                                     print("There are things to sync")
                                     self.sync()
+                                } else {
+                                    print("Nothing to sync")
                                 }
                             }
                         }

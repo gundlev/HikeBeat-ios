@@ -469,7 +469,8 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                             // Find image orientation
                             
                             /** Image Parameters including the image in base64 format. */
-                            let imageParams: [String: AnyObject] = ["timeCapture": self.currentBeat!.timestamp, "journeyId": (self.activeJourney?.journeyId)!, "data": (self.currentBeat?.mediaData)!, "orientation": (self.currentBeat?.orientation)!]
+                            let imageParams: [String: AnyObject] = ["timeCapture": self.currentBeat!.timestamp, "journeyId": (self.activeJourney?.journeyId)!, "data": (self.currentBeat?.mediaData)!]
+                            //, "orientation": (self.currentBeat?.orientation)!
                             
                             /** The URL for the image*/
                             let imageUrl = IPAddress + "journeys/" + (self.activeJourney?.journeyId)! + "/images"

@@ -23,7 +23,7 @@ func sendBeats(beats: [DataBeat], stack: CoreDataStack, progressView: UIProgress
         // Real solution
         
         /** Parameters to send to the API.*/
-        let parameters: [String: AnyObject] = ["timeCapture": beat.timestamp, "journeyId": beat.journeyId, "data": beat.mediaData!, "orientation": beat.orientation!]
+        let parameters: [String: AnyObject] = ["timeCapture": beat.timestamp, "journeyId": beat.journeyId, "data": beat.mediaData!]
         
         /** The URL for the post*/
         let url = IPAddress + "journeys/" + beat.journeyId + "/images"
