@@ -10,6 +10,8 @@ import Foundation
 
 public struct MediaType {
     public static let image = "image"
+    public static let video = "video"
+    public static let audio = "audio"
     public static let none = "none"
 }
 

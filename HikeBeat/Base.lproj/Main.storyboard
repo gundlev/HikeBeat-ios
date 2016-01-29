@@ -1170,6 +1170,16 @@
                                     <outletCollection property="gestureRecognizers" destination="3qW-Di-QEu" appends="YES" id="bYg-Eh-feC"/>
                                 </connections>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Compose Beat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjg-2T-4kf">
+                                <rect key="frame" x="208" y="33" width="184" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Txx-p1-0My" customClass="NSGSwipeView" customModule="HikeBeat" customModuleProvider="target">
+                                <rect key="frame" x="55" y="466" width="490" height="66"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <view tag="3" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CJL-eN-KAJ">
                                 <rect key="frame" x="0.0" y="323" width="600" height="120"/>
                                 <subviews>
@@ -1177,7 +1187,7 @@
                                         <rect key="frame" x="252" y="10" width="97" height="99"/>
                                         <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Media" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRY-DD-OkM">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRY-DD-OkM">
                                         <rect key="frame" x="277" y="17" width="47" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1190,29 +1200,74 @@
                                             <action selector="addImage:" destination="017-bD-rJA" eventType="touchUpInside" id="f9X-CR-Xzi"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeP-yV-1TS">
+                                        <rect key="frame" x="497" y="37" width="92" height="30"/>
+                                        <state key="normal" title="Record Audio"/>
+                                        <connections>
+                                            <action selector="recordAudio:" destination="017-bD-rJA" eventType="touchUpInside" id="h0b-Lu-5aF"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J5F-fL-MuF">
+                                        <rect key="frame" x="504" y="59" width="76" height="30"/>
+                                        <state key="normal" title="Stop Audio"/>
+                                        <connections>
+                                            <action selector="stopAudio:" destination="017-bD-rJA" eventType="touchUpInside" id="tSp-pP-q4P"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6j2-AI-uG8">
+                                        <rect key="frame" x="507" y="82" width="72" height="30"/>
+                                        <state key="normal" title="Play Audio"/>
+                                        <connections>
+                                            <action selector="playAudio:" destination="017-bD-rJA" eventType="touchUpInside" id="28c-RQ-AFd"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMo-4M-Guc">
+                                        <rect key="frame" x="39" y="17" width="44" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Audio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lr-Zc-msC">
+                                        <rect key="frame" x="521" y="17" width="44" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebw-JP-oIl">
+                                        <rect key="frame" x="16" y="37" width="92" height="30"/>
+                                        <state key="normal" title="Record Video"/>
+                                        <connections>
+                                            <action selector="recordVideo:" destination="017-bD-rJA" eventType="touchUpInside" id="Pf4-U6-9S3"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g70-pu-tcO">
+                                        <rect key="frame" x="25" y="59" width="72" height="30"/>
+                                        <state key="normal" title="Play Video"/>
+                                        <connections>
+                                            <action selector="playVideo:" destination="017-bD-rJA" eventType="touchUpInside" id="Ntz-Ge-wjf"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.95071491919999995" blue="0.29237807300000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
+                                    <constraint firstItem="IMo-4M-Guc" firstAttribute="leading" secondItem="CJL-eN-KAJ" secondAttribute="leading" constant="39" id="6g9-j1-yfx"/>
+                                    <constraint firstAttribute="trailing" secondItem="J5F-fL-MuF" secondAttribute="trailing" constant="20" id="Iuh-Xb-Cgd"/>
+                                    <constraint firstAttribute="trailing" secondItem="aeP-yV-1TS" secondAttribute="trailing" constant="11" id="Sxq-1b-cyR"/>
+                                    <constraint firstAttribute="trailing" secondItem="6j2-AI-uG8" secondAttribute="trailing" constant="21" id="TUs-uC-0aZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="4lr-Zc-msC" secondAttribute="trailing" constant="35" id="Vgs-yZ-bFL"/>
                                     <constraint firstItem="jRY-DD-OkM" firstAttribute="centerX" secondItem="CJL-eN-KAJ" secondAttribute="centerX" id="XMb-ZR-8Pv"/>
+                                    <constraint firstItem="6j2-AI-uG8" firstAttribute="top" secondItem="J5F-fL-MuF" secondAttribute="bottom" constant="-7" id="Z65-5b-EMo"/>
+                                    <constraint firstItem="ebw-JP-oIl" firstAttribute="leading" secondItem="CJL-eN-KAJ" secondAttribute="leading" constant="16" id="cNz-hN-FRq"/>
                                     <constraint firstItem="pzj-s3-ZsM" firstAttribute="centerX" secondItem="CJL-eN-KAJ" secondAttribute="centerX" id="hSG-Vb-cDH"/>
                                     <constraint firstItem="rJA-kL-px5" firstAttribute="centerX" secondItem="CJL-eN-KAJ" secondAttribute="centerX" id="nf8-Kr-3J9"/>
+                                    <constraint firstItem="g70-pu-tcO" firstAttribute="leading" secondItem="CJL-eN-KAJ" secondAttribute="leading" constant="25" id="q2v-W6-74m"/>
                                     <constraint firstAttribute="bottom" secondItem="pzj-s3-ZsM" secondAttribute="bottom" constant="11" id="slc-RW-Wvd"/>
                                     <constraint firstItem="pzj-s3-ZsM" firstAttribute="top" secondItem="CJL-eN-KAJ" secondAttribute="top" constant="10" id="wdp-XG-54F"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="SJj-Lg-ID3" appends="YES" id="Wwh-Kf-a7s"/>
                                 </connections>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Compose Beat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjg-2T-4kf">
-                                <rect key="frame" x="208" y="33" width="184" height="21"/>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="24"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Txx-p1-0My" customClass="NSGSwipeView" customModule="HikeBeat" customModuleProvider="target">
-                                <rect key="frame" x="55" y="466" width="490" height="66"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
@@ -1249,7 +1304,11 @@
                         <outlet property="messageLabel" destination="YgW-lk-acU" id="xy0-su-75w"/>
                         <outlet property="messageTextView" destination="5X7-FM-m1q" id="y2B-80-N9w"/>
                         <outlet property="messageView" destination="O77-XN-cix" id="kTt-2A-gZq"/>
+                        <outlet property="playButton" destination="6j2-AI-uG8" id="nZq-Vn-iCW"/>
+                        <outlet property="recordButton" destination="aeP-yV-1TS" id="HEL-ld-TCW"/>
                         <outlet property="showMediaButton" destination="QKS-Es-Jqh" id="sVX-NS-b4q"/>
+                        <outlet property="statusLabel" destination="4lr-Zc-msC" id="p0I-eq-HZA"/>
+                        <outlet property="stopButton" destination="J5F-fL-MuF" id="6PI-8P-BUj"/>
                         <outlet property="swipeView" destination="Txx-p1-0My" id="iFW-Vi-eSO"/>
                         <outlet property="titleButton" destination="4bV-7i-jmd" id="hMn-hg-kHK"/>
                         <outlet property="titleLabel" destination="Dc3-MU-4Ut" id="LEM-gp-c9I"/>

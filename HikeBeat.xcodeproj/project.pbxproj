@@ -27,6 +27,8 @@
 		8518413B1BD143B9002BBCD1 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518413A1BD143B9002BBCD1 /* Beat.swift */; };
 		8518418D1BD43FF2002BBCD1 /* NewJourneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */; };
 		851841911BD50C22002BBCD1 /* BeatPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841901BD50C22002BBCD1 /* BeatPolyline.swift */; };
+		851EE65F1C4A8CFA002B9CE8 /* VideoExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851EE65E1C4A8CFA002B9CE8 /* VideoExt.swift */; };
+		851EE6651C4A8D79002B9CE8 /* MemoExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851EE6641C4A8D79002B9CE8 /* MemoExt.swift */; };
 		853003A71BBD65F900A6D27F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003A61BBD65F900A6D27F /* AppDelegate.swift */; };
 		853003B01BBD65F900A6D27F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 853003AF1BBD65F900A6D27F /* Assets.xcassets */; };
 		853003B31BBD65F900A6D27F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853003B11BBD65F900A6D27F /* LaunchScreen.storyboard */; };
@@ -172,6 +174,8 @@
 		8518413A1BD143B9002BBCD1 /* Beat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beat.swift; sourceTree = "<group>"; };
 		8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewJourneyVC.swift; sourceTree = "<group>"; };
 		851841901BD50C22002BBCD1 /* BeatPolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatPolyline.swift; sourceTree = "<group>"; };
+		851EE65E1C4A8CFA002B9CE8 /* VideoExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoExt.swift; sourceTree = "<group>"; };
+		851EE6641C4A8D79002B9CE8 /* MemoExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoExt.swift; sourceTree = "<group>"; };
 		853003A31BBD65F900A6D27F /* HikeBeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HikeBeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		853003A61BBD65F900A6D27F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		853003AF1BBD65F900A6D27F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -346,6 +350,8 @@
 				853004351BBD6C5200A6D27F /* LoginVC.swift */,
 				853004361BBD6C5200A6D27F /* MainVC.swift */,
 				85B3FA6C1C17380A001A46AB /* SendBeatVC.swift */,
+				851EE65E1C4A8CFA002B9CE8 /* VideoExt.swift */,
+				851EE6641C4A8D79002B9CE8 /* MemoExt.swift */,
 				853004371BBD6C5200A6D27F /* ProfileVC.swift */,
 				851840F61BCC22E4002BBCD1 /* JourneysVC.swift */,
 				8518412C1BCFEC0B002BBCD1 /* JourneyVC.swift */,
@@ -670,6 +676,7 @@
 				851841351BD009C2002BBCD1 /* SVPulsingAnnotationView.m in Sources */,
 				85A44FDB1C24006200F3C7FD /* FollowsVC.swift in Sources */,
 				8530043A1BBD6C5200A6D27F /* MainVC.swift in Sources */,
+				851EE6651C4A8D79002B9CE8 /* MemoExt.swift in Sources */,
 				851841291BCD3F5F002BBCD1 /* CoreDataStackFactory.swift in Sources */,
 				8518412D1BCFEC0B002BBCD1 /* JourneyVC.swift in Sources */,
 				858CE3DB1BC26034000594DD /* DataBeat.swift in Sources */,
@@ -679,6 +686,7 @@
 				8518412B1BCD3F5F002BBCD1 /* StoreType.swift in Sources */,
 				8518410C1BCD1BC6002BBCD1 /* JourneyCell.swift in Sources */,
 				8558C2451C21CA320033F873 /* Upload.swift in Sources */,
+				851EE65F1C4A8CFA002B9CE8 /* VideoExt.swift in Sources */,
 				851840F71BCC22E4002BBCD1 /* JourneysVC.swift in Sources */,
 				8558C1FB1C1CAB170033F873 /* Rows.swift in Sources */,
 				851841241BCD3F5F002BBCD1 /* CoreDataEquatable.swift in Sources */,

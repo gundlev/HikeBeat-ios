@@ -27,6 +27,22 @@ func getUserExample() -> JSON {
     return user
 }
 
+func hex(number: Double) -> String {
+    number
+    let d = String(number)
+    let e = d.rangeOfString(".")
+    let s1 = d.substringToIndex((e?.startIndex)!)
+    let s2 = d.substringFromIndex((e?.endIndex)!)
+    let n1 = Int(s1)
+    let n2 = Int(s2)
+    if n2 == 0 {
+        let st = String(n1!, radix: 36)
+        return st
+    }
+    let st = String(n1!, radix: 36) + "." + String(n2!, radix: 36)
+    return st
+}
+
 func getNewJourney(context: NSManagedObjectContext, active: Bool) -> DataJourney {
     
     let rand = randomStringWithLength(5)
