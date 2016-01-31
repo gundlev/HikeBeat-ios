@@ -22,6 +22,9 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
     Variables and Constants
 */
     
+    /* Media Veriables*/
+    var currentMediaURL: NSURL?
+    
     /* VideoRecorder variables*/
     var currentVideo: NSURL?
     
@@ -30,6 +33,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
     var player:AVAudioPlayer!
     var meterTimer:NSTimer!
     var soundFileURL:NSURL!
+    var audioHasBeenRecordedForThisBeat = false
     
     /**
     The amount translated in the set initial.
@@ -288,6 +292,10 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                     self.mediaButton.alpha = 0
                     self.mediaImageView.image = nil
                     self.currentImage = nil
+                    self.currentMediaURL = nil
+                    self.audioHasBeenRecordedForThisBeat = false
+                    
+                    
                 }
             })
         }
@@ -404,8 +412,11 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
     
     func checkForCorrectInput() {
         let locationTuple = self.getTimeAndLocation()
+        print(0.1)
         if locationTuple != nil {
+            print(0.2)
             if ((titleTextField.text == "" && messageTextView.text == "" && currentImage == nil && currentVideo == nil) || self.activeJourney == nil || locationTuple!.latitude == "" || locationTuple!.longitude == "") {
+                print(0.3)
                 // Give a warning that there is not text or no active journey.
                 print("Something is missing")
                 print("Text: ", titleTextField.text == "" && messageTextView.text == "" && currentImage == nil && currentVideo == nil)
@@ -415,39 +426,59 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                 
             } else {
                 
-                
+                print(0.4)
                 var title: String? = nil
                 var message: String? = nil
                 var mediaData: String? = nil
                 var orientation: String? = nil
                 var mediaType: String? = nil
-                
+                print(0.5)
                 if titleTextField.text != "" || titleTextField.text != " " || titleTextField.text != "  " || titleTextField.text != "   " {
                     title = self.titleTextField.text
                 }
+                print(0.6)
                 if messageTextView.text != "" || titleTextField.text != " " || titleTextField.text != "  " || titleTextField.text != "   "{
                     message = self.messageTextView.text
                 }
+                print(0.7)
                 if currentImage != nil {
+                    //print(1)
+                    let imageData = UIImageJPEGRepresentation(currentImage!, 0.5)
                     mediaType = MediaType.image
-                    let imageData = UIImageJPEGRepresentation(currentImage!, CGFloat(0.4))
-//                    var orientation = currentImage?.imageOrientation
-//                    print("Orientation: ", orientation?.rawValue)
-                    let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                    mediaData = base64String
-                    
-                    // Gettiong orientation
-                    let rawOrientation = currentImage?.imageOrientation.rawValue
-                    switch rawOrientation! {
-                    case 0: orientation = "landscape"
-                    case 1: orientation = "landscape"
-                    case 2: orientation = "portrait"
-                    case 3: orientation = "portrait"
-                    default: print("No orientation")
-                    }
-                } else if currentVideo != nil {
+                    //print(2)
+                    mediaData = saveMediaToDocs(imageData!, journeyId: (activeJourney?.journeyId)!, timestamp: locationTuple!.timestamp)
+                    //print(3)
+//                    let imageData = UIImageJPEGRepresentation(currentImage!, CGFloat(0.4))
+////                    var orientation = currentImage?.imageOrientation
+////                    print("Orientation: ", orientation?.rawValue)
+//                    let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//                    mediaData = base64String
+//                    
+//                    // Gettiong orientation
+//                    let rawOrientation = currentImage?.imageOrientation.rawValue
+//                    switch rawOrientation! {
+//                    case 0: orientation = "landscape"
+//                    case 1: orientation = "landscape"
+//                    case 2: orientation = "portrait"
+//                    case 3: orientation = "portrait"
+//                    default: print("No orientation")
+//                    }
+                } else if currentMediaURL != nil {
+                    print(1)
                     mediaType = MediaType.video
-                    mediaData = saveVideoToDocs(currentVideo!, journeyId: (activeJourney?.journeyId)!, timestamp: locationTuple!.timestamp)
+                    print(2)
+                    let videoData = NSData(contentsOfURL: currentMediaURL!)
+                    mediaData = saveMediaToDocs(videoData!, journeyId: (activeJourney?.journeyId)!, timestamp: locationTuple!.timestamp)
+                        if mediaData != nil {
+                            self.removeMediaWithURL(currentMediaURL!)
+                        }
+                    print("mediaData: ", mediaData)
+                } else if audioHasBeenRecordedForThisBeat {
+                    mediaType = MediaType.audio
+                    let pathToAudio = getPathToFileFromName("audio-temp.m4a")
+                    let audioData = NSData(contentsOfURL: pathToAudio!)
+                    mediaData = saveMediaToDocs(audioData!, journeyId: (activeJourney?.journeyId)!, timestamp: locationTuple!.timestamp)
+                    self.recorder.deleteRecording()
                 }
                 
 
@@ -513,59 +544,81 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                             print("There is an image or video")
                             // Send Image
                             
-                            if self.currentBeat?.mediaType == MediaType.image {
-                                // Find image orientation
-                                /** Image Parameters including the image in base64 format. */
-                                let imageParams: [String: AnyObject] = ["timeCapture": self.currentBeat!.timestamp, "data": (self.currentBeat?.mediaData)!, "type": (self.currentBeat?.mediaType!)!]
-                                //, "orientation": (self.currentBeat?.orientation)!
-                                
-                                /** The URL for the image*/
-                                let imageUrl = IPAddress + "journeys/" + (self.activeJourney?.journeyId)! + "/media"
-                                
-                                // Sending the image.
-                                Alamofire.request(.POST, imageUrl, parameters: imageParams, encoding: .JSON, headers: Headers).responseJSON { imageResponse in
-                                    // If everything is 200 OK from server save the imageId in currentBeat variable mediaDataId.
-                                    if imageResponse.response?.statusCode == 200 {
-                                        let rawImageJson = JSON(imageResponse.result.value!)
-                                        let imageJson = rawImageJson["data"][0]
-                                        print(imageResponse)
-                                        print("The image has been posted")
-                                        
-                                        // Set the imageId in currentBeat
-                                        print("messageId: ", imageJson["_id"].stringValue)
-                                        self.currentBeat?.mediaDataId = imageJson["_id"].stringValue
-                                        
-                                        // Set the uploaded variable to true as the image has been uplaoded.
-                                        self.currentBeat?.mediaUploaded = true
-                                        saveContext(self.stack.mainContext)
-                                    } else {
-                                        print("Error posting the image")
-                                        self.currentBeat?.mediaUploaded = false
-                                        saveContext(self.stack.mainContext)
-                                    }
-                                    
-                                    self.setInitial(true)
-                                    self.swipeView.setBack(true)
-                                }
-                            } else if self.currentBeat?.mediaType == MediaType.video {
+//                            if self.currentBeat?.mediaType == MediaType.image {
+//                                // Find image orientation
+//                                /** Image Parameters including the image in base64 format. */
+//                                let imageParams: [String: AnyObject] = ["timeCapture": self.currentBeat!.timestamp, "data": (self.currentBeat?.mediaData)!, "type": (self.currentBeat?.mediaType!)!]
+//                                //, "orientation": (self.currentBeat?.orientation)!
+//                                
+//                                /** The URL for the image*/
+//                                let imageUrl = IPAddress + "journeys/" + (self.activeJourney?.journeyId)! + "/media"
+//                                
+//                                // Sending the image.
+//                                Alamofire.request(.POST, imageUrl, parameters: imageParams, encoding: .JSON, headers: Headers).responseJSON { imageResponse in
+//                                    // If everything is 200 OK from server save the imageId in currentBeat variable mediaDataId.
+//                                    if imageResponse.response?.statusCode == 200 {
+//                                        let rawImageJson = JSON(imageResponse.result.value!)
+//                                        let imageJson = rawImageJson["data"][0]
+//                                        print(imageResponse)
+//                                        print("The image has been posted")
+//                                        
+//                                        // Set the imageId in currentBeat
+//                                        print("messageId: ", imageJson["_id"].stringValue)
+//                                        self.currentBeat?.mediaDataId = imageJson["_id"].stringValue
+//                                        
+//                                        // Set the uploaded variable to true as the image has been uplaoded.
+//                                        self.currentBeat?.mediaUploaded = true
+//                                        saveContext(self.stack.mainContext)
+//                                    } else {
+//                                        print("Error posting the image")
+//                                        self.currentBeat?.mediaUploaded = false
+//                                        saveContext(self.stack.mainContext)
+//                                    }
+//                                    
+//                                    self.setInitial(true)
+//                                    self.swipeView.setBack(true)
+//                                }
+//                            } else 
+                            //if self.currentBeat?.mediaType == MediaType.video || self.currentBeat?.mediaType == MediaType.image {
                                 let filePath = self.getPathToFileFromName((self.currentBeat?.mediaData)!)
                                 if filePath != nil {
-                                    let urlVideo = IPAddress + "journeys/" + (self.activeJourney?.journeyId)! + "/media"
-                                    print(urlVideo)
-//                                    let data = NSData(contentsOfURL: self.getPathToFileFromName((self.currentBeat?.mediaData)!)!)
-//                                    
-//                                    let videoParams: [String: AnyObject] = ["timeCapture": self.currentBeat!.timestamp, "type": (self.currentBeat?.mediaType!)!, "data": data!]
-//
-//                                    let urlRequest = self.urlRequestWithComponents("http://httpbin.org/post", parameters: parameters, imageData: data!)
+                                    let urlMedia = IPAddress + "journeys/" + (self.activeJourney?.journeyId)! + "/media"
+                                    print(urlMedia)
                                     
-//                                    Alamofire.request(.POST, urlVideo, parameters: videoParams, headers: Headers).responseJSON { response in
-//                                        print("This is the video response: ", response)
-//                                    }
-                                    Alamofire.upload(.POST, "https://httpbin.org/post",headers: Headers, file: filePath!).responseJSON { response in
-                                        print("This is the video response: ", response)
+                                    var customHeader = Headers
+                                    
+                                    customHeader["x-hikebeat-timecapture"] = self.currentBeat?.timestamp
+                                    customHeader["x-hikebeat-type"] = self.currentBeat?.mediaType!
+
+                                    Alamofire.upload(.POST, urlMedia,headers: customHeader, file: filePath!).responseJSON { mediaResponse in
+                                        print("This is the media response: ", mediaResponse)
+                                        
+                                        // If everything is 200 OK from server save the imageId in currentBeat variable mediaDataId.
+                                        if mediaResponse.response?.statusCode == 200 {
+                                            let rawImageJson = JSON(mediaResponse.result.value!)
+                                            let mediaJson = rawImageJson["data"][0]
+                                            print(mediaResponse)
+                                            print("The image has been posted")
+    
+                                            // Set the imageId in currentBeat
+                                            print("messageId: ", mediaJson["_id"].stringValue)
+                                            self.currentBeat?.mediaDataId = mediaJson["_id"].stringValue
+    
+                                            // Set the uploaded variable to true as the image has been uplaoded.
+                                            self.currentBeat?.mediaUploaded = true
+                                            saveContext(self.stack.mainContext)
+                                        } else {
+                                            print("Error posting the image")
+                                            self.currentBeat?.mediaUploaded = false
+                                            saveContext(self.stack.mainContext)
+                                        }
+                                        
+                                        self.setInitial(true)
+                                        self.swipeView.setBack(true)
+                                        
                                     }
                                 }
-                            }
+                            //}
 
                         } else {
                             print("There's no image")
@@ -915,6 +968,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                 
                 self.imagePicker.delegate = self
                 self.imagePicker.sourceType = .PhotoLibrary;
+                self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
                 self.imagePicker.allowsEditing = false
                 
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)
@@ -929,6 +983,8 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                 
                 self.imagePicker.delegate = self
                 self.imagePicker.sourceType = .Camera
+                //self.imagePicker.mediaTypes = [kUTTypeImage as String]
+                //self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
                 self.imagePicker.allowsEditing = false
                 
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)

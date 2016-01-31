@@ -85,8 +85,8 @@ class CreateUserVc: UIViewController {
                     
                 } else if response.response?.statusCode == 400 {
                     // email or username has been uses
-                    print("email or username has been uses")
-                    print(response.response?.description)
+                    print("email or username has been used")
+                    print(response.result.value)
                     
                 }
             }

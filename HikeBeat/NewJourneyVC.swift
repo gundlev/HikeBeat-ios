@@ -21,10 +21,10 @@ class NewJourneyVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func createJourney(sender: AnyObject) {
         
-        if slugInput.text != "" && headlineInput.text != "" {
+        if headlineInput.text != "" {
             print((userDefaults.stringForKey("_id"))!)
             print(slugInput.text!)
-            let parameters: [String: AnyObject] = ["userId": (userDefaults.stringForKey("_id"))!, "slug": slugInput.text!, "options": ["headline": headlineInput.text!]]
+            let parameters: [String: AnyObject] = ["options": ["headline": headlineInput.text!]]
             let url = IPAddress + "users/" + userDefaults.stringForKey("_id")! + "/journeys"
             print(url)
             

@@ -59,6 +59,11 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
                 subtitle = beat.message!
             }
             
+            var image: UIImage? = nil
+            if beat.mediaType == MediaType.image {
+                image = beat.createImageFromBase64()
+            }
+            
             let beatPin = BeatPin(
                 title: title,
                 timestamp: beat.timestamp,
@@ -67,7 +72,7 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
                 discipline: beat.journeyId,
                 coordinate: CLLocationCoordinate2D(latitude: CLLocationDegrees(Double(beat.latitude)!), longitude: CLLocationDegrees(Double(beat.longitude)!)),
                 lastPin: false,
-                image: beat.createImageFromBase64())
+                image: image)
         
             arr.append(beatPin)
         }
@@ -159,7 +164,7 @@ class JourneyVC: UIViewController, UITableViewDelegate, UITableViewDataSource, N
 //                button.hidden = true
                 view.rightCalloutAccessoryView = button as UIView
                 
-                if annotation.image != nil {
+                if annotation.image != nil  {
                     let imgView = UIImageView()
                     let image = annotation.image!
                     if image.size.height > image.size.width {

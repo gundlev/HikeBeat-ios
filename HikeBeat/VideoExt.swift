@@ -41,6 +41,7 @@ extension SendBeatVC {
                 self.imagePicker.mediaTypes = [kUTTypeMovie as String]
                 self.imagePicker.allowsEditing = true
                 self.imagePicker.videoMaximumDuration = 15
+                self.imagePicker.videoQuality = UIImagePickerControllerQualityType.TypeHigh
                 
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
@@ -58,10 +59,12 @@ extension SendBeatVC {
                 imagePicker.delegate = self
                 imagePicker.sourceType = .Camera;
                 imagePicker.mediaTypes = [kUTTypeMovie as String]
-                imagePicker.allowsEditing = false
+                imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Video
+                imagePicker.allowsEditing = true
                 imagePicker.videoMaximumDuration = 15
                 imagePicker.showsCameraControls = true
-                imagePicker.videoQuality = UIImagePickerControllerQualityType.TypeHigh
+                imagePicker.videoQuality = UIImagePickerControllerQualityType.TypeMedium
+                //self.imagePicker
                 
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
@@ -133,37 +136,58 @@ extension SendBeatVC {
         let type = info[UIImagePickerControllerMediaType]
         print(type!.description)
         if type?.description! == "public.movie"{
-            let videoURL = info[UIImagePickerControllerMediaURL] as! NSURL
-            self.currentVideo = videoURL
+            
+            // user chose video
+            let currentVideoURL = info[UIImagePickerControllerMediaURL] as! NSURL
+            self.currentMediaURL = currentVideoURL
             if picker.sourceType == .Camera {
-                if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoURL.path!) {
-                    UISaveVideoAtPathToSavedPhotosAlbum(videoURL.path!, self, nil, nil)
+                if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(currentVideoURL.path!) {
+                    UISaveVideoAtPathToSavedPhotosAlbum(currentVideoURL.path!, self, nil, nil)
                 }
             }
         } else {
+            
+            // User chose image
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             if picker.sourceType == .Camera {
                 UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
             }
             self.mediaImageView.image = image
             currentImage = image
+            print(1)
+//            let currentImageURL = info[UIImagePickerControllerMediaURL] as! NSURL
+//            self.currentMediaURL = currentImageURL
+            print(2)
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func saveVideoToDocs(videoURL: NSURL, journeyId: String, timestamp: String) -> String? {
-        let videoData = NSData(contentsOfURL: videoURL)
+    func saveMediaToDocs(mediaData: NSData, journeyId: String, timestamp: String) -> String? {
+        print(1.1)
+//        let videoData = NSData(contentsOfURL: mediaURL)
+        print(1.2)
         let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        print(1.3)
         let documentsDirectory: AnyObject = paths[0]
+        print(1.4)
         let fileName = "hikebeat_"+journeyId+"_"+timestamp+".mp4"
         let dataPath = documentsDirectory.stringByAppendingPathComponent(fileName)
-        let success = videoData!.writeToFile(dataPath, atomically: false)
+        let success = mediaData.writeToFile(dataPath, atomically: false)
+        print(1.5)
         if success {
-            return fileName
             print("Saved to Docs with name: ", fileName)
+            return fileName
         } else {
             return nil
         }
     }
     
+    func removeMediaWithURL(mediaURL: NSURL) {
+        let fm = NSFileManager()
+        do {
+            try fm.removeItemAtURL(mediaURL)
+        } catch {
+            print("problem removing media ")
+        }
+    }
 }

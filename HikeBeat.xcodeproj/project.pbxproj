@@ -27,6 +27,7 @@
 		8518413B1BD143B9002BBCD1 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518413A1BD143B9002BBCD1 /* Beat.swift */; };
 		8518418D1BD43FF2002BBCD1 /* NewJourneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */; };
 		851841911BD50C22002BBCD1 /* BeatPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841901BD50C22002BBCD1 /* BeatPolyline.swift */; };
+		851974541C5E506100F09B01 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851974531C5E506100F09B01 /* utils.swift */; };
 		851EE65F1C4A8CFA002B9CE8 /* VideoExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851EE65E1C4A8CFA002B9CE8 /* VideoExt.swift */; };
 		851EE6651C4A8D79002B9CE8 /* MemoExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851EE6641C4A8D79002B9CE8 /* MemoExt.swift */; };
 		853003A71BBD65F900A6D27F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853003A61BBD65F900A6D27F /* AppDelegate.swift */; };
@@ -174,6 +175,7 @@
 		8518413A1BD143B9002BBCD1 /* Beat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beat.swift; sourceTree = "<group>"; };
 		8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewJourneyVC.swift; sourceTree = "<group>"; };
 		851841901BD50C22002BBCD1 /* BeatPolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatPolyline.swift; sourceTree = "<group>"; };
+		851974531C5E506100F09B01 /* utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		851EE65E1C4A8CFA002B9CE8 /* VideoExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoExt.swift; sourceTree = "<group>"; };
 		851EE6641C4A8D79002B9CE8 /* MemoExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoExt.swift; sourceTree = "<group>"; };
 		853003A31BBD65F900A6D27F /* HikeBeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HikeBeat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -452,6 +454,7 @@
 				853003D91BBD670C00A6D27F /* Config.swift */,
 				858CE3DC1BC260F4000594DD /* DataModelUtils.swift */,
 				85A44FE81C2457B800F3C7FD /* Structs.swift */,
+				851974531C5E506100F09B01 /* utils.swift */,
 			);
 			name = ConfigAndUtils;
 			sourceTree = "<group>";
@@ -721,6 +724,7 @@
 				8558C2431C21B6B70033F873 /* Reachability.swift in Sources */,
 				85A44FD11C22E19000F3C7FD /* SyncWithAPI.swift in Sources */,
 				851841261BCD3F5F002BBCD1 /* CoreDataModel.swift in Sources */,
+				851974541C5E506100F09B01 /* utils.swift in Sources */,
 				85B3FA671C17327C001A46AB /* NSGSwipeView.swift in Sources */,
 				853003DB1BBD670C00A6D27F /* Config.swift in Sources */,
 				851841911BD50C22002BBCD1 /* BeatPolyline.swift in Sources */,

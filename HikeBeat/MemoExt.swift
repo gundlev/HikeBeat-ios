@@ -144,9 +144,7 @@ extension SendBeatVC:  AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     
     func setupRecorder() {
-        let format = NSDateFormatter()
-        format.dateFormat="yyyy-MM-dd-HH-mm-ss"
-        let currentFileName = "recording-\(format.stringFromDate(NSDate())).m4a"
+        let currentFileName = "audio-temp.m4a"
         print(currentFileName)
         
         let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
@@ -355,19 +353,20 @@ extension SendBeatVC:  AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             stopButton.enabled = false
             playButton.enabled = true
             recordButton.setTitle("Record", forState:.Normal)
+            self.audioHasBeenRecordedForThisBeat = true
             
             // iOS8 and later
-            let alert = UIAlertController(title: "Recorder",
-                message: "Finished Recording",
-                preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Keep", style: .Default, handler: {action in
-                print("keep was tapped")
-            }))
-            alert.addAction(UIAlertAction(title: "Delete", style: .Default, handler: {action in
-                print("delete was tapped")
-                self.recorder.deleteRecording()
-            }))
-            self.presentViewController(alert, animated:true, completion:nil)
+//            let alert = UIAlertController(title: "Recorder",
+//                message: "Finished Recording",
+//                preferredStyle: .Alert)
+//            alert.addAction(UIAlertAction(title: "Keep", style: .Default, handler: {action in
+//                print("keep was tapped")
+//            }))
+//            alert.addAction(UIAlertAction(title: "Delete", style: .Default, handler: {action in
+//                print("delete was tapped")
+//                self.recorder.deleteRecording()
+//            }))
+//            self.presentViewController(alert, animated:true, completion:nil)
     }
     
     func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder,
