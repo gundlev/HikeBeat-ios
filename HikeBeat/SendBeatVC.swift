@@ -814,7 +814,16 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
         }
     }
     
-    func getTimeAndLocation() -> (timestamp: String, latitude: String, longitude: String)? {
+    
+    /**
+    function to get the timestamp and location.
+     
+     - parameters:
+        - nil
+     
+     - returns: Bundle with 4 strings: timestamp, latitude, longitude, altitude.
+    */
+    func getTimeAndLocation() -> (timestamp: String, latitude: String, longitude: String, altitude: String)? {
         let t = String(NSDate().timeIntervalSince1970)
         let e = t.rangeOfString(".")
         let timestamp = t.substringToIndex((e?.startIndex)!)
@@ -824,6 +833,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
         
         var longitude = ""
         var latitude = ""
+        var altitude = ""
         if let location = appDelegate.getLocation() {
             let gpsCheck = userDefaults.boolForKey("GPS-check")
             if gpsCheck {
@@ -842,13 +852,15 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                     print("Horizontal Accuracy: ", location.horizontalAccuracy)
                     longitude = String(location.coordinate.longitude)
                     latitude = String(location.coordinate.latitude)
-                    return (timestamp, latitude, longitude)
+                    altitude = String(location.altitude)
+                    return (timestamp, latitude, longitude, altitude)
                 }
             } else {
                 print("Not performing gps check")
                 longitude = String(location.coordinate.longitude)
                 latitude = String(location.coordinate.latitude)
-                return (timestamp, latitude, longitude)
+                altitude = String(location.altitude)
+                return (timestamp, latitude, longitude, altitude)
             }
         } else {
             print("did not get the location for app delegate")
