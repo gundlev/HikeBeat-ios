@@ -415,7 +415,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
         print(0.1)
         if locationTuple != nil {
             print(0.2)
-            if ((titleTextField.text == "" && messageTextView.text == "" && currentImage == nil && currentVideo == nil) || self.activeJourney == nil || locationTuple!.latitude == "" || locationTuple!.longitude == "") {
+            if ((titleTextField.text == "" && messageTextView.text == "" && currentImage == nil && currentVideo == nil) || self.activeJourney == nil || locationTuple!.latitude == "" || locationTuple!.longitude == "" || locationTuple!.altitude == "") {
                 print(0.3)
                 // Give a warning that there is not text or no active journey.
                 print("Something is missing")
@@ -486,7 +486,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                 
                 //            let locationTuple = self.getTimeAndLocation()
                 print("Just Before Crash!")
-                self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple!.latitude, longitude: locationTuple!.longitude, timestamp: locationTuple!.timestamp, mediaType: mediaType, mediaData: mediaData, mediaDataId: nil, messageId: nil, mediaUploaded: false, messageUploaded: false, orientation:  orientation, journey: activeJourney!)
+                self.currentBeat = DataBeat(context: (self.stack?.mainContext)!, title: title, journeyId: activeJourney!.journeyId, message: message, latitude: locationTuple!.latitude, longitude: locationTuple!.longitude, altitude: locationTuple!.altitude, timestamp: locationTuple!.timestamp, mediaType: mediaType, mediaData: mediaData, mediaDataId: nil, messageId: nil, mediaUploaded: false, messageUploaded: false, orientation:  orientation, journey: activeJourney!)
                 print("Just After Crash!")
                 self.sendBeat()
             }
@@ -521,7 +521,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                     localTitle = currentBeat!.title!
                 }
                 
-                let parameters = ["headline": localTitle, "text": localMessage, "lat": currentBeat!.latitude, "lng": currentBeat!.longitude, "timeCapture": currentBeat!.timestamp]
+                let parameters = ["headline": localTitle, "text": localMessage, "lat": currentBeat!.latitude, "lng": currentBeat!.longitude, "alt": currentBeat!.altitude, "timeCapture": currentBeat!.timestamp]
                 print(1)
                 // Sending the beat message
                 Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
@@ -852,14 +852,14 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                     print("Horizontal Accuracy: ", location.horizontalAccuracy)
                     longitude = String(location.coordinate.longitude)
                     latitude = String(location.coordinate.latitude)
-                    altitude = String(location.altitude)
+                    altitude = String(round(location.altitude))
                     return (timestamp, latitude, longitude, altitude)
                 }
             } else {
                 print("Not performing gps check")
                 longitude = String(location.coordinate.longitude)
                 latitude = String(location.coordinate.latitude)
-                altitude = String(location.altitude)
+                altitude = String(round(location.altitude))
                 return (timestamp, latitude, longitude, altitude)
             }
         } else {
@@ -881,24 +881,9 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
      */
     func genSMSMessageString(title: String, message: String, journeyId: String) -> String {
         
-        // Get current timestamp
-//        let currentDate = NSDate()
-//        let timeStamp = NSDateFormatter()
-//        timeStamp.dateFormat = "yyyyMMddHHmmss"
-//        let timeCapture = timeStamp.stringFromDate(currentDate)
-//        
-//        var longitude = ""
-//        var latitude = ""
-//        if let location = appDelegate.getLocation() {
-//            longitude = String(location.coordinate.longitude)
-//            latitude = String(location.coordinate.latitude)
-//        }
-//        let time = hex(Double((self.currentBeat?.timestamp)!)!)
-//        let smsMessageText = journeyId + " " + timeCapture + " " + latitude + " " + longitude + " " + title + "##" + message
-        
         print("timestamp deci: ", self.currentBeat?.timestamp)
         print("timestamp hex: ", hex(Double((self.currentBeat?.timestamp)!)!))
-        let smsMessageText = journeyId + " " + hex(Double((self.currentBeat?.timestamp)!)!) + " " + hex(Double((self.currentBeat?.latitude)!)!) + " " + hex(Double((self.currentBeat?.longitude)!)!) + " " + title + "##" + message
+        let smsMessageText = journeyId + " " + hex(Double((self.currentBeat?.timestamp)!)!) + " " + hex(Double((self.currentBeat?.latitude)!)!) + " " + hex(Double((self.currentBeat?.longitude)!)!) + " " + hex(Double(self.currentBeat!.altitude)!) + " " + title + "##" + message
         
         return smsMessageText
     }

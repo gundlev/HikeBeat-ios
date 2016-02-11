@@ -24,7 +24,6 @@
 		851841361BD009C2002BBCD1 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841331BD009C2002BBCD1 /* Async.swift */; };
 		851841371BD009C2002BBCD1 /* LFTPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841341BD009C2002BBCD1 /* LFTPulseAnimation.swift */; };
 		851841391BD009DE002BBCD1 /* BeatPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841381BD009DE002BBCD1 /* BeatPin.swift */; };
-		8518413B1BD143B9002BBCD1 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518413A1BD143B9002BBCD1 /* Beat.swift */; };
 		8518418D1BD43FF2002BBCD1 /* NewJourneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */; };
 		851841911BD50C22002BBCD1 /* BeatPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851841901BD50C22002BBCD1 /* BeatPolyline.swift */; };
 		851974541C5E506100F09B01 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851974531C5E506100F09B01 /* utils.swift */; };
@@ -42,7 +41,6 @@
 		853003E81BBD686700A6D27F /* WBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 853003E31BBD686700A6D27F /* WBTabBarController.m */; };
 		853004381BBD6C5200A6D27F /* UploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004341BBD6C5200A6D27F /* UploadVC.swift */; };
 		853004391BBD6C5200A6D27F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004351BBD6C5200A6D27F /* LoginVC.swift */; };
-		8530043A1BBD6C5200A6D27F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004361BBD6C5200A6D27F /* MainVC.swift */; };
 		8530043B1BBD6C5200A6D27F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004371BBD6C5200A6D27F /* ProfileVC.swift */; };
 		8558C1E81C1CA70D0033F873 /* SocialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558C1E71C1CA70D0033F873 /* SocialVC.swift */; };
 		8558C1EE1C1CA73B0033F873 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558C1ED1C1CA73B0033F873 /* SettingsVC.swift */; };
@@ -172,7 +170,6 @@
 		851841331BD009C2002BBCD1 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		851841341BD009C2002BBCD1 /* LFTPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFTPulseAnimation.swift; sourceTree = "<group>"; };
 		851841381BD009DE002BBCD1 /* BeatPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatPin.swift; sourceTree = "<group>"; };
-		8518413A1BD143B9002BBCD1 /* Beat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beat.swift; sourceTree = "<group>"; };
 		8518418C1BD43FF1002BBCD1 /* NewJourneyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewJourneyVC.swift; sourceTree = "<group>"; };
 		851841901BD50C22002BBCD1 /* BeatPolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatPolyline.swift; sourceTree = "<group>"; };
 		851974531C5E506100F09B01 /* utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
@@ -198,7 +195,6 @@
 		853003E31BBD686700A6D27F /* WBTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTabBarController.m; sourceTree = "<group>"; };
 		853004341BBD6C5200A6D27F /* UploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadVC.swift; sourceTree = "<group>"; };
 		853004351BBD6C5200A6D27F /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		853004361BBD6C5200A6D27F /* MainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		853004371BBD6C5200A6D27F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		8558C1E71C1CA70D0033F873 /* SocialVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialVC.swift; sourceTree = "<group>"; };
 		8558C1ED1C1CA73B0033F873 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -350,7 +346,6 @@
 			children = (
 				853004341BBD6C5200A6D27F /* UploadVC.swift */,
 				853004351BBD6C5200A6D27F /* LoginVC.swift */,
-				853004361BBD6C5200A6D27F /* MainVC.swift */,
 				85B3FA6C1C17380A001A46AB /* SendBeatVC.swift */,
 				851EE65E1C4A8CFA002B9CE8 /* VideoExt.swift */,
 				851EE6641C4A8D79002B9CE8 /* MemoExt.swift */,
@@ -371,7 +366,6 @@
 		853003D71BBD66D700A6D27F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8518413A1BD143B9002BBCD1 /* Beat.swift */,
 				851841381BD009DE002BBCD1 /* BeatPin.swift */,
 				858CE3DA1BC26034000594DD /* DataBeat.swift */,
 				851840F41BCBEF74002BBCD1 /* DataJourney.swift */,
@@ -678,7 +672,6 @@
 				8558C2411C21B3510033F873 /* NotieStyle.swift in Sources */,
 				851841351BD009C2002BBCD1 /* SVPulsingAnnotationView.m in Sources */,
 				85A44FDB1C24006200F3C7FD /* FollowsVC.swift in Sources */,
-				8530043A1BBD6C5200A6D27F /* MainVC.swift in Sources */,
 				851EE6651C4A8D79002B9CE8 /* MemoExt.swift in Sources */,
 				851841291BCD3F5F002BBCD1 /* CoreDataStackFactory.swift in Sources */,
 				8518412D1BCFEC0B002BBCD1 /* JourneyVC.swift in Sources */,
@@ -694,7 +687,6 @@
 				8558C1FB1C1CAB170033F873 /* Rows.swift in Sources */,
 				851841241BCD3F5F002BBCD1 /* CoreDataEquatable.swift in Sources */,
 				8558C1F81C1CAB170033F873 /* Controllers.swift in Sources */,
-				8518413B1BD143B9002BBCD1 /* Beat.swift in Sources */,
 				8558C1F91C1CAB170033F873 /* Core.swift in Sources */,
 				853003E41BBD686700A6D27F /* SimpleReachability.swift in Sources */,
 				8518412F1BCFF046002BBCD1 /* BeatCell.swift in Sources */,

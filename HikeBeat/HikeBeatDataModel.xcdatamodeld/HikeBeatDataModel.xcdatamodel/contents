@@ -11,6 +11,7 @@
         <attribute name="timestamp" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="DataBeat" representedClassName=".DataBeat" syncable="YES">
+        <attribute name="altitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="journeyId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
@@ -39,7 +40,7 @@
     </entity>
     <elements>
         <element name="Change" positionX="63" positionY="117" width="128" height="165"/>
-        <element name="DataBeat" positionX="-63" positionY="-18" width="128" height="255"/>
+        <element name="DataBeat" positionX="-63" positionY="-18" width="128" height="270"/>
         <element name="DataJourney" positionX="196" positionY="93" width="128" height="178"/>
     </elements>
 </model>

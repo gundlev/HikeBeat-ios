@@ -17,6 +17,7 @@ public final class DataBeat: NSManagedObject, Comparable {
     @NSManaged var message: String?
     @NSManaged var latitude: String
     @NSManaged var longitude: String
+    @NSManaged var altitude: String
     @NSManaged var timestamp: String
     @NSManaged var mediaType: String?
     @NSManaged var mediaData: String?
@@ -35,6 +36,7 @@ public final class DataBeat: NSManagedObject, Comparable {
         message: String?,
         latitude: String,
         longitude: String,
+        altitude: String,
         timestamp: String,
         mediaType: String?,
         mediaData: String?,
@@ -54,6 +56,7 @@ public final class DataBeat: NSManagedObject, Comparable {
         self.message = message
         self.latitude = latitude
         self.longitude = longitude
+        self.altitude = altitude
         self.timestamp = timestamp
         self.mediaType = mediaType
         self.mediaData = mediaData
