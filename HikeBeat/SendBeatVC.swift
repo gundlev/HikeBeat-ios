@@ -446,7 +446,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                     let imageData = UIImageJPEGRepresentation(currentImage!, 0.5)
                     mediaType = MediaType.image
                     //print(2)
-                    mediaData = saveMediaToDocs(imageData!, journeyId: (activeJourney?.journeyId)!, timestamp: locationTuple!.timestamp)
+                    mediaData = saveMediaToDocs(imageData!, journeyId: (activeJourney?.journeyId)!, timestamp: locationTuple!.timestamp, fileType: ".jpg")
                     //print(3)
 //                    let imageData = UIImageJPEGRepresentation(currentImage!, CGFloat(0.4))
 ////                    var orientation = currentImage?.imageOrientation
@@ -464,20 +464,25 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
 //                    default: print("No orientation")
 //                    }
                 } else if currentMediaURL != nil {
-                    print(1)
                     mediaType = MediaType.video
-                    print(2)
-                    let videoData = NSData(contentsOfURL: currentMediaURL!)
-                    mediaData = saveMediaToDocs(videoData!, journeyId: (activeJourney?.journeyId)!, timestamp: locationTuple!.timestamp)
+                    let newPath = getPathToFileFromName("vid-temp.mp4")
+                    let success = covertToMedia(currentMediaURL!, pathToOuputFile: newPath!, fileType: AVFileTypeMPEG4)
+                    if success {
+                        let videoData = NSData(contentsOfURL: currentMediaURL!)
+                        mediaData = saveMediaToDocs(videoData!, journeyId: (activeJourney?.journeyId)!, timestamp: locationTuple!.timestamp, fileType: ".mp4")
                         if mediaData != nil {
                             self.removeMediaWithURL(currentMediaURL!)
                         }
-                    print("mediaData: ", mediaData)
+                        print("mediaData: ", mediaData)
+                    }
+
                 } else if audioHasBeenRecordedForThisBeat {
                     mediaType = MediaType.audio
-                    let pathToAudio = getPathToFileFromName("audio-temp.m4a")
-                    let audioData = NSData(contentsOfURL: pathToAudio!)
-                    mediaData = saveMediaToDocs(audioData!, journeyId: (activeJourney?.journeyId)!, timestamp: locationTuple!.timestamp)
+                    let pathToAudio = getPathToFileFromName("audio-temp.acc")
+                    let newPath = getPathToFileFromName("audio-temp.m4a")
+                    covertToMedia(pathToAudio!, pathToOuputFile: newPath!, fileType: AVFileTypeAppleM4A)
+                    let audioData = NSData(contentsOfURL: newPath!)
+                    mediaData = saveMediaToDocs(audioData!, journeyId: (activeJourney?.journeyId)!, timestamp: locationTuple!.timestamp, fileType: "m4a")
                     self.recorder.deleteRecording()
                 }
                 
@@ -668,39 +673,39 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
     }
     
     
-    // this function creates the required URLRequestConvertible and NSData we need to use Alamofire.upload
-    func urlRequestWithComponents(urlString:String, parameters:Dictionary<String, String>, imageData:NSData) -> (URLRequestConvertible, NSData) {
-        
-        // create url request to send
-        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
-        mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
-        let boundaryConstant = "myRandomBoundary12345";
-        let contentType = "multipart/form-data;boundary="+boundaryConstant
-        mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
-        
-        
-        
-        // create upload data to send
-        let uploadData = NSMutableData()
-        
-        // add image
-        uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        uploadData.appendData("Content-Disposition: form-data; name=\"file\"; filename=\"file.png\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        uploadData.appendData("Content-Type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        uploadData.appendData(imageData)
-        
-        // add parameters
-        for (key, value) in parameters {
-            uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-            uploadData.appendData("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n\(value)".dataUsingEncoding(NSUTF8StringEncoding)!)
-        }
-        uploadData.appendData("\r\n--\(boundaryConstant)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        
-        
-        
-        // return URLRequestConvertible and NSData
-        return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData)
-    }
+//    // this function creates the required URLRequestConvertible and NSData we need to use Alamofire.upload
+//    func urlRequestWithComponents(urlString:String, parameters:Dictionary<String, String>, imageData:NSData) -> (URLRequestConvertible, NSData) {
+//        
+//        // create url request to send
+//        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+//        mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
+//        let boundaryConstant = "myRandomBoundary12345";
+//        let contentType = "multipart/form-data;boundary="+boundaryConstant
+//        mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
+//        
+//        
+//        
+//        // create upload data to send
+//        let uploadData = NSMutableData()
+//        
+//        // add image
+//        uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+//        uploadData.appendData("Content-Disposition: form-data; name=\"file\"; filename=\"file.png\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+//        uploadData.appendData("Content-Type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+//        uploadData.appendData(imageData)
+//        
+//        // add parameters
+//        for (key, value) in parameters {
+//            uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+//            uploadData.appendData("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n\(value)".dataUsingEncoding(NSUTF8StringEncoding)!)
+//        }
+//        uploadData.appendData("\r\n--\(boundaryConstant)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+//        
+//        
+//        
+//        // return URLRequestConvertible and NSData
+//        return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData)
+//    }
     
 
 /*
@@ -895,6 +900,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
     
     func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
         
+        
         switch (result.rawValue) {
         case MessageComposeResultCancelled.rawValue:
             print("Message Cancelled")
@@ -958,14 +964,14 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
         let optionsMenu = UIAlertController(title: "Choose resource", message: nil, preferredStyle: .ActionSheet)
         let cameraRoll = UIAlertAction(title: "Photo library", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Camera Roll")
+            print("Photo Library")
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary){
-                print("Button capture")
+                print("Library is available")
                 
                 self.imagePicker.delegate = self
                 self.imagePicker.sourceType = .PhotoLibrary;
-                self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
+                //self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
                 self.imagePicker.allowsEditing = false
                 
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)
@@ -981,7 +987,7 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                 self.imagePicker.delegate = self
                 self.imagePicker.sourceType = .Camera
                 //self.imagePicker.mediaTypes = [kUTTypeImage as String]
-                //self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
+                self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
                 self.imagePicker.allowsEditing = false
                 
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)

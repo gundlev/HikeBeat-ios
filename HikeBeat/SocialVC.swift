@@ -34,13 +34,13 @@ class SocialVC: UIViewController, CAPSPageMenuDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let discoverVC = storyboard.instantiateViewControllerWithIdentifier("discover")
         discoverVC.title = "Discover"
-        let followsVC = storyboard.instantiateViewControllerWithIdentifier("follows")
-        followsVC.title = "Follows"
-        let followNavVC = storyboard.instantiateViewControllerWithIdentifier("followNav")
-        followNavVC.title = "FollowNav"
+//        let followsVC = storyboard.instantiateViewControllerWithIdentifier("MainTableViewController")
+//        followsVC.title = "Journeys"
+        let followNavVC = storyboard.instantiateViewControllerWithIdentifier("follows")
+        followNavVC.title = "Follows"
         
         controllerArray.append(discoverVC)
-        controllerArray.append(followsVC)
+//        controllerArray.append(followsVC)
         controllerArray.append(followNavVC)
         
         var font = UIFont.systemFontOfSize(23)

@@ -8,7 +8,21 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 class FollowsVC: UIViewController {
+    
+    @IBOutlet weak var searchText: UITextField!
+    @IBOutlet weak var searchButton: UIButton!
+    
+    @IBAction func search(sender: AnyObject) {
+        
+        let parameters = ["query": searchText.text!]
+        
+        print(IPAddress + "search")
+        Alamofire.request(.POST, IPAddress + "search", parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
+            print(response.result.value)
+        }
+    }
     
 }

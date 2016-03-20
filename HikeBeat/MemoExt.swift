@@ -156,7 +156,7 @@ extension SendBeatVC:  AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         }
         
         let recordSettings:[String : AnyObject] = [
-            AVFormatIDKey: NSNumber(unsignedInt:kAudioFormatAppleLossless),
+            AVFormatIDKey: NSNumber(unsignedInt:kAudioFormatMPEG4AAC),
             AVEncoderAudioQualityKey : AVAudioQuality.Max.rawValue,
             AVEncoderBitRateKey : 320000,
             AVNumberOfChannelsKey: 2,

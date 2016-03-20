@@ -28,7 +28,6 @@ func syncAll(progressView: UIProgressView, stack: CoreDataStack) -> Future<Bool,
         let uploadsToDo = beats.count + changes.count
         let increase = Float((100/Float(uploadsToDo))/100)
         
-        
         if beats.count > 0 {
             let beatFuture = sendBeats(beats, stack: stack, progressView: progressView, increase: increase)
             
@@ -60,9 +59,6 @@ func syncAll(progressView: UIProgressView, stack: CoreDataStack) -> Future<Bool,
         print("The fetch failed")
         return nil
     }
-    
-    
-    
 }
 
 private func getAll(stack: CoreDataStack) -> (beats:[DataBeat], changes:[Change])? {

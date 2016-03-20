@@ -54,6 +54,7 @@
 		8558C2411C21B3510033F873 /* NotieStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558C23F1C21B3510033F873 /* NotieStyle.swift */; };
 		8558C2431C21B6B70033F873 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558C2421C21B6B70033F873 /* Reachability.swift */; };
 		8558C2451C21CA320033F873 /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558C2441C21CA320033F873 /* Upload.swift */; };
+		8568A2641C916F6A001E8CD0 /* RotationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8568A2631C916F6A001E8CD0 /* RotationExtension.swift */; };
 		857EB06E1BBD70EA0036B41C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 857EB06C1BBD70EA0036B41C /* Main.storyboard */; };
 		858CE3831BC11996000594DD /* HikeBeatDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3811BC11996000594DD /* HikeBeatDataModel.xcdatamodeld */; };
 		858CE3DB1BC26034000594DD /* DataBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3DA1BC26034000594DD /* DataBeat.swift */; };
@@ -74,6 +75,18 @@
 		85A44FE91C2457B800F3C7FD /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A44FE81C2457B800F3C7FD /* Structs.swift */; };
 		85B3FA671C17327C001A46AB /* NSGSwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B3FA661C17327C001A46AB /* NSGSwipeView.swift */; };
 		85B3FA6D1C17380A001A46AB /* SendBeatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B3FA6C1C17380A001A46AB /* SendBeatVC.swift */; };
+		85C59F961C8856F7006FCEA1 /* DicoverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C59F951C8856F7006FCEA1 /* DicoverCell.swift */; };
+		85C59F9C1C88570E006FCEA1 /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C59F9B1C88570E006FCEA1 /* FoldingCell.swift */; };
+		85C59FAC1C8861D8006FCEA1 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85C59FA21C8861D8006FCEA1 /* OpenSans-Bold.ttf */; };
+		85C59FAD1C8861D8006FCEA1 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85C59FA31C8861D8006FCEA1 /* OpenSans-BoldItalic.ttf */; };
+		85C59FAE1C8861D8006FCEA1 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85C59FA41C8861D8006FCEA1 /* OpenSans-ExtraBold.ttf */; };
+		85C59FAF1C8861D8006FCEA1 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85C59FA51C8861D8006FCEA1 /* OpenSans-ExtraBoldItalic.ttf */; };
+		85C59FB01C8861D8006FCEA1 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85C59FA61C8861D8006FCEA1 /* OpenSans-Italic.ttf */; };
+		85C59FB11C8861D8006FCEA1 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85C59FA71C8861D8006FCEA1 /* OpenSans-Light.ttf */; };
+		85C59FB21C8861D8006FCEA1 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85C59FA81C8861D8006FCEA1 /* OpenSans-LightItalic.ttf */; };
+		85C59FB31C8861D8006FCEA1 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85C59FA91C8861D8006FCEA1 /* OpenSans-Regular.ttf */; };
+		85C59FB41C8861D8006FCEA1 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85C59FAA1C8861D8006FCEA1 /* OpenSans-Semibold.ttf */; };
+		85C59FB51C8861D8006FCEA1 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85C59FAB1C8861D8006FCEA1 /* OpenSans-SemiboldItalic.ttf */; };
 		85FF53B91BE3B8FF00B413BA /* JourneysCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FF53B81BE3B8FF00B413BA /* JourneysCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -210,6 +223,7 @@
 		8558C23F1C21B3510033F873 /* NotieStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotieStyle.swift; sourceTree = "<group>"; };
 		8558C2421C21B6B70033F873 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		8558C2441C21CA320033F873 /* Upload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
+		8568A2631C916F6A001E8CD0 /* RotationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationExtension.swift; sourceTree = "<group>"; };
 		857EB06D1BBD70EA0036B41C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		858CE3821BC11996000594DD /* HikeBeatDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HikeBeatDataModel.xcdatamodel; sourceTree = "<group>"; };
 		858CE3DA1BC26034000594DD /* DataBeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBeat.swift; sourceTree = "<group>"; };
@@ -229,6 +243,18 @@
 		85A44FE81C2457B800F3C7FD /* Structs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		85B3FA661C17327C001A46AB /* NSGSwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSGSwipeView.swift; sourceTree = "<group>"; };
 		85B3FA6C1C17380A001A46AB /* SendBeatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendBeatVC.swift; sourceTree = "<group>"; };
+		85C59F951C8856F7006FCEA1 /* DicoverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DicoverCell.swift; sourceTree = "<group>"; };
+		85C59F9B1C88570E006FCEA1 /* FoldingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldingCell.swift; sourceTree = "<group>"; };
+		85C59FA21C8861D8006FCEA1 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		85C59FA31C8861D8006FCEA1 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		85C59FA41C8861D8006FCEA1 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		85C59FA51C8861D8006FCEA1 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		85C59FA61C8861D8006FCEA1 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		85C59FA71C8861D8006FCEA1 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		85C59FA81C8861D8006FCEA1 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		85C59FA91C8861D8006FCEA1 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		85C59FAA1C8861D8006FCEA1 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		85C59FAB1C8861D8006FCEA1 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		85FF53B81BE3B8FF00B413BA /* JourneysCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneysCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -266,6 +292,7 @@
 				8518410B1BCD1BC6002BBCD1 /* JourneyCell.swift */,
 				8518412E1BCFF046002BBCD1 /* BeatCell.swift */,
 				85FF53B81BE3B8FF00B413BA /* JourneysCell.swift */,
+				85C59F951C8856F7006FCEA1 /* DicoverCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -307,6 +334,8 @@
 		853003A51BBD65F900A6D27F /* HikeBeat */ = {
 			isa = PBXGroup;
 			children = (
+				8568A25E1C916F4F001E8CD0 /* Extensions */,
+				85C59FA11C8861BF006FCEA1 /* Fonts */,
 				859C36E91C28799800B88168 /* Sync */,
 				85A44FE51C244E4400F3C7FD /* ConfigAndUtils */,
 				8518410A1BCD1BA6002BBCD1 /* TableViewCells */,
@@ -383,6 +412,7 @@
 				851841301BD0099E002BBCD1 /* MapFiles */,
 				85D18EAA1BC4609100658DBF /* JSQCoreDataKit */,
 				853003DE1BBD686700A6D27F /* SimpleReachability.swift */,
+				85C59F9B1C88570E006FCEA1 /* FoldingCell.swift */,
 				85A44FD61C237B8100F3C7FD /* CAPSPageMenu.swift */,
 				8558C2421C21B6B70033F873 /* Reachability.swift */,
 				85B3FA661C17327C001A46AB /* NSGSwipeView.swift */,
@@ -418,6 +448,14 @@
 			name = Notie;
 			sourceTree = "<group>";
 		};
+		8568A25E1C916F4F001E8CD0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8568A2631C916F6A001E8CD0 /* RotationExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		859C36E91C28799800B88168 /* Sync */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,6 +489,23 @@
 				851974531C5E506100F09B01 /* utils.swift */,
 			);
 			name = ConfigAndUtils;
+			sourceTree = "<group>";
+		};
+		85C59FA11C8861BF006FCEA1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				85C59FA21C8861D8006FCEA1 /* OpenSans-Bold.ttf */,
+				85C59FA31C8861D8006FCEA1 /* OpenSans-BoldItalic.ttf */,
+				85C59FA41C8861D8006FCEA1 /* OpenSans-ExtraBold.ttf */,
+				85C59FA51C8861D8006FCEA1 /* OpenSans-ExtraBoldItalic.ttf */,
+				85C59FA61C8861D8006FCEA1 /* OpenSans-Italic.ttf */,
+				85C59FA71C8861D8006FCEA1 /* OpenSans-Light.ttf */,
+				85C59FA81C8861D8006FCEA1 /* OpenSans-LightItalic.ttf */,
+				85C59FA91C8861D8006FCEA1 /* OpenSans-Regular.ttf */,
+				85C59FAA1C8861D8006FCEA1 /* OpenSans-Semibold.ttf */,
+				85C59FAB1C8861D8006FCEA1 /* OpenSans-SemiboldItalic.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		85D18EAA1BC4609100658DBF /* JSQCoreDataKit */ = {
@@ -621,9 +676,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85C59FB41C8861D8006FCEA1 /* OpenSans-Semibold.ttf in Resources */,
+				85C59FB51C8861D8006FCEA1 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				853003B31BBD65F900A6D27F /* LaunchScreen.storyboard in Resources */,
+				85C59FB31C8861D8006FCEA1 /* OpenSans-Regular.ttf in Resources */,
+				85C59FB01C8861D8006FCEA1 /* OpenSans-Italic.ttf in Resources */,
+				85C59FAF1C8861D8006FCEA1 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				853003B01BBD65F900A6D27F /* Assets.xcassets in Resources */,
+				85C59FB21C8861D8006FCEA1 /* OpenSans-LightItalic.ttf in Resources */,
+				85C59FAC1C8861D8006FCEA1 /* OpenSans-Bold.ttf in Resources */,
 				857EB06E1BBD70EA0036B41C /* Main.storyboard in Resources */,
+				85C59FB11C8861D8006FCEA1 /* OpenSans-Light.ttf in Resources */,
+				85C59FAD1C8861D8006FCEA1 /* OpenSans-BoldItalic.ttf in Resources */,
+				85C59FAE1C8861D8006FCEA1 /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,6 +749,7 @@
 				8558C2451C21CA320033F873 /* Upload.swift in Sources */,
 				851EE65F1C4A8CFA002B9CE8 /* VideoExt.swift in Sources */,
 				851840F71BCC22E4002BBCD1 /* JourneysVC.swift in Sources */,
+				85C59F9C1C88570E006FCEA1 /* FoldingCell.swift in Sources */,
 				8558C1FB1C1CAB170033F873 /* Rows.swift in Sources */,
 				851841241BCD3F5F002BBCD1 /* CoreDataEquatable.swift in Sources */,
 				8558C1F81C1CAB170033F873 /* Controllers.swift in Sources */,
@@ -706,6 +772,7 @@
 				858CE3DD1BC260F4000594DD /* DataModelUtils.swift in Sources */,
 				85A44FD71C237B8100F3C7FD /* CAPSPageMenu.swift in Sources */,
 				853003E61BBD686700A6D27F /* SCLAlertView.swift in Sources */,
+				85C59F961C8856F7006FCEA1 /* DicoverCell.swift in Sources */,
 				8558C1E81C1CA70D0033F873 /* SocialVC.swift in Sources */,
 				858CE3831BC11996000594DD /* HikeBeatDataModel.xcdatamodeld in Sources */,
 				8558C1F71C1CAB170033F873 /* Cells.swift in Sources */,
@@ -715,6 +782,7 @@
 				8518418D1BD43FF2002BBCD1 /* NewJourneyVC.swift in Sources */,
 				8558C2431C21B6B70033F873 /* Reachability.swift in Sources */,
 				85A44FD11C22E19000F3C7FD /* SyncWithAPI.swift in Sources */,
+				8568A2641C916F6A001E8CD0 /* RotationExtension.swift in Sources */,
 				851841261BCD3F5F002BBCD1 /* CoreDataModel.swift in Sources */,
 				851974541C5E506100F09B01 /* utils.swift in Sources */,
 				85B3FA671C17327C001A46AB /* NSGSwipeView.swift in Sources */,

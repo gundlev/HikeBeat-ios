@@ -34,7 +34,7 @@ extension SendBeatVC {
             print("Camera Roll")
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary){
-                print("Button capture")
+                print("Button library")
                 
                 self.imagePicker.delegate = self
                 self.imagePicker.sourceType = .PhotoLibrary;
@@ -153,7 +153,7 @@ extension SendBeatVC {
                 UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
             }
             self.mediaImageView.image = image
-            currentImage = image
+            currentImage = image.correctlyOrientedImage()
             print(1)
 //            let currentImageURL = info[UIImagePickerControllerMediaURL] as! NSURL
 //            self.currentMediaURL = currentImageURL
@@ -162,7 +162,7 @@ extension SendBeatVC {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func saveMediaToDocs(mediaData: NSData, journeyId: String, timestamp: String) -> String? {
+    func saveMediaToDocs(mediaData: NSData, journeyId: String, timestamp: String, fileType: String) -> String? {
         print(1.1)
 //        let videoData = NSData(contentsOfURL: mediaURL)
         print(1.2)
@@ -170,7 +170,7 @@ extension SendBeatVC {
         print(1.3)
         let documentsDirectory: AnyObject = paths[0]
         print(1.4)
-        let fileName = "hikebeat_"+journeyId+"_"+timestamp+".mp4"
+        let fileName = "hikebeat_"+journeyId+"_"+timestamp+fileType
         let dataPath = documentsDirectory.stringByAppendingPathComponent(fileName)
         let success = mediaData.writeToFile(dataPath, atomically: false)
         print(1.5)

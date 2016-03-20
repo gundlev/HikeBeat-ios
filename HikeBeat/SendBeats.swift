@@ -52,14 +52,10 @@ func sendBeats(beats: [DataBeat], stack: CoreDataStack, progressView: UIProgress
                 let json = JSON(response.result.value!)
                 print("Success for beat: ", beat.title)
                 beat.mediaDataId = json["_id"].stringValue
-                print(1)
                 beat.mediaUploaded = true
-                print(2)
                 saveContext(stack.mainContext)
-                print(3)
                 print("progressView: ", progressView)
                 //progressView.progress = 0.5
-                print(4.5)
                 print("There are ", beats.count, " to be uploaded")
                 //let increase = Float((100/Float(beats.count))/100)
 //                print("Increasing progress by: ", increase)
@@ -69,7 +65,6 @@ func sendBeats(beats: [DataBeat], stack: CoreDataStack, progressView: UIProgress
                 print(4)
                 count++
                 if count == beats.count {
-                    print(5)
                     promise.success(true)
                     //                    appDelegate.currentlyShowingNotie = false
                 }
