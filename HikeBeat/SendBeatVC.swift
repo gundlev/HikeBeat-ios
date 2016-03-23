@@ -511,12 +511,12 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                 print("url: ", url)
                 
                 // Parameters for the beat message
-                print("activeJourneyId", (activeJourney?.journeyId)!)
-                print(currentBeat?.latitude)
-                print(currentBeat?.longitude)
-                print(currentBeat?.title)
-                print(currentBeat?.message)
-                print(currentBeat?.timestamp)
+//                print("activeJourneyId", (activeJourney?.journeyId)!)
+//                print(currentBeat?.latitude)
+//                print(currentBeat?.longitude)
+//                print(currentBeat?.title)
+//                print(currentBeat?.message)
+//                print(currentBeat?.timestamp)
                 var localTitle = ""
                 var localMessage = ""
                 if currentBeat!.message != nil {
@@ -525,9 +525,14 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                 if currentBeat!.title != nil {
                     localTitle = currentBeat!.title!
                 }
-                
-                let parameters = ["headline": localTitle, "text": localMessage, "lat": currentBeat!.latitude, "lng": currentBeat!.longitude, "alt": currentBeat!.altitude, "timeCapture": currentBeat!.timestamp]
-                print(1)
+                // "headline": localTitle, "text": localMessage,
+                var parameters = ["lat": currentBeat!.latitude, "lng": currentBeat!.longitude, "alt": currentBeat!.altitude, "timeCapture": currentBeat!.timestamp]
+                if localTitle != "" {
+                    parameters["headline"] = localTitle
+                }
+                if localMessage != "" {
+                    parameters["text"] = localMessage
+                }
                 // Sending the beat message
                 Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
                     print("The Response")
@@ -642,6 +647,9 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                             (title: "Ok",
                                 style: UIAlertActionStyle.Cancel,
                                 function: {}))
+                        
+                        
+                        // Is set to true now but should be changed to false
                         self.currentBeat?.mediaUploaded = false
                         self.currentBeat?.messageUploaded = false
                         saveContext(self.stack.mainContext)

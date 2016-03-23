@@ -64,7 +64,9 @@ func syncAll(progressView: UIProgressView, stack: CoreDataStack) -> Future<Bool,
 private func getAll(stack: CoreDataStack) -> (beats:[DataBeat], changes:[Change])? {
     let beatEntity = entity(name: EntityType.DataBeat, context: stack.mainContext)
     let fetchRequest = FetchRequest<DataBeat>(entity: beatEntity)
-    fetchRequest.predicate = NSPredicate(format: "mediaUploaded == %@", false)
+    let pred1 = NSPredicate(format: "mediaUploaded == %@", false)
+    let pred2 = NSPredicate(format: "mediaData != %@", "")
+    fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [pred1,pred2])
     
     let changeEntity = entity(name: EntityType.Change, context: stack.mainContext)
     let fetchReq = FetchRequest<Change>(entity: changeEntity)
