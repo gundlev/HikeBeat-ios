@@ -42,6 +42,8 @@
 		853004381BBD6C5200A6D27F /* UploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004341BBD6C5200A6D27F /* UploadVC.swift */; };
 		853004391BBD6C5200A6D27F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004351BBD6C5200A6D27F /* LoginVC.swift */; };
 		8530043B1BBD6C5200A6D27F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853004371BBD6C5200A6D27F /* ProfileVC.swift */; };
+		854C1C7E1CC2AF2400686D01 /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854C1C7D1CC2AF2400686D01 /* BrightFutures.framework */; };
+		854C1C801CC2B29700686D01 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854C1C7F1CC2B29700686D01 /* Result.framework */; };
 		8558C1E81C1CA70D0033F873 /* SocialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558C1E71C1CA70D0033F873 /* SocialVC.swift */; };
 		8558C1EE1C1CA73B0033F873 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558C1ED1C1CA73B0033F873 /* SettingsVC.swift */; };
 		8558C1F71C1CAB170033F873 /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8558C1F21C1CAB170033F873 /* Cells.swift */; };
@@ -59,8 +61,6 @@
 		858CE3831BC11996000594DD /* HikeBeatDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3811BC11996000594DD /* HikeBeatDataModel.xcdatamodeld */; };
 		858CE3DB1BC26034000594DD /* DataBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3DA1BC26034000594DD /* DataBeat.swift */; };
 		858CE3DD1BC260F4000594DD /* DataModelUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858CE3DC1BC260F4000594DD /* DataModelUtils.swift */; };
-		858D817F1C3010720006EC07 /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858D817D1C3010720006EC07 /* BrightFutures.framework */; };
-		858D81801C3010720006EC07 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858D817E1C3010720006EC07 /* Result.framework */; };
 		859C36EB1C287ACE00B88168 /* SyncAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859C36EA1C287ACE00B88168 /* SyncAll.swift */; };
 		859C36ED1C287E4600B88168 /* SendBeats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859C36EC1C287E4600B88168 /* SendBeats.swift */; };
 		859D85701BC3300400E26DCD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 859D85671BC32FF000E26DCD /* Alamofire.framework */; };
@@ -209,6 +209,8 @@
 		853004341BBD6C5200A6D27F /* UploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadVC.swift; sourceTree = "<group>"; };
 		853004351BBD6C5200A6D27F /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		853004371BBD6C5200A6D27F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		854C1C7D1CC2AF2400686D01 /* BrightFutures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightFutures.framework; path = Carthage/Build/iOS/BrightFutures.framework; sourceTree = "<group>"; };
+		854C1C7F1CC2B29700686D01 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		8558C1E71C1CA70D0033F873 /* SocialVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialVC.swift; sourceTree = "<group>"; };
 		8558C1ED1C1CA73B0033F873 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		8558C1F11C1CAB170033F873 /* Eureka.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Eureka.h; sourceTree = "<group>"; };
@@ -228,8 +230,6 @@
 		858CE3821BC11996000594DD /* HikeBeatDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HikeBeatDataModel.xcdatamodel; sourceTree = "<group>"; };
 		858CE3DA1BC26034000594DD /* DataBeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBeat.swift; sourceTree = "<group>"; };
 		858CE3DC1BC260F4000594DD /* DataModelUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelUtils.swift; sourceTree = "<group>"; };
-		858D817D1C3010720006EC07 /* BrightFutures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightFutures.framework; path = Carthage/Build/iOS/BrightFutures.framework; sourceTree = "<group>"; };
-		858D817E1C3010720006EC07 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		859C36EA1C287ACE00B88168 /* SyncAll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncAll.swift; sourceTree = "<group>"; };
 		859C36EC1C287E4600B88168 /* SendBeats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendBeats.swift; sourceTree = "<group>"; };
 		859D855E1BC32FF000E26DCD /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
@@ -263,9 +263,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				854C1C801CC2B29700686D01 /* Result.framework in Frameworks */,
+				854C1C7E1CC2AF2400686D01 /* BrightFutures.framework in Frameworks */,
 				859D85701BC3300400E26DCD /* Alamofire.framework in Frameworks */,
-				858D817F1C3010720006EC07 /* BrightFutures.framework in Frameworks */,
-				858D81801C3010720006EC07 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,8 +311,8 @@
 		8530039A1BBD65F900A6D27F = {
 			isa = PBXGroup;
 			children = (
-				858D817D1C3010720006EC07 /* BrightFutures.framework */,
-				858D817E1C3010720006EC07 /* Result.framework */,
+				854C1C7F1CC2B29700686D01 /* Result.framework */,
+				854C1C7D1CC2AF2400686D01 /* BrightFutures.framework */,
 				859D855E1BC32FF000E26DCD /* Alamofire.xcodeproj */,
 				853003A51BBD65F900A6D27F /* HikeBeat */,
 				853003BC1BBD65F900A6D27F /* HikeBeatTests */,

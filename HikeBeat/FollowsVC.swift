@@ -20,9 +20,9 @@ class FollowsVC: UIViewController {
         let parameters = ["query": searchText.text!]
         
         print(IPAddress + "search")
-        Alamofire.request(.POST, IPAddress + "search", parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
-            print(response.result.value)
-        }
+//        Alamofire.request(.POST, IPAddress + "search", parameters: parameters, encoding: .JSON, headers: Headers).responseJSON { response in
+//            print(response.result.value)
+//        }
     }
     
 }

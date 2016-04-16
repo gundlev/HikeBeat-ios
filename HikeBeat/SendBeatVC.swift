@@ -510,13 +510,6 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                 let url = IPAddress + "journeys/" + (activeJourney?.journeyId)! + "/messages"
                 print("url: ", url)
                 
-                // Parameters for the beat message
-//                print("activeJourneyId", (activeJourney?.journeyId)!)
-//                print(currentBeat?.latitude)
-//                print(currentBeat?.longitude)
-//                print(currentBeat?.title)
-//                print(currentBeat?.message)
-//                print(currentBeat?.timestamp)
                 var localTitle = ""
                 var localMessage = ""
                 if currentBeat!.message != nil {
@@ -554,42 +547,6 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                             print("There is an image or video")
                             // Send Image
                             
-//                            if self.currentBeat?.mediaType == MediaType.image {
-//                                // Find image orientation
-//                                /** Image Parameters including the image in base64 format. */
-//                                let imageParams: [String: AnyObject] = ["timeCapture": self.currentBeat!.timestamp, "data": (self.currentBeat?.mediaData)!, "type": (self.currentBeat?.mediaType!)!]
-//                                //, "orientation": (self.currentBeat?.orientation)!
-//                                
-//                                /** The URL for the image*/
-//                                let imageUrl = IPAddress + "journeys/" + (self.activeJourney?.journeyId)! + "/media"
-//                                
-//                                // Sending the image.
-//                                Alamofire.request(.POST, imageUrl, parameters: imageParams, encoding: .JSON, headers: Headers).responseJSON { imageResponse in
-//                                    // If everything is 200 OK from server save the imageId in currentBeat variable mediaDataId.
-//                                    if imageResponse.response?.statusCode == 200 {
-//                                        let rawImageJson = JSON(imageResponse.result.value!)
-//                                        let imageJson = rawImageJson["data"][0]
-//                                        print(imageResponse)
-//                                        print("The image has been posted")
-//                                        
-//                                        // Set the imageId in currentBeat
-//                                        print("messageId: ", imageJson["_id"].stringValue)
-//                                        self.currentBeat?.mediaDataId = imageJson["_id"].stringValue
-//                                        
-//                                        // Set the uploaded variable to true as the image has been uplaoded.
-//                                        self.currentBeat?.mediaUploaded = true
-//                                        saveContext(self.stack.mainContext)
-//                                    } else {
-//                                        print("Error posting the image")
-//                                        self.currentBeat?.mediaUploaded = false
-//                                        saveContext(self.stack.mainContext)
-//                                    }
-//                                    
-//                                    self.setInitial(true)
-//                                    self.swipeView.setBack(true)
-//                                }
-//                            } else 
-                            //if self.currentBeat?.mediaType == MediaType.video || self.currentBeat?.mediaType == MediaType.image {
                                 let filePath = self.getPathToFileFromName((self.currentBeat?.mediaData)!)
                                 if filePath != nil {
                                     let urlMedia = IPAddress + "journeys/" + (self.activeJourney?.journeyId)! + "/media"
@@ -628,8 +585,6 @@ class SendBeatVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, MFM
                                         
                                     }
                                 }
-                            //}
-
                         } else {
                             print("There's no image")
                             self.currentBeat?.mediaUploaded = true
